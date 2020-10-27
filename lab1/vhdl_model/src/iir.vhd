@@ -107,7 +107,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => '1',
 			d(0) => vin,
 			q => vin_s(0)
 		);
@@ -162,7 +162,7 @@ begin
 			port map (
 				clk => clk,
 				rst_n => rst_n,
-				en => vin_s(i)(0),
+				en => '1',
 				d => vin_s(i),
 				q => vin_s(i+1)
 			);
@@ -180,7 +180,7 @@ begin
 			q => b_s(2)
 		);
 
-	vout <= vin_s(2)(0);
+	vout <= vin_s(1)(0);
 
 	-- feed-back network
 	fb_gen : for i in 0 to 1 generate
@@ -195,24 +195,24 @@ begin
 			);
 	end generate fb_gen;
 
-	sub_fb: subtractor
+	add_fb: adder
 		generic map (
 			N => 12
 		)
 		port map (
 			a => mul_fb(0),
 			b => mul_fb(1),
-			sub => fb
+			sum => fb
 		);
 
-	add_fb: adder
+	sub_sw0: subtractor
 		generic map (
 			N => 12
 		)
 		port map (
-			a => fb,
-			b => x_s,
-			sum => sw(0)
+			a => x_s,
+			b => fb,
+			sub => sw(0)
 		);
 
 	-- feed-forward network
@@ -257,7 +257,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin_s(2)(0),
+			en => vin_s(0)(0),
 			d => y,
 			q => dout
 		);
