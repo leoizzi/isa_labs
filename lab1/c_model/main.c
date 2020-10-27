@@ -3,7 +3,7 @@
 
 #define N 2 /// order of the filter
 #define NB 12  /// number of bits
-#define INT_REPR 0 /// increment it for reducing internal bit width, decrement it for increasing internal bit width
+#define INT_REPR 1 /// increment it for reducing internal bit width, decrement it for increasing internal bit width
 
 const int b0 = 423; /// coefficient b0
 const int b[N]={846, 423}; /// b array
