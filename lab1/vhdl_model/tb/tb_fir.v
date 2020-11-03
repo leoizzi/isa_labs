@@ -30,17 +30,17 @@ module tb_iir ();
 		 .B2(B2_i),
 		 .END_SIM(END_SIM_i));
 
-   iir UUT(.CLK(CLK_i),
-	     .RST_n(RST_n_i),
-	     .DIN(DIN_i),
-         .VIN(VIN_i),
-	     .A1(A1_i),
-		 .A2(A2_i),
-		 .B0(B0_i),
-		 .B1(B1_i),
-		 .B2(B2_i),
-             .DOUT(DOUT_i),
-             .VOUT(VOUT_i));
+   iir UUT(.clk(CLK_i),
+	     .rst_n(RST_n_i),
+	     .din(DIN_i),
+         .vin(VIN_i),
+	     .a1(A1_i),
+		 .a2(A2_i),
+		 .b0(B0_i),
+		 .b1(B1_i),
+		 .b2(B2_i),
+             .dout(DOUT_i),
+             .vout(VOUT_i));
 
    data_sink DS(.CLK(CLK_i),
 		.RST_n(RST_n_i),
