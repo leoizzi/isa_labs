@@ -23,7 +23,7 @@ source /software/scripts/init_synopsys_64.18
 
 if test -f ../vcd/iir_syn.vcd; then
 	echo "converting ../vcd/iir_syn.vcd to ../saif/iir_syn.saif"
-	vcd2saif -input ../vcd/iir_syn.vcd -ouput ../saif/iir_syn.saif
+	vcd2saif -input ../vcd/iir_syn.vcd -output ../saif/iir_syn.saif
 fi
 
 echo "creating work folder"
