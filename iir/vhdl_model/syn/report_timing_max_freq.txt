@@ -1,0 +1,120 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : iir
+Version: O-2018.06-SP4
+Date   : Tue Nov  3 18:41:03 2020
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: ai_reg_0/q_reg[5]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: y_reg/q_reg[11]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  iir                5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  ai_reg_0/q_reg[5]/CK (DFFR_X1)                          0.00       0.00 r
+  ai_reg_0/q_reg[5]/QN (DFFR_X1)                          0.06       0.06 f
+  ai_reg_0/U4/ZN (INV_X1)                                 0.04       0.10 r
+  ai_reg_0/q[5] (reg_N12_8)                               0.00       0.10 r
+  mul_fb_i_0/a[5] (multiplier_N12_0)                      0.00       0.10 r
+  mul_fb_i_0/mult_22/a[5] (multiplier_N12_0_DW_mult_tc_1)
+                                                          0.00       0.10 r
+  mul_fb_i_0/mult_22/U453/Z (BUF_X2)                      0.08       0.18 r
+  mul_fb_i_0/mult_22/U592/ZN (XNOR2_X1)                   0.08       0.27 r
+  mul_fb_i_0/mult_22/U684/ZN (OAI22_X1)                   0.05       0.31 f
+  mul_fb_i_0/mult_22/U197/S (FA_X1)                       0.15       0.46 r
+  mul_fb_i_0/mult_22/U195/S (FA_X1)                       0.11       0.57 f
+  mul_fb_i_0/mult_22/U194/S (FA_X1)                       0.14       0.71 r
+  mul_fb_i_0/mult_22/U669/ZN (NOR2_X1)                    0.03       0.74 f
+  mul_fb_i_0/mult_22/U752/ZN (OAI21_X1)                   0.04       0.78 r
+  mul_fb_i_0/mult_22/U782/ZN (AOI21_X1)                   0.03       0.81 f
+  mul_fb_i_0/mult_22/U853/ZN (OAI21_X1)                   0.09       0.90 r
+  mul_fb_i_0/mult_22/U825/ZN (AOI21_X1)                   0.04       0.94 f
+  mul_fb_i_0/mult_22/U549/ZN (XNOR2_X1)                   0.07       1.01 f
+  mul_fb_i_0/mult_22/product[17] (multiplier_N12_0_DW_mult_tc_1)
+                                                          0.00       1.01 f
+  mul_fb_i_0/res[5] (multiplier_N12_0)                    0.00       1.01 f
+  add_fb/a[5] (adder_N12_0)                               0.00       1.01 f
+  add_fb/add_27/A[5] (adder_N12_0_DW01_add_1)             0.00       1.01 f
+  add_fb/add_27/U183/ZN (NOR2_X1)                         0.06       1.07 r
+  add_fb/add_27/U133/ZN (OAI21_X1)                        0.04       1.11 f
+  add_fb/add_27/U195/ZN (AOI21_X1)                        0.05       1.16 r
+  add_fb/add_27/U189/ZN (OAI21_X1)                        0.04       1.20 f
+  add_fb/add_27/U201/ZN (AOI21_X1)                        0.05       1.25 r
+  add_fb/add_27/U149/ZN (XNOR2_X1)                        0.06       1.31 r
+  add_fb/add_27/SUM[9] (adder_N12_0_DW01_add_1)           0.00       1.31 r
+  add_fb/sum[9] (adder_N12_0)                             0.00       1.31 r
+  sub_sw0/b[9] (subtractor_N12)                           0.00       1.31 r
+  sub_sw0/sub_26/B[9] (subtractor_N12_DW01_sub_1)         0.00       1.31 r
+  sub_sw0/sub_26/U130/ZN (AND2_X1)                        0.06       1.37 r
+  sub_sw0/sub_26/U129/ZN (OAI21_X1)                       0.04       1.40 f
+  sub_sw0/sub_26/U195/ZN (AOI21_X1)                       0.04       1.44 r
+  sub_sw0/sub_26/U211/ZN (INV_X1)                         0.02       1.47 f
+  sub_sw0/sub_26/U213/ZN (AOI21_X1)                       0.05       1.52 r
+  sub_sw0/sub_26/U181/ZN (XNOR2_X1)                       0.07       1.59 r
+  sub_sw0/sub_26/DIFF[11] (subtractor_N12_DW01_sub_1)     0.00       1.59 r
+  sub_sw0/sub[11] (subtractor_N12)                        0.00       1.59 r
+  mul_ff_i_0/b[11] (multiplier_N12_3)                     0.00       1.59 r
+  mul_ff_i_0/mult_22/b[11] (multiplier_N12_3_DW_mult_tc_1)
+                                                          0.00       1.59 r
+  mul_ff_i_0/mult_22/U481/Z (BUF_X1)                      0.05       1.65 r
+  mul_ff_i_0/mult_22/U875/ZN (XNOR2_X1)                   0.04       1.69 f
+  mul_ff_i_0/mult_22/U564/ZN (OAI22_X1)                   0.08       1.77 r
+  mul_ff_i_0/mult_22/U658/ZN (INV_X1)                     0.03       1.80 f
+  mul_ff_i_0/mult_22/U176/S (FA_X1)                       0.15       1.95 r
+  mul_ff_i_0/mult_22/U175/S (FA_X1)                       0.12       2.07 f
+  mul_ff_i_0/mult_22/U846/ZN (NAND2_X1)                   0.04       2.11 r
+  mul_ff_i_0/mult_22/U920/ZN (OAI21_X1)                   0.04       2.15 f
+  mul_ff_i_0/mult_22/U452/Z (CLKBUF_X1)                   0.04       2.19 f
+  mul_ff_i_0/mult_22/U477/ZN (AOI21_X1)                   0.05       2.24 r
+  mul_ff_i_0/mult_22/U593/ZN (OAI21_X1)                   0.04       2.29 f
+  mul_ff_i_0/mult_22/U915/ZN (AOI21_X1)                   0.05       2.33 r
+  mul_ff_i_0/mult_22/U558/ZN (XNOR2_X1)                   0.06       2.40 r
+  mul_ff_i_0/mult_22/product[20] (multiplier_N12_3_DW_mult_tc_1)
+                                                          0.00       2.40 r
+  mul_ff_i_0/res[8] (multiplier_N12_3)                    0.00       2.40 r
+  add_ff_2/b[8] (adder_N12_1)                             0.00       2.40 r
+  add_ff_2/add_27/B[8] (adder_N12_1_DW01_add_1)           0.00       2.40 r
+  add_ff_2/add_27/U192/ZN (NAND2_X1)                      0.04       2.44 f
+  add_ff_2/add_27/U197/ZN (OAI21_X1)                      0.05       2.49 r
+  add_ff_2/add_27/U191/ZN (AOI21_X1)                      0.03       2.52 f
+  add_ff_2/add_27/U148/ZN (INV_X1)                        0.03       2.55 r
+  add_ff_2/add_27/U199/ZN (AOI21_X1)                      0.02       2.57 f
+  add_ff_2/add_27/U126/ZN (XNOR2_X1)                      0.05       2.63 f
+  add_ff_2/add_27/SUM[11] (adder_N12_1_DW01_add_1)        0.00       2.63 f
+  add_ff_2/sum[11] (adder_N12_1)                          0.00       2.63 f
+  y_reg/d[11] (reg_N12_1)                                 0.00       2.63 f
+  y_reg/U5/Z (MUX2_X1)                                    0.06       2.69 f
+  y_reg/q_reg[11]/D (DFFR_X1)                             0.01       2.70 f
+  data arrival time                                                  2.70
+
+  clock my_clk (rise edge)                                2.81       2.81
+  clock network delay (ideal)                             0.00       2.81
+  clock uncertainty                                      -0.07       2.74
+  y_reg/q_reg[11]/CK (DFFR_X1)                            0.00       2.74 r
+  library setup time                                     -0.04       2.70
+  data required time                                                 2.70
+  --------------------------------------------------------------------------
+  data required time                                                 2.70
+  data arrival time                                                 -2.70
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
