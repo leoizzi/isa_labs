@@ -18,6 +18,12 @@ entity data_maker is
     B0      : out std_logic_vector(11 downto 0);
     B1      : out std_logic_vector(11 downto 0);
     B2      : out std_logic_vector(11 downto 0);
+    a0a1: out std_logic_vector(11 downto 0);
+    a1a1: out std_logic_vector(11 downto 0);
+    a1a2: out std_logic_vector(11 downto 0);
+    a1b0: out std_logic_vector(11 downto 0);
+    a1b1: out std_logic_vector(11 downto 0);
+    a1b2: out std_logic_vector(11 downto 0);
     END_SIM : out std_logic);
 end data_maker;
 
@@ -34,13 +40,18 @@ begin  -- beh
   A2 <= conv_std_logic_vector(401,12);
   B0 <= conv_std_logic_vector(423,12);
   B1 <= conv_std_logic_vector(846,12);
-  B2 <= conv_std_logic_vector(423,12);  
+  B2 <= conv_std_logic_vector(423,12);
+  a0a1 <= conv_std_logic_vector(-757,12);
+  a1a1 <= conv_std_logic_vector(573049,12);
+  a1a2 <= conv_std_logic_vector(-303557,12);
+  a1b0 <= conv_std_logic_vector(-320211,12);
+  a1b1 <= conv_std_logic_vector(-640422,12);
+  a1b2 <= conv_std_logic_vector(-320211,12);
 
   process (CLK, RST_n)
-    file fp_in : text open READ_MODE is "/home/isa36/isa_labs/lab1/vhdl_model/sim/samples.txt";
+    file fp_in : text open READ_MODE is "C:\Users\leona\isa_labs\iir\matlab_model\samples.txt";
     variable line_in : line;
     variable x : integer;
-	variable counter: integer := 0;
   begin  -- process
     if RST_n = '0' then                 -- asynchronous reset (active low)
       DOUT <= (others => '0') after tco;      
@@ -48,16 +59,11 @@ begin  -- beh
       sEndSim <= '0' after tco;
     elsif CLK'event and CLK = '1' then  -- rising clock edge
       if not endfile(fp_in) then
-		if (counter = 10) then
-		  VOUT <= '0' after tco;
-		else
-          readline(fp_in, line_in);
-          read(line_in, x);
-          DOUT <= conv_std_logic_vector(x, 12) after tco;
-          VOUT <= '1' after tco;
-          sEndSim <= '0' after tco;
-		end if;
-		counter := counter + 1;
+        readline(fp_in, line_in);
+        read(line_in, x);
+        DOUT <= conv_std_logic_vector(x, 12) after tco;
+        VOUT <= '1' after tco;
+        sEndSim <= '0' after tco;
       else
         VOUT <= '0' after tco;        
         sEndSim <= '1' after tco;
