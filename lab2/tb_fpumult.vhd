@@ -28,11 +28,8 @@ architecture test of tb_fpumult is
 
 	constant period : time := 10 ns;
 
-	type arr is array (0 to 3) of std_logic_vector(31 downto 0);
-
 	signal clk: std_logic;
-	signal data, z: std_logic_vector(31 downto 0);
-	signal curr_sr, next_sr: arr;
+	signal data, z, sr: std_logic_vector(31 downto 0);
 	signal eq: std_logic;
 
 begin
@@ -77,17 +74,14 @@ begin
 	    	if (not(endfile(fp))) then
 	    		readline(fp, ptr);
 	        	hread(ptr, val); 
-	        	next_sr(3) <= val;
-	        	next_sr(2) <= next_sr(3);
-	        	next_sr(1) <= next_sr(2);
-	        	next_sr(0) <= next_sr(1);
+	        	sr <= val;
 	    	end if;
     	end if;
 	end process read_proc;
 
-	check_proc: process(z, curr_sr)
+	check_proc: process(z, sr)
 	begin
-		if (z = curr_sr(0)) then
+		if (z = sr) then
 			eq <= '1';
 		else
 			eq <= '0';
