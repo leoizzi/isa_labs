@@ -55,16 +55,6 @@ begin
 		wait for period/2;
 	end process clk_proc;
 
-	shift_regstate: process(clk)
-	begin
-		if (clk = '1' and clk'event) then
-			curr_sr(3) <= next_sr(3);
-			curr_sr(2) <= next_sr(2);
-			curr_sr(1) <= next_sr(1);
-			curr_sr(0) <= next_sr(0);
-		end if;
-	end process shift_regstate;
-
 	read_proc: process(clk)
 		file fp : text open read_mode is "./fp_prod.hex";
 	    variable ptr : line;
