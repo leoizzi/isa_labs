@@ -20,7 +20,7 @@ architecture beh of data_sink is
 begin  -- beh
 
   process (CLK, RST_n)
-    file res_fp : text open WRITE_MODE is "C:\Users\leona\isa_labs\iir_opt\vhdl_model\results_vhdl_12bit.txt";
+    file res_fp : text open WRITE_MODE is "./results_vhdl_12bit.txt";
     variable line_out : line;    
   begin  -- process
     if RST_n = '0' then                 -- asynchronous reset (active low)

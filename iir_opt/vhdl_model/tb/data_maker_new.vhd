@@ -33,6 +33,13 @@ architecture beh of data_maker is
 
   signal sEndSim : std_logic;
   signal END_SIM_i : std_logic_vector(0 to 10);  
+  
+  constant a0a1_tmp : integer := -757*1;
+  constant a1a1_tmp : integer := -757*(-757);
+  constant a1a2_tmp : integer := -757*401;
+  constant a1b0_tmp : integer := -757*423;
+  constant a1b1_tmp : integer := -757*846;
+  constant a1b2_tmp : integer := -757*423;
 
 begin  -- beh
 
@@ -41,15 +48,15 @@ begin  -- beh
   B0 <= conv_std_logic_vector(423,12);
   B1 <= conv_std_logic_vector(846,12);
   B2 <= conv_std_logic_vector(423,12);
-  a0a1 <= conv_std_logic_vector(-757,12);
-  a1a1 <= conv_std_logic_vector(573049,12);
-  a1a2 <= conv_std_logic_vector(-303557,12);
-  a1b0 <= conv_std_logic_vector(-320211,12);
-  a1b1 <= conv_std_logic_vector(-640422,12);
-  a1b2 <= conv_std_logic_vector(-320211,12);
+  a0a1 <= conv_std_logic_vector(a0a1_tmp,12);
+  a1a1 <= conv_std_logic_vector(573049,24)(23 downto 12);
+  a1a2 <= conv_std_logic_vector(-303557,24)(23 downto 12);
+  a1b0 <= conv_std_logic_vector(-320211,24)(23 downto 12);
+  a1b1 <= conv_std_logic_vector(-640422,24)(23 downto 12);
+  a1b2 <= conv_std_logic_vector(-320211,24)(23 downto 12);
 
   process (CLK, RST_n)
-    file fp_in : text open READ_MODE is "C:\Users\leona\isa_labs\iir\matlab_model\samples.txt";
+    file fp_in : text open READ_MODE is "./samples.txt";
     variable line_in : line;
     variable x : integer;
   begin  -- process
