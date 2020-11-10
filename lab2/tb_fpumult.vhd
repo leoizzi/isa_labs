@@ -27,6 +27,7 @@ architecture test of tb_fpumult is
 	end component FPmul;
 
 	constant period : time := 10 ns;
+	constant stages : integer := 5; 
 
 	signal clk: std_logic;
 	signal data, z, sr: std_logic_vector(31 downto 0);
@@ -60,6 +61,7 @@ begin
 	    variable ptr : line;
 	    variable val : std_logic_vector(31 downto 0);
 	begin
+		wait for period*stages;
 		if clk'event and clk = '1' then  -- rising clock edge
 	    	if (not(endfile(fp))) then
 	    		readline(fp, ptr);
