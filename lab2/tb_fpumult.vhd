@@ -63,7 +63,7 @@ begin
 	    variable ptr : line;
 	    variable val : std_logic_vector(31 downto 0);
 	begin
-		if clk'event and clk = '1' then  -- rising clock edge
+		if clk'event and clk = '1' and can_read = '1' then  -- rising clock edge
 	    	if (not(endfile(fp))) then
 	    		readline(fp, ptr);
 	        	hread(ptr, val); 
