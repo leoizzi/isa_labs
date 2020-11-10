@@ -114,7 +114,7 @@ begin
 			q => dout
 		);
 
-	vout <= vin_i(2);
+	vout <= vin_i(1);
 
 	reg1: reg
 		generic map (
