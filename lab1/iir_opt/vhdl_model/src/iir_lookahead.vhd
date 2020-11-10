@@ -109,12 +109,12 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin_i(0),
+			en => vin_i(1),
 			d => y_s,
 			q => dout
 		);
 
-	vout <= vin_i(1);
+	vout <= vin_i(2);
 
 	reg1: reg
 		generic map (
@@ -195,7 +195,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => fb_mul(0),
 			q => ret_fb_mul
 		);
@@ -267,7 +267,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => fb_add(1),
 			q => ret_fb_add
 		);
@@ -291,7 +291,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => sw(0),
 			q => pp_ff_mul(0)
 		);
@@ -313,7 +313,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => sw(0),
 			q => pp_ff_mul(1)
 		);
@@ -335,7 +335,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => sw(0),
 			q => pp_ff_mul(2)
 		);
@@ -357,7 +357,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => sw(1),
 			q => pp_ff_mul(3)
 		);
@@ -379,7 +379,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => sw(1),
 			q => pp_ff_mul(4)
 		);
@@ -401,7 +401,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => sw(2),
 			q => pp_ff_mul(5)
 		);
@@ -443,7 +443,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => ff_add(0),
 			q => ret_ff_add
 		);
