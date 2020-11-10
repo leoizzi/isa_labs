@@ -77,7 +77,6 @@ architecture structural of iir_lookahead is
 	type ff_add_arr is array (0 to 3) of std_logic_vector(11 downto 0);
 	type vin_arr is array (0 to 2) of std_logic;
 
-	signal w: std_logic_vector(11 downto 0);
 	signal sw: sw_arr;
 	signal fb_mul: fb_mul_arr;
 	signal fb_add: fb_add_arr;
@@ -86,6 +85,9 @@ architecture structural of iir_lookahead is
 	signal x_s, y_s: std_logic_vector(11 downto 0);
 	signal vin_i: vin_arr;
 
+	signal ret_fb_mul, ret_fb_add: std_logic_vector(11 downto 0); -- output of retiming registers in the feedback network
+	signal ret_ff_add: std_logic_vector(11 downto 0); -- output of retiming register in the feed-forward network
+	signal pp_ff_mul: ff_mul_arr; -- output of pipelining registers in the feed-forward network
 begin
 	-- registers instantiation
 	xreg: reg
@@ -113,18 +115,6 @@ begin
 		);
 
 	vout <= vin_i(1);
-
-	reg0: reg
-		generic map (
-			N => 12
-		)
-		port map (
-			clk => clk,
-			rst_n => rst_n,
-			en => vin,
-			d => w,
-			q => sw(0)
-		);
 
 	reg1: reg
 		generic map (
@@ -198,6 +188,18 @@ begin
 			res => fb_mul(0)
 		);
 
+	ret_fb_mul_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => fb_mul(0),
+			q => ret_fb_mul
+		);
+
 	fb_mul1: multiplier
 		generic map (
 			N => 12
@@ -235,7 +237,7 @@ begin
 		port map (
 			a => x_s,
 			b => fb_add(0),
-			sub => w
+			sub => sw(0)
 		);
 
 	fb_add0: adder
@@ -243,8 +245,8 @@ begin
 			N => 12
 		)
 		port map (
-			a => fb_mul(0),
-			b => fb_add(1),
+			a => ret_fb_mul,
+			b => ret_fb_add,
 			sum => fb_add(0)
 		);
 
@@ -256,6 +258,18 @@ begin
 			a => fb_mul(1),
 			b => fb_add(2),
 			sum => fb_add(1)
+		);
+
+	ret_fb_add_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => fb_add(1),
+			q => ret_fb_add
 		);
 
 	fb_add2: adder
@@ -270,14 +284,38 @@ begin
 
 	-- feed-forward network
 
+	pp_ff_mul_reg0: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => sw(0),
+			q => pp_ff_mul(0)
+		);
+
 	ff_mul0: multiplier
 		generic map (
 			N => 12
 		)
 		port map (
-			a => w,
+			a => pp_ff_mul(0),
 			b => b0,
 			res => ff_mul(0)
+		);
+
+	pp_ff_mul_reg1: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => sw(0),
+			q => pp_ff_mul(1)
 		);
 
 	ff_mul1: multiplier
@@ -285,9 +323,21 @@ begin
 			N => 12
 		)
 		port map (
-			a => sw(0),
+			a => pp_ff_mul(1),
 			b => a1b0,
 			res => ff_mul(1)
+		);
+
+	pp_ff_mul_reg2: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => sw(0),
+			q => pp_ff_mul(2)
 		);
 
 	ff_mul2: multiplier
@@ -295,9 +345,21 @@ begin
 			N => 12
 		)
 		port map (
-			a => sw(0),
+			a => pp_ff_mul(2),
 			b => b1,
 			res => ff_mul(2)
+		);
+
+	pp_ff_mul_reg3: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => sw(1),
+			q => pp_ff_mul(3)
 		);
 
 	ff_mul3: multiplier
@@ -305,9 +367,21 @@ begin
 			N => 12
 		)
 		port map (
-			a => sw(1),
+			a => pp_ff_mul(3),
 			b => a1b1,
 			res => ff_mul(3)
+		);
+
+	pp_ff_mul_reg4: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => sw(1),
+			q => pp_ff_mul(4)
 		);
 
 	ff_mul4: multiplier
@@ -315,9 +389,21 @@ begin
 			N => 12
 		)
 		port map (
-			a => sw(1),
+			a => pp_ff_mul(4),
 			b => b2,
 			res => ff_mul(4)
+		);
+
+	pp_ff_mul_reg5: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => sw(2),
+			q => pp_ff_mul(5)
 		);
 
 	ff_mul5: multiplier
@@ -325,7 +411,7 @@ begin
 			N => 12
 		)
 		port map (
-			a => sw(2),
+			a => pp_ff_mul(5),
 			b => a1b2,
 			res => ff_mul(5)
 		);
@@ -336,7 +422,7 @@ begin
 		)
 		port map (
 			a => ff_mul(0),
-			b => ff_add(0),
+			b => ret_ff_add,
 			sum => y_s
 		);
 
@@ -348,6 +434,18 @@ begin
 			a => ff_mul(1),
 			b => ff_add(1),
 			sum => ff_add(0)
+		);
+
+	ret_ff_add_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => ff_add(0),
+			q => ret_ff_add
 		);
 
 	ff_add2: adder
