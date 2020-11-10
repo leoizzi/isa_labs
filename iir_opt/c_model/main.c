@@ -8,18 +8,35 @@
 const int b0 = 423; /// coefficient b0
 const int b[N]={846, 423}; /// b array
 const int a[N]={-757, 401}; /// a array
+//const int b_lookahead[N+1] = {-320211, -640422, -320211}; /// a1b0, a1b1, a1b2
+//const int a_lookahead[N+1] = {-757, 573049, -303557}; /// a0a1, a1a1, a1a2
 
 /// Perform fixed point filtering assuming direct form II
 ///\param x is the new input sample
 ///\return the new output sample
 int myfilter(int x)
 {
-    static int sw[N]; /// w shift register
+    static int sw[N+1]; /// w shift register
     static int first_run = 0; /// for cleaning the shift register
     int i; /// index
     int w; /// intermediate value (w)
     int y; /// output sample
     int fb, ff; /// feed-back and feed-forward results
+    int b_arr[6];
+    int a_arr[4];
+
+    /// form the a and b arr
+    a_arr[0] = (1*a[0]); // a0*a1
+    a_arr[1] = (a[0]*a[0]) >> (NB + INT_REPR - 1); // a1*a1
+    a_arr[2] = a[1]; // a2
+    a_arr[3] = (a[0]*a[1]) >> (NB + INT_REPR - 1); // a1*a2
+
+    b_arr[0] = b0; // b0
+    b_arr[1] = (a[0]*b0) >> (NB + INT_REPR - 1); // a1*b0
+    b_arr[2] = b[0]; // b1
+    b_arr[3] = (a[0]*b[0]) >> (NB + INT_REPR - 1); // a1*b1
+    b_arr[4] = b[1]; // b2
+    b_arr[5] = (a[0]*b[1]) >> (NB + INT_REPR - 1); // a1*b2
 
     /// clean the buffer
     if (first_run == 0)
@@ -32,11 +49,16 @@ int myfilter(int x)
     /// compute feed-back and feed-forward
     fb = 0;
     ff = 0;
-    for (i=0; i<N; i++)
-    {
-        fb -= (sw[i]*a[i]) >> (NB + INT_REPR - 1);
-        ff += (sw[i]*b[i]) >> (NB + INT_REPR - 1);
-    }
+    fb -= sw[0]*a_arr[0] >> (NB + INT_REPR - 1);
+    fb -= sw[1]*a_arr[1] >> (NB + INT_REPR - 1);
+    fb -= sw[1]*a_arr[2] >> (NB + INT_REPR - 1);
+    fb -= sw[2]*a_arr[3] >> (NB + INT_REPR - 1);
+
+    ff += sw[0]*b_arr[1] >> (NB + INT_REPR - 1);
+    ff += sw[0]*b_arr[2] >> (NB + INT_REPR - 1);
+    ff += sw[1]*b_arr[3] >> (NB + INT_REPR - 1);
+    ff += sw[1]*b_arr[4] >> (NB + INT_REPR - 1);
+    ff += sw[2]*b_arr[5] >> (NB + INT_REPR - 1);
 
     /// compute intermediate value (w) and output sample
     w = x + fb;
@@ -44,7 +66,7 @@ int myfilter(int x)
     y += ff;
 
     /// update the shift register
-    for (i=N-1; i>0; i--)
+    for (i=N; i>0; i--)
         sw[i] = sw[i-1];
     sw[0] = w;
 
