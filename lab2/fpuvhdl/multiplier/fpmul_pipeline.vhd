@@ -71,7 +71,8 @@ ARCHITECTURE pipeline OF FPmul IS
    SIGNAL isZ_tab         : std_logic;
    SIGNAL isZ_tab_stage1  : std_logic;
    SIGNAL isZ_tab_stage2  : std_logic;
-
+   
+   SIGNAL curr_fpa, curr_fpb, next_fpa, next_fpb: std_logic_vector(31 downto 0);  
 
    -- Component Declarations
    COMPONENT FPmul_stage1
@@ -156,12 +157,22 @@ ARCHITECTURE pipeline OF FPmul IS
 
 
 BEGIN
+   next_fpa <= FP_A;
+   next_fpb <= FP_B;
+
+   state_reg: process(clk)
+   begin
+      if (rising_edge(clk)) then
+         curr_fpa <= next_fpa;
+         curr_fpb <= next_fpb;
+      end if;
+   end process state_reg;
 
    -- Instance port mappings.
    I1 : FPmul_stage1
       PORT MAP (
-         FP_A            => FP_A,
-         FP_B            => FP_B,
+         FP_A            => curr_fpa,
+         FP_B            => curr_fpb,
          clk             => clk,
          A_EXP           => A_EXP,
          A_SIG           => A_SIG,
