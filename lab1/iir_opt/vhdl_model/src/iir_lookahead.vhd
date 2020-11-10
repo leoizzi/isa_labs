@@ -195,7 +195,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin_i(0),
+			en => vin,
 			d => fb_mul(0),
 			q => ret_fb_mul
 		);
@@ -267,7 +267,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin_i(0),
+			en => vin,
 			d => fb_add(1),
 			q => ret_fb_add
 		);
@@ -443,7 +443,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin_i(0),
+			en => vin,
 			d => ff_add(0),
 			q => ret_ff_add
 		);
