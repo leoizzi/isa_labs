@@ -1,0 +1,69 @@
+% titlesec 2.4, patch
+% (c) Javier Bezos 2001, as stated in titlesec.sty
+% 
+% Level 2 (2001/11/15)
+
+\def\ttl@a{2001/01/23 v2.4 Sectioning titles}
+\expandafter\ifx\csname ver@titlesec.sty\endcsname\ttl@a
+  \message{*** titlesec 2.4, loading patch level 2 ***}
+\else
+  \PackageError{titlesec}{Wrong patch version}
+    {This patch is intended for titlesec v2.4\MessageBreak
+     and you are using a different version.}
+\fi
+
+% (1) 2001/04/01
+%
+% Missing braces in \ttl@format@s made \titleformat*
+% fails with format containing two or more tokens.
+
+\def\ttl@format@s#1#2{%
+  \edef\ttl@a{\expandafter\@gobble\string #1}%
+  \expandafter\expandafter\expandafter
+  \ttl@format@si\csname ttlf@\ttl@a \endcsname
+  {#2}}
+
+% (2) 2001/11/15
+%
+% Redefined \ttl@straight@i to fix a missing global
+% declaration. \ttl@prevmarks was lost when a
+% sectioning command was used inside an environment.
+%
+% Added support for nameref, as suggested by Heiko
+% Oberdiek.
+
+\def\ttl@straight@i#1[#2]#3{%
+  \def\@currentlabelname{#2}% for nameref
+  \gdef\ttl@savemark{\csname#1mark\endcsname{#3}}%
+  \let\ttl@savewrite\@empty
+  \gdef\thetitle{\csname the#1\endcsname}%
+  \if@noskipsec \leavevmode \fi
+  \par
+  \ifttl@ps
+    \protected@xdef\ttl@prevmarks{\ttl@marks}%
+  \fi
+  \ttl@labelling{#1}{#2}%
+  \ifttl@ps
+    \gdef\ttl@prevmarks{\ttl@marks}%
+  \fi
+  \ttl@startargs\ttl@straight@ii{#1}{#3}}
+
+% Sometimes \firsttitlemarks returned the values
+% corresponding to \nexttoptitlemarks. The following
+% redefinition seems to work.
+
+\@ifundefined{firsttitlemarks}{}
+  {\def\firsttitlemarks{%
+     \toks@\expandafter\expandafter\expandafter{%
+        \expandafter\@secondoftwo \firstmark{}{}{}}%
+     \@temptokena\expandafter\expandafter\expandafter{%
+        \expandafter\@secondoftwo \botmark{}{}{}}%
+     \edef\ttl@a{\the\toks@}%
+     \edef\ttl@b{\the\@temptokena}%
+     \ifx\ttl@a\ttl@b
+       \expandafter\@secondoftwo\firstmark{}{}{}%
+     \else
+       \expandafter\@firstoftwo \firstmark{}{}{}%
+     \fi}}
+
+\endinput
