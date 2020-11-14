@@ -84,6 +84,7 @@ architecture structural of iir_lookahead is
 	signal ff_add: ff_add_arr;
 	signal x_s, y_s: std_logic_vector(11 downto 0);
 	signal vin_i: vin_arr;
+	signal b0_s, b1_s, b2_s, a1_s, a2_s, a0a1_s, a1a1_s, a1a2_s, a1b0_s, a1b1_s, a1b2_s: std_logic_vector(11 downto 0);
 
 	signal ret_fb_mul, ret_fb_add: std_logic_vector(11 downto 0); -- output of retiming registers in the feedback network
 	signal ret_ff_add: std_logic_vector(11 downto 0); -- output of retiming register in the feed-forward network
@@ -114,7 +115,7 @@ begin
 			q => dout
 		);
 
-	vout <= vin_i(1);
+	vout <= vin_i(2);
 
 	reg1: reg
 		generic map (
@@ -176,6 +177,138 @@ begin
 			q(0) => vin_i(2)
 		);
 
+	b0_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => b0,
+			q => b0_s
+		);
+
+	b1_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => b1,
+			q => b1_s
+		);
+
+	b2_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => b2,
+			q => b2_s
+		);
+
+	a1_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a1,
+			q => a1_s
+		);
+
+	a2_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a2,
+			q => a2_s
+		);
+
+	a0a1_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a0a1,
+			q => a0a1_s
+		);
+
+	a1a1_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a1a1,
+			q => a1a1_s
+		);
+
+	a1a2_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a1a2,
+			q => a1a2_s
+		);
+
+	a1b0_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a1b0,
+			q => a1b0_s
+		);
+
+	a1b1_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a1b1,
+			q => a1b1_s
+		);
+
+	a1b2_reg: reg
+		generic map (
+			N => 12
+		)
+		port map (
+			clk => clk,
+			rst_n => rst_n,
+			en => vin,
+			d => a1b2,
+			q => a1b2_s
+		);
+
 	-- feedback network
 
 	fb_mul0: multiplier
@@ -184,7 +317,7 @@ begin
 		)
 		port map (
 			a => sw(0),
-			b => a0a1,
+			b => a0a1_s,
 			res => fb_mul(0)
 		);
 
@@ -206,7 +339,7 @@ begin
 		)
 		port map (
 			a => sw(1),
-			b => a1a1,
+			b => a1a1_s,
 			res => fb_mul(1)
 		);
 
@@ -216,7 +349,7 @@ begin
 		)
 		port map (
 			a => sw(1),
-			b => a2,
+			b => a2_s,
 			res => fb_mul(2)
 		);
 
@@ -226,7 +359,7 @@ begin
 		)
 		port map (
 			a => sw(2),
-			b => a1a2,
+			b => a1a2_s,
 			res => fb_mul(3)
 		);
 
@@ -302,7 +435,7 @@ begin
 		)
 		port map (
 			a => pp_ff_mul(0),
-			b => b0,
+			b => b0_s,
 			res => ff_mul(0)
 		);
 
@@ -324,7 +457,7 @@ begin
 		)
 		port map (
 			a => pp_ff_mul(1),
-			b => a1b0,
+			b => a1b0_s,
 			res => ff_mul(1)
 		);
 
@@ -346,7 +479,7 @@ begin
 		)
 		port map (
 			a => pp_ff_mul(2),
-			b => b1,
+			b => b1_s,
 			res => ff_mul(2)
 		);
 
@@ -368,7 +501,7 @@ begin
 		)
 		port map (
 			a => pp_ff_mul(3),
-			b => a1b1,
+			b => a1b1_s,
 			res => ff_mul(3)
 		);
 
@@ -390,7 +523,7 @@ begin
 		)
 		port map (
 			a => pp_ff_mul(4),
-			b => b2,
+			b => b2_s,
 			res => ff_mul(4)
 		);
 
@@ -412,7 +545,7 @@ begin
 		)
 		port map (
 			a => pp_ff_mul(5),
-			b => a1b2,
+			b => a1b2_s,
 			res => ff_mul(5)
 		);
 
@@ -443,7 +576,7 @@ begin
 		port map (
 			clk => clk,
 			rst_n => rst_n,
-			en => vin,
+			en => vin_i(0),
 			d => ff_add(0),
 			q => ret_ff_add
 		);
