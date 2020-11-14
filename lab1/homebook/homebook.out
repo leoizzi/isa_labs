@@ -3,4 +3,8 @@
 \BOOKMARK [1][-]{section.2.1}{Matlab model}{chapter.2}% 3
 \BOOKMARK [1][-]{section.2.2}{C model}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.3}{VHDL model}{chapter.2}% 5
-\BOOKMARK [0][-]{chapter.3}{IIR Lookahead}{}% 6
+\BOOKMARK [2][-]{subsection.2.3.1}{Simulation}{section.2.3}% 6
+\BOOKMARK [2][-]{subsection.2.3.2}{Logic synthesis}{section.2.3}% 7
+\BOOKMARK [2][-]{subsection.2.3.3}{Power consumption estimation}{section.2.3}% 8
+\BOOKMARK [2][-]{subsection.2.3.4}{Place and route}{section.2.3}% 9
+\BOOKMARK [0][-]{chapter.3}{IIR Lookahead}{}% 10
