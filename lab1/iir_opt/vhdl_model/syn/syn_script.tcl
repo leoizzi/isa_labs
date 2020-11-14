@@ -1,13 +1,13 @@
 # set constant values
-set t_min 2.81
-set tx4 11.24
+set t_min 2.65
+set tx4 10.6
 set clk_period 0
 set use_tx4 1
 # analyse the source ccode
-analyze -f vhdl -lib WORK {../src/reg.vhd ../src/multiplier.vhd ../src/adder.vhd ../src/subtractor.vhd ../src/iir.vhd }
+analyze -f vhdl -lib WORK {../src/reg.vhd ../src/multiplier.vhd ../src/adder.vhd ../src/subtractor.vhd ../src/iir_lookahead.vhd }
 set power_preserve_rtl_hier_names true
 # elaborate the design
-elaborate iir -arch structural -lib WORK 
+elaborate iir_lookahead -arch structural -lib WORK 
 # applying constriants
 if {$use_tx4 == 0} {
 	set clk_period $t_min
@@ -43,5 +43,6 @@ if {$use_tx4 == 0} {
 	write -f verilog -hierarchy -output ../netlist/iir.v
 	write_sdc ../netlist/iir.sdc
 }
+
 quit
 
