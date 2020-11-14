@@ -2,7 +2,7 @@
 (SAIFVERSION "2.0")
 (DIRECTION "backward")
 (DESIGN )
-(DATE "Thu Nov  5 12:08:08 2020")
+(DATE "Sat Nov 14 11:34:02 2020")
 (VENDOR "Synopsys, Inc")
 (PROGRAM_NAME "vcd2saif")
 (VERSION "O-2018.06-SP4")
