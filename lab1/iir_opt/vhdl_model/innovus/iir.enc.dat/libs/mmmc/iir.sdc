@@ -1,1 +1,0 @@
-/home/isa36/isa_labs/lab1/vhdl_model/netlist/iir.sdc

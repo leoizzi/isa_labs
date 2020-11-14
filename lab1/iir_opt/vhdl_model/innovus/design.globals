@@ -1,9 +1,10 @@
 ## CUSTOMIZE
 
 set IN_DIR "../netlist"
-set TopLevelDesign "iir"
-set in_verilog_filename "${IN_DIR}/${TopLevelDesign}.v"
-set in_sdc_filename "${IN_DIR}/${TopLevelDesign}.sdc"
+set TopLevelDesign "iir_lookahead"
+set file_name "iir"
+set in_verilog_filename "${IN_DIR}/${file_name}.v"
+set in_sdc_filename "${IN_DIR}/${file_name}.sdc"
 
 ## DO NOT TOUCH
 
