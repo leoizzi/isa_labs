@@ -8,3 +8,8 @@
 \BOOKMARK [2][-]{subsection.2.3.3}{Power consumption estimation}{section.2.3}% 8
 \BOOKMARK [2][-]{subsection.2.3.4}{Place and route}{section.2.3}% 9
 \BOOKMARK [0][-]{chapter.3}{IIR Lookahead}{}% 10
+\BOOKMARK [1][-]{section.3.1}{Architecture derivation}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.1.1}{Baseline IIR analysis}{section.3.1}% 12
+\BOOKMARK [2][-]{subsection.3.1.2}{Lookahead application}{section.3.1}% 13
+\BOOKMARK [1][-]{section.3.2}{Lookahead optimizations}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.3}{Results comparison}{chapter.3}% 15
