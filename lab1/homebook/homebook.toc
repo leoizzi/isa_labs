@@ -13,4 +13,7 @@
 \contentsline {subsection}{\numberline {3.1.1}Baseline IIR analysis}{5}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Lookahead application}{6}{subsection.3.1.2}%
 \contentsline {section}{\numberline {3.2}Lookahead optimizations}{7}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Results comparison}{8}{section.3.3}%
+\contentsline {subsection}{\numberline {3.2.1}Logic synthesis results}{8}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Power consumption estimation}{8}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Place and route results}{9}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Final results analysis}{9}{section.3.3}%
