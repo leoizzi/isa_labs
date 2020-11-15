@@ -34,14 +34,13 @@ $T_{a}$ the delay of the adder and with with $T_{m}$ the delay of the multiplier
 It can be also seen in the picture that there are two loops, namely $LB_{1}$ and $LB_{2}$. It is possible to calculate the
 loop bound as follows:
 
-\begin{align}
-    LB_{iir_{1}} &= \frac{T_{m} + 2T_{a}}{1} \\
-    LB_{iir_{2}} &= \frac{T_{m} + 2T_{a}}{2}
+\begin{align}\nonumber
+    LB_{iir_{1}} = \frac{T_{m} + 2T_{a}}{1} \quad\quad LB_{iir_{2}} = \frac{T_{m} + 2T_{a}}{2}
 \end{align}
 
 Hence, we obtain
 
-\begin{equation}
+\begin{equation}\nonumber
     T_{iir_{\infty}} = \max \lbrace LB_{iir_{1}}, LB_{iir_{2}} \rbrace = LB_{iir_{1}} < CP_{iir}
 \end{equation}
 
@@ -91,7 +90,7 @@ Which is our new filter's equation. Its block diagram is shown in figure \ref{fi
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{./chapters/pictures/irr_lookahead.pdf}
+	\includegraphics[width=0.7\linewidth]{./chapters/pictures/iir_lookahead.pdf}
 	\caption{IIR lookahead}
 	\label{fig:iir_lookahead}
 \end{figure}
@@ -106,6 +105,55 @@ has a different $THD$ and produces slightly different values.
 \section{Lookahead optimizations}
 \label{sec:iir_opt}
 
+Before applying any universal optimization technique, as always we needed to check if
 
+$$T_{lookahead_{\infty}} < CP_{lookahead}$$
 
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{./chapters/pictures/loop_bound_iir_lookahead.pdf}
+	\caption{IIR lookahead critical path and loop bounds}
+	\label{fig:lookahead_lb}
+\end{figure}
+
+In yellow it is highlighted the new critical path, which is equal to
+
+\begin{equation}\nonumber
+    \label{eq:lookahead_cp}
+    CP_{lookahead} = 2T_{m} + 5T_{a}
+\end{equation}
+
+While in red, green, blue and orange are highlighted all the design's loops, which are respectively $LB_{1}$, $LB_{2}$, $LB_{3}$, $LB_{4}$ and are equal to
+
+\begin{align}\nonumber
+    &LB_{lookahead_{1}} = \frac{T_{m} + 2T_{a}}{1} &LB_{lookahead_{2}} = \frac{T_{m} + 3T_{a}}{2} \\ \nonumber
+    &LB_{lookahead_{3}} = \frac{T_{m} + 4T_{a}}{2} &LB_{lookahead_{4}} = \frac{T_{m} + 4T_{a}}{3} \nonumber
+\end{align}
+
+Again, we have calculated $T_{lookahead_{\infty}}$ as
+
+\begin{equation}\nonumber
+    T_{lookahead_{\infty}} = \max \lbrace LB_{lookahead_{1}}, LB_{lookahead_{2}}, LB_{lookahead_{3}}, LB_{lookahead_{4}} \rbrace = LB_{lookahead_{1}}
+\end{equation}
+
+Which is smaller than $CP_{lookahead}$. To have $T_{lookahead_{\infty}} = CP_{lookahead}$ we have applied a combination of retiming and pipelining, as
+shown in figure \ref{fig:lookahead_opt}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{./chapters/pictures/iir_opt.pdf}
+	\caption{Optimized IIR lookahead}
+	\label{fig:lookahead_opt}
+\end{figure}
+
+First, we applied retiming on the leftmost register, which is the dashed black one, by using the cutset shown in red. With the same color are shown the
+retiming registers. Furthermore, in blue it is shown the forward cut-set used for pipelining and the related registers.
+Pipelining, in respect to retiming, changes the behavior of the circuit. Indeed it had consequences on the delay of the $vin$ signal, which has been
+adjusted accordingly. The new critical path has now a delay of
+
+\begin{equation}
+    CP_{lookahead} = T_{m} + 2T_{a}
+\end{equation}
+
+Which is better than the one of the baseline IIR described in equation \ref{eq:baseline_iir_delay}.
 \section{Results comparison}
