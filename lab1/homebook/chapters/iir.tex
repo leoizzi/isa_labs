@@ -6,8 +6,12 @@ In this chapter the IIR filter is analyzed from its Matlab specification to the 
 \section{Matlab model}
 
 We have updated \verb|my_iir_filter.m| to match the value of the given $N$ and $n_{b}$ values.
-This file saves the quantized filter's input in a file called \verb|samples.txt|, which is then used
+This script produces the filter's coefficients and saves the quantized filter's input in a file called \verb|samples.txt|, which is then used
 by the C model (section \ref{sec:iir_c_model}) to test the goodness of the implementation.
+The coefficients we have obtained are:
+
+$$b_{0} = 423 \quad b_{1} = 846 \quad b_{2} = 423 \quad a_{0} = 1 \quad a_{1} = -757 \quad a_{2} = 401$$
+
 After the C model's simulation, its results are read back to measure the {\it Total Harmonic Distortion}
 ($THD$). By keeping the internal representation on 12 bits we have measured $THD \approx -65.46\ dB$, which is
 better than $THD_{target} = -30\ dB$, hence the whole filter has been implemented on 12 bits.
