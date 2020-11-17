@@ -62,24 +62,31 @@ To reproduce the simulation there is a script in the \verb|sim| folder called \v
 The model described above has been synthesized with {\it Synopsys Design Compiler}. The synthesis has been run three times:
 
 \begin{itemize}
-    \item \textbf{Run 1}: to find the maximum clock frequency we have created a clock with period 0 with the command \verb|create_clock -name my_clk -period 0 clk|. With \verb|report_timing| we have found out that $t_{ck_{min}} = 2.81\ ns$.
-    \item \textbf{Run 2}: to verify that $t_{ck_{min}}$ was actually a valid value we run a synthesis with a clock period $t_{ck} = t_{ck_{min}}$. The synthesis met the constraint and the area for this implementation is $A_{ck_{min}} \approx 4258\ \mu m^2$.
-    \item \textbf{Run 3}: the synthesis with a clock period $t_{ck} = 4*t_{ck_{min}} = 11.24\ ns$ was executed. In this case the circuit is able to compute a value in $5.14\ ns$ with a slack of $5.99\ ns$, with an area $A \approx 3701\ \mu m^2$. 
+    \item \textbf{Run 1}: to find the maximum clock frequency we have created a clock with period 0 with the command
+        \verb|create_clock -name my_clk -period 0 clk|. With \verb|report_timing| we have found out that $t_{ck_{min}} = 2.81\ ns$.
+    \item \textbf{Run 2}: to verify that $t_{ck_{min}}$ was actually a valid value we run a synthesis with a clock period
+        $t_{ck} = t_{ck_{min}}$. The synthesis met the constraint and the area for this implementation is $A_{ck_{min}} \approx 4258\ \mu m^2$.
+    \item \textbf{Run 3}: the synthesis with a clock period $t_{ck} = 4*t_{ck_{min}} = 11.24\ ns$ was executed. In this case the circuit is
+        able to compute a value in $5.14\ ns$ with a slack of $5.99\ ns$, with an area $A \approx 3701\ \mu m^2$. 
 \end{itemize}
 
-To speed up the synthesis process two scripts are provided: \verb|setup.sh| and \verb|syn_script.tcl|. The former is used to create a clean synthesis environment,
-the latter to run the synthesis. In this script is possible to choose among the settings of \textbf{Run 2}, by setting the variable \verb|use_tx4| to 0, and the settings
-of \textbf{Run 3}, by setting \verb|use_tx4| to 1. 
+This means that, if we consider the moment in which a value is avaliable, for a reduction in speed of $\approx 83\%$ there is an area gain of $\approx 13\%$.
+
+To speed up the synthesis process two scripts are provided: \verb|setup.sh| and \verb|syn_script.tcl|. The former is used to create a
+clean synthesis environment, the latter to run the synthesis. In this script is possible to choose among the settings of \textbf{Run 2},
+by setting the variable \verb|use_tx4| to 0, and the settings of \textbf{Run 3}, by setting \verb|use_tx4| to 1. 
 
 \subsection{Power consumption estimation}
 
-The resulting Verilog file produced in \textbf{Run 3} has been simulated again to check that the results were the same as the VHDL model and to obtain the circuit's switching activity.
-The ModelSim script to calculate the switching activity is ???, that writes the file \verb|iir.sdf| in the \verb|netlist| folder.
+The resulting Verilog file produced in \textbf{Run 3} has been simulated again to check that the results were the same as the VHDL model
+and to obtain the circuit's switching activity. The ModelSim script to calculate the switching activity is \verb|sim_script_pwr.tcl|, that writes the file
+\verb|iir.sdf| in the \verb|netlist| folder.
 
-This file, then, is read back in Synopsys by using the script \verb|syn_script_pwr.tcl| contained in the \verb|syn| folder. This script outputs \verb|report_switching_activity.txt|, a file containing the estimated power
-consumption of the IIR based on the switching activity. Extracts of its content are reported below.
+This file, then, is read back in Synopsys by using the script \verb|syn_script_pwr.tcl| contained in the \verb|syn| folder. This script outputs
+\verb|report_switching_activity.txt|, a file containing the estimated power consumption of the IIR based on the switching activity.
+Extracts of its content are reported below.
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\footnotesize]
 Cell Internal Power  = 278.3994 uW   (61%)
 Net Switching Power  = 177.0917 uW   (39%)
                          ---------
@@ -104,7 +111,30 @@ Total            278.3995 uW       177.0918 uW     7.6523e+04 nW       532.0143 
 
 \subsection{Place and route}
 
-The Verilog file obtained in the previous step has been used to perform the {\it Place and route} on {\it Innovus}. We have rigorously followed all the steps
-reported in the file \verb|documents.pdf| to complete this part, hence we will not repeat them here.
+The Verilog file obtained in the previous step has been used to perform the {\it Place and route} on {\it Innovus}. We have rigorously followed
+all the steps reported in the file \verb|documents.pdf| to complete this part, hence we will not repeat them here.
 
-We have checked that 
+We have checked that the time constraint were met and the results of the estimated power consumption, which is reported below.
+
+\begin{Verbatim}[fontsize=\footnotesize]
+Total Power [Power Units = 1mW]
+-----------------------------------------------------------------------------------------
+Total Internal Power:        0.78136993 	   55.3194%
+Total Switching Power:       0.55514042 	   39.3028%
+Total Leakage Power:         0.07595918 	    5.3778%
+Total Power:                 1.41246953 
+-----------------------------------------------------------------------------------------
+
+Group                           Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+Sequential                       0.09539     0.03122    0.009814      0.1364       9.658 
+Macro                                  0           0           0           0           0 
+IO                                     0           0           0           0           0 
+Combinational                      0.686      0.5239     0.06615       1.276       90.34 
+Clock (Combinational)                  0           0           0           0           0 
+Clock (Sequential)                     0           0           0           0           0 
+-----------------------------------------------------------------------------------------
+Total                             0.7814      0.5551     0.07596       1.412         100 
+-----------------------------------------------------------------------------------------
+\end{Verbatim}
