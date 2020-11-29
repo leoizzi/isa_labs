@@ -73,26 +73,13 @@ begin
 
 	-- generate the others partial products
 	mbe_gen: for i in 1 to 14 generate
-		gen1: if i < 7 generate
-			mbe_i: mbe
-				port map (
-					b => b((i*2)+1 downto (i*2)-1),
-					a => a,  
-					pj => pp(i)((2*i)+32 downto 2*i),
-					s => s(i)
-				);
-		end generate gen1;
-
-		gen2: if i >= 7 generate
-			mbe_i: mbe
-				port map (
-					b => b((i*2)+1 downto (i*2)-1),
-					a => a,  
-					pj => pp(i)((2*i)+32 downto 2*i),
-					s => s(i)
-				);
-		end generate gen2;
-
+		mbe_i: mbe
+			port map (
+				b => b((i*2)+1 downto (i*2)-1),
+				a => a,
+				pj => pp(i)((2*i)+32 downto 2*i),
+				s => s(i)
+			);
 
 		pp(i)((2*i)+33) <= not_s(i);
 		pp(i)((2*i)+34) <= '1';
@@ -106,5 +93,17 @@ begin
 
 	-- Dadda tree
 
+	
 
+	sum_beh: process(pp)
+		variable tmp: std_logic_vector(63 downto 0);
+	begin
+		tmp := (others  => '0');
+
+		for i in 0 to 16 loop
+			tmp := std_logic_vector(unsigned(tmp) + unsigned(pp(i)));
+		end loop;
+
+		prod <= tmp;
+	end process sum_beh;
 end structural;
