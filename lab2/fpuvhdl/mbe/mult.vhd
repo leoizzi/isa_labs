@@ -22,7 +22,7 @@ architecture structural of mult is
 
 	type pp_arr is array(0 to 16) of std_logic_vector(63 downto 0);
 
-	signal pp: pp_arr;
+	signal pp,pprova: pp_arr;
 	signal s, not_s: std_logic_vector(15 downto 0);
 	signal b_ext: std_logic_vector(34 downto 0);
 	signal p16: std_logic_vector(32 downto 0);
@@ -44,7 +44,6 @@ begin
 
 	pp(0)(33) <= s(0);
 	pp(0)(34) <= s(0);
-	pp(0)(63 downto 36) <= (others => '0');
 	pp(0)(35) <= not_s(0);
 	pp(1)(0) <= s(0);
 
@@ -57,7 +56,6 @@ begin
 		 );
 
 	pp(15)(63) <= not_s(15);
-	pp(15)(29 downto 0) <= (others => '0');
 	pp(16)(30) <= s(15);
 
 	mbe16: mbe
@@ -68,8 +66,7 @@ begin
 		 	s => open
 		 );
 
-	pp(16)(63 downto 32) <= p16(31 downto 0);
-	pp(16)(31 downto 0) <= (others => '0');
+	pp(16)(63 downto 32) <= p16(31 downto 0);	
 
 	-- generate the others partial products
 	mbe_gen: for i in 1 to 14 generate
@@ -83,27 +80,13 @@ begin
 
 		pp(i)((2*i)+33) <= not_s(i);
 		pp(i)((2*i)+34) <= '1';
-		pp(i)(63 downto (2*i)+35) <= (others => '0');
-		pp(i)(2*i-1) <= '0';
+
 		lab: if i /= 1 generate
-			pp(i)(2*i-3 downto 0) <= (others => '0');
+			pprova(i)(2*i-3 downto 0) <= (others => '1');
 		end generate lab;
 		pp(i+1)(2*i) <= s(i);
 	end generate mbe_gen;
 
 	-- Dadda tree
 
-	
-
-	sum_beh: process(pp)
-		variable tmp: std_logic_vector(63 downto 0);
-	begin
-		tmp := (others  => '0');
-
-		for i in 0 to 16 loop
-			tmp := std_logic_vector(unsigned(tmp) + unsigned(pp(i)));
-		end loop;
-
-		prod <= tmp;
-	end process sum_beh;
 end structural;
