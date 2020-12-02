@@ -59,7 +59,7 @@ begin
 
 	can_read <= '0', '1' after stages*period;
 	read_proc: process(clk, can_read)
-		file fp : text open read_mode is "./fp_prod.hex";
+		file fp : text open read_mode is "../tb/fp_prod.hex";
 	    variable ptr : line;
 	    variable val : std_logic_vector(31 downto 0);
 	begin

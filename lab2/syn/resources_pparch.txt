@@ -3,7 +3,7 @@
 Report : resources
 Design : FPmul
 Version: O-2018.06-SP4
-Date   : Tue Nov 17 14:59:53 2020
+Date   : Wed Dec  2 17:38:43 2020
 ****************************************
 
 Resource Sharing Report for design FPmul in file
@@ -13,8 +13,8 @@ Resource Sharing Report for design FPmul in file
 |          |              |            | Contained     |                      |
 | Resource | Module       | Parameters | Resources     | Contained Operations |
 ===============================================================================
-| r120     | DW01_add     | width=8    |               | add_1_root_I2/add_126_2 |
-| r122     | DW02_mult    | A_width=32 |               | I2/mult_134          |
+| r120     | DW01_add     | width=8    |               | add_1_root_I2/add_143_2 |
+| r122     | DW02_mult    | A_width=32 |               | I2/mult_151          |
 |          |              | B_width=32 |               |                      |
 | r124     | DW01_inc     | width=25   |               | I3/I11/add_45        |
 | r126     | DW01_add     | width=8    |               | I3/I9/add_41_aco     |
@@ -27,9 +27,9 @@ Implementation Report
 |                    |                  | Current            | Set            |
 | Cell               | Module           | Implementation     | Implementation |
 ===============================================================================
-| add_1_root_I2/add_126_2               |                    |                |
+| add_1_root_I2/add_143_2               |                    |                |
 |                    | DW01_add         | rpl                |                |
-| I2/mult_134        | DW02_mult        | pparch (area)      | pparch         |
+| I2/mult_151        | DW02_mult        | pparch (area)      | pparch         |
 |                    |                  | mult_arch: benc_radix8              |
 | I3/I11/add_45      | DW01_inc         | rpl                |                |
 ===============================================================================

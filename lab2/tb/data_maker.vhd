@@ -18,7 +18,7 @@ architecture beh of data_maker is
 begin  -- beh
 
   process (CLK)
-    file fp : text open read_mode is "./fp_samples.hex";
+    file fp : text open read_mode is "../tb/fp_samples.hex";
     variable ptr : line;
     variable val : std_logic_vector(31 downto 0);
   begin  -- process
