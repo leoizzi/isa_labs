@@ -9,8 +9,8 @@ set OLOAD [load_of NangateOpenCellLibrary/BUF_X4/A]
 set_load $OLOAD [all_outputs]
 ungroup -all -flatten
 compile
-report_resources > resources.txt
-report_timing > timing.txt
-report_area > area.txt
+report_resources > resources_mod.txt
+report_timing > timing_mod.txt
+report_area > area_mod.txt
 quit
 
