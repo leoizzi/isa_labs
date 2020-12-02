@@ -69,24 +69,15 @@ ARCHITECTURE struct OF FPmul_stage2 IS
    SIGNAL dout1       : std_logic_vector(7 DOWNTO 0);
    SIGNAL prod        : std_logic_vector(63 DOWNTO 0);
 
-   -- ex 1.1 additional regs signals
-   signal curr_mult: std_logic_vector(27 downto 0);
-   signal curr_exp_in: std_logic_vector(7 downto 0);
-   signal curr_exp_neg: std_logic;
-   signal curr_exp_pos: std_logic;
-   signal curr_sign_out: std_logic;
-   signal curr_isINF: std_logic;
-   signal curr_isNaN: std_logic;
-   signal curr_isZ_tab: std_logic;
-
-   -- multiplier declaration
+      -- multiplier declaration
    component mult is
-	port (
-		a: in std_logic_vector(31 downto 0);
-		b: in std_logic_vector(31 downto 0);
-		prod: out std_logic_vector(63 downto 0)
-	);
-	end component mult;
+   port (
+      a: in std_logic_vector(31 downto 0);
+      b: in std_logic_vector(31 downto 0);
+      prod: out std_logic_vector(63 downto 0)
+   );
+   end component mult;
+
 
 BEGIN
    -- Architecture concurrent statements
@@ -104,14 +95,10 @@ BEGIN
    PROCESS(clk)
    BEGIN
       IF RISING_EDGE(clk) THEN
-         EXP_in <= curr_exp_in;
-         SIG_in <= curr_mult;
-         EXP_pos_stage2 <= curr_exp_pos;
-         EXP_neg_stage2 <= curr_exp_neg;
-         curr_mult <= SIG_in_int;
-         curr_exp_in <= EXP_in_int;
-         curr_exp_neg <= EXP_neg_int;
-         curr_exp_pos <= EXP_pos_int;
+         EXP_in <= EXP_in_int;
+         SIG_in <= SIG_in_int;
+         EXP_pos_stage2 <= EXP_pos_int;
+         EXP_neg_stage2 <= EXP_neg_int;
       END IF;
    END PROCESS;
 
@@ -120,15 +107,10 @@ BEGIN
    PROCESS(clk)
    BEGIN
       IF RISING_EDGE(clk) THEN
-         isINF_stage2 <= curr_isINF;
-         isNaN_stage2 <= curr_isNaN;
-         isZ_tab_stage2 <= curr_isZ_tab;
-         SIGN_out_stage2 <= curr_sign_out;
-         curr_sign_out <= SIGN_out_stage1;
-         curr_isINF <= isINF_stage1;
-         curr_isNaN <= isNaN_stage1;
-         curr_isZ_tab <= isZ_tab_stage1;
-
+         isINF_stage2 <= isINF_stage1;
+         isNaN_stage2 <= isNaN_stage1;
+         isZ_tab_stage2 <= isZ_tab_stage1;
+         SIGN_out_stage2 <= SIGN_out_stage1;
       END IF;
    END PROCESS;
 
@@ -162,11 +144,11 @@ BEGIN
    --END PROCESS I2combo;
 
    multiplier: mult
-   	port map (
-   		a => A_SIG,
-   		b => B_SIG,
-   		prod => prod
-   	);
+      port map (
+         a => A_SIG,
+         b => B_SIG,
+         prod => prod
+      );
 
    -- ModuleWare code(v1.1) for instance 'I6' of 'vdd'
    dout <= '1';
