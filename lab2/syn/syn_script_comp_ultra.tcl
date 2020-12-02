@@ -8,8 +8,7 @@ set_output_delay 0.5 -max -clock my_clk [all_outputs]
 set OLOAD [load_of NangateOpenCellLibrary/BUF_X4/A]
 set_load $OLOAD [all_outputs]
 ungroup -all -flatten
-compile
-optimize_registers
+compile_ultra
 report_resources > resources_ultra.txt
 report_timing > timing_ultra.txt
 report_area > area_ultra.txt
