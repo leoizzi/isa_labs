@@ -1,5 +1,5 @@
 set power_preserve_rtl_hier_names true
-read_file {./fpuvhdl/common/ ./fpuvhdl/adder/ ./fpuvhdl/multiplier/} -exclude {./fpuvhdl/multiplier/fpmul_single_cycle.vhd} -autoread -format vhdl -top FPmul
+read_file {./fpuvhdl/common/ ./fpuvhdl/adder/ ./fpuvhdl/multiplier/} -exclude {./fpuvhdl/multiplier/fpmul_single_cycle.vhd ./fpuvhdl/multiplier/fpmul_stage2_struct_mod.vhd ./fpuvhdl/multiplier/dadda.vhd ./fpuvhdl/multiplier/mbe.vhd ./fpuvhdl/multiplier/fa.vhd ./fpuvhdl/multiplier/ha.vhd ./fpuvhdl/multiplier/mult.vhd} -autoread -format vhdl -top FPmul
 create_clock -name my_clk -period 4.6 clk
 set_dont_touch_network my_clk
 set_clock_uncertainty 0.07 [get_clocks my_clk]
