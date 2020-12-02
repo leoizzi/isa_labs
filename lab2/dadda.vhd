@@ -60,8 +60,6 @@ architecture structural of dadda is
 	signal dadda_tree_2: dadda2_arr;
 	signal dadda_tree_1: dadda1_arr;
 	signal dadda_tree_0: dadda0_arr;
-
-	signal res_ext: std_logic_vector(64 downto 0);
 begin
 	dadda_tree_6(0) <= pp0;
 	dadda_tree_6(1) <= pp1;
@@ -81,8 +79,7 @@ begin
 	dadda_tree_6(15) <= pp15;
 	dadda_tree_6(16) <= pp16;
 
-	res_ext <= std_logic_vector(unsigned(dadda_tree_0(0)) + unsigned(dadda_tree_0(1)))
-	res <= res_ext(63 downto 0);
+	res <= std_logic_vector(unsigned(dadda_tree_0(0)) + unsigned(dadda_tree_0(1)));
 
 	
 
@@ -870,18 +867,18 @@ begin
 	dadda_tree_5(10)(42) <= dadda_tree_6(14)(42);
 	dadda_tree_5(11)(42) <= dadda_tree_6(15)(42);
 	dadda_tree_5(12)(42) <= dadda_tree_6(16)(42);
-	dadda_tree_5(0)(43) <= dadda_tree_6(5)(43);
-	dadda_tree_5(1)(43) <= dadda_tree_6(6)(43);
-	dadda_tree_5(2)(43) <= dadda_tree_6(7)(43);
-	dadda_tree_5(3)(43) <= dadda_tree_6(8)(43);
-	dadda_tree_5(4)(43) <= dadda_tree_6(9)(43);
-	dadda_tree_5(5)(43) <= dadda_tree_6(10)(43);
-	dadda_tree_5(6)(43) <= dadda_tree_6(11)(43);
-	dadda_tree_5(7)(43) <= dadda_tree_6(12)(43);
-	dadda_tree_5(8)(43) <= dadda_tree_6(13)(43);
-	dadda_tree_5(9)(43) <= dadda_tree_6(14)(43);
-	dadda_tree_5(10)(43) <= dadda_tree_6(15)(43);
-	dadda_tree_5(11)(43) <= dadda_tree_6(16)(43);
+	dadda_tree_5(1)(43) <= dadda_tree_6(5)(43);
+	dadda_tree_5(2)(43) <= dadda_tree_6(6)(43);
+	dadda_tree_5(3)(43) <= dadda_tree_6(7)(43);
+	dadda_tree_5(4)(43) <= dadda_tree_6(8)(43);
+	dadda_tree_5(5)(43) <= dadda_tree_6(9)(43);
+	dadda_tree_5(6)(43) <= dadda_tree_6(10)(43);
+	dadda_tree_5(7)(43) <= dadda_tree_6(11)(43);
+	dadda_tree_5(8)(43) <= dadda_tree_6(12)(43);
+	dadda_tree_5(9)(43) <= dadda_tree_6(13)(43);
+	dadda_tree_5(10)(43) <= dadda_tree_6(14)(43);
+	dadda_tree_5(11)(43) <= dadda_tree_6(15)(43);
+	dadda_tree_5(12)(43) <= dadda_tree_6(16)(43);
 	dadda_tree_5(0)(44) <= dadda_tree_6(5)(44);
 	dadda_tree_5(1)(44) <= dadda_tree_6(6)(44);
 	dadda_tree_5(2)(44) <= dadda_tree_6(7)(44);
@@ -1318,7 +1315,7 @@ begin
 	);
 
 	dadda_tree_4(8)(23) <= dadda_tree_5(11)(23);
-	dadda_tree_4(0)(24) <= dadda_tree_5(0)(24);
+	dadda_tree_4(4)(24) <= dadda_tree_5(0)(24);
 	dadda_tree_4(0)(25) <= dadda_tree_5(0)(25);
 	dadda_tree_4(1)(25) <= dadda_tree_5(1)(25);
 	dadda_tree_4(0)(26) <= dadda_tree_5(0)(26);
@@ -1613,14 +1610,14 @@ begin
 	dadda_tree_4(6)(50) <= dadda_tree_5(6)(50);
 	dadda_tree_4(7)(50) <= dadda_tree_5(7)(50);
 	dadda_tree_4(8)(50) <= dadda_tree_5(8)(50);
-	dadda_tree_4(0)(51) <= dadda_tree_5(0)(51);
-	dadda_tree_4(1)(51) <= dadda_tree_5(1)(51);
-	dadda_tree_4(2)(51) <= dadda_tree_5(2)(51);
-	dadda_tree_4(3)(51) <= dadda_tree_5(3)(51);
-	dadda_tree_4(4)(51) <= dadda_tree_5(4)(51);
-	dadda_tree_4(5)(51) <= dadda_tree_5(5)(51);
-	dadda_tree_4(6)(51) <= dadda_tree_5(6)(51);
-	dadda_tree_4(7)(51) <= dadda_tree_5(7)(51);
+	dadda_tree_4(1)(51) <= dadda_tree_5(0)(51);
+	dadda_tree_4(2)(51) <= dadda_tree_5(1)(51);
+	dadda_tree_4(3)(51) <= dadda_tree_5(2)(51);
+	dadda_tree_4(4)(51) <= dadda_tree_5(3)(51);
+	dadda_tree_4(5)(51) <= dadda_tree_5(4)(51);
+	dadda_tree_4(6)(51) <= dadda_tree_5(5)(51);
+	dadda_tree_4(7)(51) <= dadda_tree_5(6)(51);
+	dadda_tree_4(8)(51) <= dadda_tree_5(7)(51);
 	dadda_tree_4(0)(52) <= dadda_tree_5(0)(52);
 	dadda_tree_4(1)(52) <= dadda_tree_5(1)(52);
 	dadda_tree_4(2)(52) <= dadda_tree_5(2)(52);
@@ -1839,7 +1836,7 @@ begin
 			co => dadda_tree_3(2)(16)
 	);
 
-	dadda_tree_3(0)(16) <= dadda_tree_4(0)(16);
+	dadda_tree_3(3)(16) <= dadda_tree_4(0)(16);
 	dadda_tree_3(0)(17) <= dadda_tree_4(0)(17);
 	dadda_tree_3(1)(17) <= dadda_tree_4(1)(17);
 	dadda_tree_3(0)(18) <= dadda_tree_4(0)(18);
@@ -1895,7 +1892,7 @@ begin
 	dadda_tree_3(3)(23) <= dadda_tree_4(5)(23);
 	dadda_tree_3(4)(23) <= dadda_tree_4(6)(23);
 	dadda_tree_3(5)(23) <= dadda_tree_4(7)(23);
-	dadda_tree_3(0)(24) <= dadda_tree_4(0)(24);
+	dadda_tree_3(2)(24) <= dadda_tree_4(0)(24);
 	dadda_tree_3(0)(25) <= dadda_tree_4(0)(25);
 	dadda_tree_3(1)(25) <= dadda_tree_4(1)(25);
 	dadda_tree_3(0)(26) <= dadda_tree_4(0)(26);
@@ -2083,11 +2080,11 @@ begin
 	dadda_tree_3(3)(38) <= dadda_tree_4(3)(38);
 	dadda_tree_3(4)(38) <= dadda_tree_4(4)(38);
 	dadda_tree_3(5)(38) <= dadda_tree_4(5)(38);
-	dadda_tree_3(0)(39) <= dadda_tree_4(0)(39);
-	dadda_tree_3(1)(39) <= dadda_tree_4(1)(39);
-	dadda_tree_3(2)(39) <= dadda_tree_4(2)(39);
-	dadda_tree_3(3)(39) <= dadda_tree_4(3)(39);
-	dadda_tree_3(4)(39) <= dadda_tree_4(4)(39);
+	dadda_tree_3(1)(39) <= dadda_tree_4(0)(39);
+	dadda_tree_3(2)(39) <= dadda_tree_4(1)(39);
+	dadda_tree_3(3)(39) <= dadda_tree_4(2)(39);
+	dadda_tree_3(4)(39) <= dadda_tree_4(3)(39);
+	dadda_tree_3(5)(39) <= dadda_tree_4(4)(39);
 	dadda_tree_3(0)(40) <= dadda_tree_4(0)(40);
 	dadda_tree_3(1)(40) <= dadda_tree_4(1)(40);
 	dadda_tree_3(2)(40) <= dadda_tree_4(2)(40);
@@ -2230,11 +2227,11 @@ begin
 	dadda_tree_3(3)(56) <= dadda_tree_4(3)(56);
 	dadda_tree_3(4)(56) <= dadda_tree_4(4)(56);
 	dadda_tree_3(5)(56) <= dadda_tree_4(5)(56);
-	dadda_tree_3(0)(57) <= dadda_tree_4(0)(57);
-	dadda_tree_3(1)(57) <= dadda_tree_4(1)(57);
-	dadda_tree_3(2)(57) <= dadda_tree_4(2)(57);
-	dadda_tree_3(3)(57) <= dadda_tree_4(3)(57);
-	dadda_tree_3(4)(57) <= dadda_tree_4(4)(57);
+	dadda_tree_3(1)(57) <= dadda_tree_4(0)(57);
+	dadda_tree_3(2)(57) <= dadda_tree_4(1)(57);
+	dadda_tree_3(3)(57) <= dadda_tree_4(2)(57);
+	dadda_tree_3(4)(57) <= dadda_tree_4(3)(57);
+	dadda_tree_3(5)(57) <= dadda_tree_4(4)(57);
 	dadda_tree_3(0)(58) <= dadda_tree_4(0)(58);
 	dadda_tree_3(1)(58) <= dadda_tree_4(1)(58);
 	dadda_tree_3(2)(58) <= dadda_tree_4(2)(58);
@@ -2331,7 +2328,7 @@ begin
 			co => dadda_tree_2(1)(10)
 	);
 
-	dadda_tree_2(0)(10) <= dadda_tree_3(0)(10);
+	dadda_tree_2(2)(10) <= dadda_tree_3(0)(10);
 	dadda_tree_2(0)(11) <= dadda_tree_3(0)(11);
 	dadda_tree_2(1)(11) <= dadda_tree_3(1)(11);
 	dadda_tree_2(0)(12) <= dadda_tree_3(0)(12);
@@ -2372,7 +2369,7 @@ begin
 	);
 
 	dadda_tree_2(3)(15) <= dadda_tree_3(5)(15);
-	dadda_tree_2(0)(16) <= dadda_tree_3(0)(16);
+	dadda_tree_2(2)(16) <= dadda_tree_3(0)(16);
 	dadda_tree_2(0)(17) <= dadda_tree_3(0)(17);
 	dadda_tree_2(1)(17) <= dadda_tree_3(1)(17);
 	dadda_tree_2(0)(18) <= dadda_tree_3(0)(18);
@@ -2413,7 +2410,7 @@ begin
 	);
 
 	dadda_tree_2(3)(21) <= dadda_tree_3(5)(21);
-	dadda_tree_2(0)(22) <= dadda_tree_3(0)(22);
+	dadda_tree_2(2)(22) <= dadda_tree_3(0)(22);
 	dadda_tree_2(0)(23) <= dadda_tree_3(0)(23);
 	dadda_tree_2(1)(23) <= dadda_tree_3(1)(23);
 	dadda_tree_2(2)(23) <= dadda_tree_3(2)(23);
@@ -2458,7 +2455,7 @@ begin
 	);
 
 	dadda_tree_2(3)(29) <= dadda_tree_3(5)(29);
-	dadda_tree_2(0)(30) <= dadda_tree_3(0)(30);
+	dadda_tree_2(2)(30) <= dadda_tree_3(0)(30);
 	dadda_tree_2(0)(31) <= dadda_tree_3(0)(31);
 	dadda_tree_2(1)(31) <= dadda_tree_3(1)(31);
 	dadda_tree_2(2)(31) <= dadda_tree_3(2)(31);
@@ -2512,9 +2509,9 @@ begin
 
 	dadda_tree_2(2)(40) <= dadda_tree_3(2)(40);
 	dadda_tree_2(3)(40) <= dadda_tree_3(3)(40);
-	dadda_tree_2(0)(41) <= dadda_tree_3(0)(41);
-	dadda_tree_2(1)(41) <= dadda_tree_3(1)(41);
-	dadda_tree_2(2)(41) <= dadda_tree_3(2)(41);
+	dadda_tree_2(1)(41) <= dadda_tree_3(0)(41);
+	dadda_tree_2(2)(41) <= dadda_tree_3(1)(41);
+	dadda_tree_2(3)(41) <= dadda_tree_3(2)(41);
 	dadda_tree_2(0)(42) <= dadda_tree_3(0)(42);
 	dadda_tree_2(1)(42) <= dadda_tree_3(1)(42);
 	dadda_tree_2(0)(43) <= dadda_tree_3(0)(43);
@@ -2596,9 +2593,9 @@ begin
 			co => dadda_tree_2(0)(49)
 	);
 	dadda_tree_2(3)(48) <= dadda_tree_3(3)(48);
-	dadda_tree_2(0)(49) <= dadda_tree_3(0)(49);
-	dadda_tree_2(1)(49) <= dadda_tree_3(1)(49);
-	dadda_tree_2(2)(49) <= dadda_tree_3(2)(49);
+	dadda_tree_2(1)(49) <= dadda_tree_3(0)(49);
+	dadda_tree_2(2)(49) <= dadda_tree_3(1)(49);
+	dadda_tree_2(3)(49) <= dadda_tree_3(2)(49);
 	dadda_tree_2(0)(50) <= dadda_tree_3(0)(50);
 	dadda_tree_2(1)(50) <= dadda_tree_3(1)(50);
 	dadda_tree_2(0)(51) <= dadda_tree_3(0)(51);
@@ -2663,9 +2660,9 @@ begin
 
 	dadda_tree_2(2)(60) <= dadda_tree_3(2)(60);
 	dadda_tree_2(3)(60) <= dadda_tree_3(3)(60);
-	dadda_tree_2(0)(61) <= dadda_tree_3(0)(61);
-	dadda_tree_2(1)(61) <= dadda_tree_3(1)(61);
-	dadda_tree_2(2)(61) <= dadda_tree_3(2)(61);
+	dadda_tree_2(1)(61) <= dadda_tree_3(0)(61);
+	dadda_tree_2(2)(61) <= dadda_tree_3(1)(61);
+	dadda_tree_2(3)(61) <= dadda_tree_3(2)(61);
 	dadda_tree_2(0)(62) <= dadda_tree_3(0)(62);
 	dadda_tree_2(1)(62) <= dadda_tree_3(1)(62);
 	dadda_tree_2(2)(62) <= dadda_tree_3(2)(62);
@@ -2700,7 +2697,7 @@ begin
 	);
 
 	dadda_tree_1(2)(5) <= dadda_tree_2(2)(5);
-	dadda_tree_1(0)(6) <= dadda_tree_2(0)(6);
+	dadda_tree_1(1)(6) <= dadda_tree_2(0)(6);
 	dadda_tree_1(0)(7) <= dadda_tree_2(0)(7);
 	dadda_tree_1(1)(7) <= dadda_tree_2(1)(7);
 	dadda_tree_1(0)(8) <= dadda_tree_2(0)(8);
@@ -2717,7 +2714,7 @@ begin
 
 	dadda_tree_1(1)(9) <= dadda_tree_2(2)(9);
 	dadda_tree_1(2)(9) <= dadda_tree_2(3)(9);
-	dadda_tree_1(0)(10) <= dadda_tree_2(0)(10);
+	dadda_tree_1(1)(10) <= dadda_tree_2(0)(10);
 	dadda_tree_1(0)(11) <= dadda_tree_2(0)(11);
 	dadda_tree_1(1)(11) <= dadda_tree_2(1)(11);
 	dadda_tree_1(0)(12) <= dadda_tree_2(0)(12);
@@ -2734,7 +2731,7 @@ begin
 
 	dadda_tree_1(1)(13) <= dadda_tree_2(2)(13);
 	dadda_tree_1(2)(13) <= dadda_tree_2(3)(13);
-	dadda_tree_1(0)(14) <= dadda_tree_2(0)(14);
+	dadda_tree_1(1)(14) <= dadda_tree_2(0)(14);
 	dadda_tree_1(0)(15) <= dadda_tree_2(0)(15);
 	dadda_tree_1(1)(15) <= dadda_tree_2(1)(15);
 	dadda_tree_1(2)(15) <= dadda_tree_2(2)(15);
@@ -2755,7 +2752,7 @@ begin
 
 	dadda_tree_1(1)(19) <= dadda_tree_2(2)(19);
 	dadda_tree_1(2)(19) <= dadda_tree_2(3)(19);
-	dadda_tree_1(0)(20) <= dadda_tree_2(0)(20);
+	dadda_tree_1(1)(20) <= dadda_tree_2(0)(20);
 	dadda_tree_1(0)(21) <= dadda_tree_2(0)(21);
 	dadda_tree_1(1)(21) <= dadda_tree_2(1)(21);
 	dadda_tree_1(2)(21) <= dadda_tree_2(2)(21);
@@ -2780,7 +2777,7 @@ begin
 
 	dadda_tree_1(1)(27) <= dadda_tree_2(2)(27);
 	dadda_tree_1(2)(27) <= dadda_tree_2(3)(27);
-	dadda_tree_1(0)(28) <= dadda_tree_2(0)(28);
+	dadda_tree_1(1)(28) <= dadda_tree_2(0)(28);
 	dadda_tree_1(0)(29) <= dadda_tree_2(0)(29);
 	dadda_tree_1(1)(29) <= dadda_tree_2(1)(29);
 	dadda_tree_1(2)(29) <= dadda_tree_2(2)(29);
@@ -2859,7 +2856,7 @@ begin
 	);
 
 	dadda_tree_1(2)(38) <= dadda_tree_2(2)(38);
-	dadda_tree_1(0)(39) <= dadda_tree_2(0)(39);
+	dadda_tree_1(1)(39) <= dadda_tree_2(0)(39);
 	dadda_tree_1(0)(40) <= dadda_tree_2(0)(40);
 	dadda_tree_1(1)(40) <= dadda_tree_2(1)(40);
 	dadda_tree_1(0)(41) <= dadda_tree_2(0)(41);
@@ -2914,8 +2911,8 @@ begin
 	);
 
 	dadda_tree_1(2)(49) <= dadda_tree_2(2)(49);
-	dadda_tree_1(0)(50) <= dadda_tree_2(0)(50);
-	dadda_tree_1(1)(50) <= dadda_tree_2(1)(50);
+	dadda_tree_1(1)(50) <= dadda_tree_2(0)(50);
+	dadda_tree_1(2)(50) <= dadda_tree_2(1)(50);
 	dadda_tree_1(0)(51) <= dadda_tree_2(0)(51);
 	dadda_tree_1(0)(52) <= dadda_tree_2(0)(52);
 	dadda_tree_1(1)(52) <= dadda_tree_2(1)(52);
@@ -2951,8 +2948,8 @@ begin
 	);
 
 	dadda_tree_1(2)(55) <= dadda_tree_2(2)(55);
-	dadda_tree_1(0)(56) <= dadda_tree_2(0)(56);
-	dadda_tree_1(1)(56) <= dadda_tree_2(1)(56);
+	dadda_tree_1(1)(56) <= dadda_tree_2(0)(56);
+	dadda_tree_1(2)(56) <= dadda_tree_2(1)(56);
 	dadda_tree_1(0)(57) <= dadda_tree_2(0)(57);
 	dadda_tree_1(0)(58) <= dadda_tree_2(0)(58);
 	dadda_tree_1(1)(58) <= dadda_tree_2(1)(58);
@@ -2990,7 +2987,7 @@ begin
 			co => dadda_tree_0(0)(4)
 	);
 
-	dadda_tree_0(0)(4) <= dadda_tree_1(0)(4);
+	dadda_tree_0(1)(4) <= dadda_tree_1(0)(4);
 	dadda_tree_0(0)(5) <= dadda_tree_1(0)(5);
 	dadda_tree_0(1)(5) <= dadda_tree_1(1)(5);
 	dadda_tree_0(0)(6) <= dadda_tree_1(0)(6);
@@ -3006,7 +3003,7 @@ begin
 	);
 
 	dadda_tree_0(1)(8) <= dadda_tree_1(2)(8);
-	dadda_tree_0(0)(9) <= dadda_tree_1(0)(9);
+	dadda_tree_0(1)(9) <= dadda_tree_1(0)(9);
 	dadda_tree_0(0)(10) <= dadda_tree_1(0)(10);
 	dadda_tree_0(0)(11) <= dadda_tree_1(0)(11);
 	dadda_tree_0(1)(11) <= dadda_tree_1(1)(11);
@@ -3020,7 +3017,7 @@ begin
 	);
 
 	dadda_tree_0(1)(12) <= dadda_tree_1(2)(12);
-	dadda_tree_0(0)(13) <= dadda_tree_1(0)(13);
+	dadda_tree_0(1)(13) <= dadda_tree_1(0)(13);
 	dadda_tree_0(0)(14) <= dadda_tree_1(0)(14);
 
 	ha_1_0_15: ha
@@ -3032,7 +3029,7 @@ begin
 	);
 
 	dadda_tree_0(1)(15) <= dadda_tree_1(2)(15);
-	dadda_tree_0(0)(16) <= dadda_tree_1(0)(16);
+	dadda_tree_0(1)(16) <= dadda_tree_1(0)(16);
 	dadda_tree_0(0)(17) <= dadda_tree_1(0)(17);
 	dadda_tree_0(1)(17) <= dadda_tree_1(1)(17);
 
@@ -3045,7 +3042,7 @@ begin
 	);
 
 	dadda_tree_0(1)(18) <= dadda_tree_1(2)(18);
-	dadda_tree_0(0)(19) <= dadda_tree_1(0)(19);
+	dadda_tree_0(1)(19) <= dadda_tree_1(0)(19);
 	dadda_tree_0(0)(20) <= dadda_tree_1(0)(20);
 
 	ha_1_0_21: ha
@@ -3057,7 +3054,7 @@ begin
 	);
 
 	dadda_tree_0(1)(21) <= dadda_tree_1(2)(21);
-	dadda_tree_0(0)(22) <= dadda_tree_1(0)(22);
+	dadda_tree_0(1)(22) <= dadda_tree_1(0)(22);
 
 	ha_1_0_23: ha
 		port map(
@@ -3068,7 +3065,7 @@ begin
 	);
 
 	dadda_tree_0(1)(23) <= dadda_tree_1(2)(23);
-	dadda_tree_0(0)(24) <= dadda_tree_1(0)(24);
+	dadda_tree_0(1)(24) <= dadda_tree_1(0)(24);
 	dadda_tree_0(0)(25) <= dadda_tree_1(0)(25);
 	dadda_tree_0(1)(25) <= dadda_tree_1(1)(25);
 
@@ -3081,7 +3078,7 @@ begin
 	);
 
 	dadda_tree_0(1)(26) <= dadda_tree_1(2)(26);
-	dadda_tree_0(0)(27) <= dadda_tree_1(0)(27);
+	dadda_tree_0(1)(27) <= dadda_tree_1(0)(27);
 	dadda_tree_0(0)(28) <= dadda_tree_1(0)(28);
 
 	ha_1_0_29: ha
@@ -3093,7 +3090,7 @@ begin
 	);
 
 	dadda_tree_0(1)(29) <= dadda_tree_1(2)(29);
-	dadda_tree_0(0)(30) <= dadda_tree_1(0)(30);
+	dadda_tree_0(1)(30) <= dadda_tree_1(0)(30);
 
 	ha_1_0_31: ha
 		port map(
@@ -3104,7 +3101,7 @@ begin
 	);
 
 	dadda_tree_0(1)(31) <= dadda_tree_1(2)(31);
-	dadda_tree_0(0)(32) <= dadda_tree_1(0)(32);
+	dadda_tree_0(1)(32) <= dadda_tree_1(0)(32);
 	dadda_tree_0(0)(33) <= dadda_tree_1(0)(33);
 	dadda_tree_0(1)(33) <= dadda_tree_1(1)(33);
 	dadda_tree_0(0)(34) <= dadda_tree_1(0)(34);
@@ -3148,7 +3145,7 @@ begin
 			co => dadda_tree_0(0)(44)
 	);
 
-	dadda_tree_0(0)(44) <= dadda_tree_1(0)(44);
+	dadda_tree_0(1)(44) <= dadda_tree_1(0)(44);
 
 	ha_1_0_45: ha
 		port map(
@@ -3159,7 +3156,7 @@ begin
 	);
 
 	dadda_tree_0(1)(45) <= dadda_tree_1(2)(45);
-	dadda_tree_0(0)(46) <= dadda_tree_1(0)(46);
+	dadda_tree_0(1)(46) <= dadda_tree_1(0)(46);
 	dadda_tree_0(0)(47) <= dadda_tree_1(0)(47);
 	dadda_tree_0(1)(47) <= dadda_tree_1(1)(47);
 	dadda_tree_0(0)(48) <= dadda_tree_1(0)(48);
@@ -3179,7 +3176,7 @@ begin
 	);
 
 	dadda_tree_0(1)(52) <= dadda_tree_1(2)(52);
-	dadda_tree_0(0)(53) <= dadda_tree_1(0)(53);
+	dadda_tree_0(1)(53) <= dadda_tree_1(0)(53);
 	dadda_tree_0(0)(54) <= dadda_tree_1(0)(54);
 	dadda_tree_0(1)(54) <= dadda_tree_1(1)(54);
 	dadda_tree_0(0)(55) <= dadda_tree_1(0)(55);
@@ -3221,7 +3218,7 @@ begin
 			co => open
 	);
 	dadda_tree_0(1)(1) <= '0';
-	dadda_tree_0(1)(2) <= '0';
+	dadda_tree_0(0)(2) <= '0';
 	dadda_tree_0(1)(4) <= '0';
 	dadda_tree_0(1)(6) <= '0';
 	dadda_tree_0(1)(8) <= '0';
@@ -3255,7 +3252,6 @@ begin
 	dadda_tree_0(1)(52) <= '0';
 	dadda_tree_0(1)(53) <= '0';
 	dadda_tree_0(1)(57) <= '0';
-	dadda_tree_0(1)(61) <= '0';
-
+	dadda_tree_0(0)(61) <= '0';
 
 end architecture structural;
