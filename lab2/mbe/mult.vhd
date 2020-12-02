@@ -20,9 +20,32 @@ architecture structural of mult is
 		);
 	end component mbe;
 
+	component dadda is
+		port (
+			pp0: in std_logic_vector(63 downto 0);
+			pp1: in std_logic_vector(63 downto 0);
+			pp2: in std_logic_vector(63 downto 0);
+			pp3: in std_logic_vector(63 downto 0);
+			pp4: in std_logic_vector(63 downto 0);
+			pp5: in std_logic_vector(63 downto 0);
+			pp6: in std_logic_vector(63 downto 0);
+			pp7: in std_logic_vector(63 downto 0);
+			pp8: in std_logic_vector(63 downto 0);
+			pp9: in std_logic_vector(63 downto 0);
+			pp10: in std_logic_vector(63 downto 0);
+			pp11: in std_logic_vector(63 downto 0);
+			pp12: in std_logic_vector(63 downto 0);
+			pp13: in std_logic_vector(63 downto 0);
+			pp14: in std_logic_vector(63 downto 0);
+			pp15: in std_logic_vector(63 downto 0);
+			pp16: in std_logic_vector(63 downto 0);
+			res: out std_logic_vector(63 downto 0)
+		);
+	end component dadda;
+
 	type pp_arr is array(0 to 16) of std_logic_vector(63 downto 0);
 
-	signal pp,pprova: pp_arr;
+	signal pp: pp_arr;
 	signal s, not_s: std_logic_vector(15 downto 0);
 	signal b_ext: std_logic_vector(34 downto 0);
 	signal p16: std_logic_vector(32 downto 0);
@@ -81,12 +104,34 @@ begin
 		pp(i)((2*i)+33) <= not_s(i);
 		pp(i)((2*i)+34) <= '1';
 
-		lab: if i /= 1 generate
-			pprova(i)(2*i-3 downto 0) <= (others => '1');
-		end generate lab;
+		--lab: if i /= 1 generate
+			--pprova(i)(2*i-3 downto 0) <= (others => '1');
+		--end generate lab;
 		pp(i+1)(2*i) <= s(i);
 	end generate mbe_gen;
 
 	-- Dadda tree
+
+	dadda_tree: dadda
+		port map (
+			pp0 => pp(0),
+			pp1 => pp(1),
+			pp2 => pp(2),
+			pp3 => pp(3),
+			pp4 => pp(4),
+			pp5 => pp(5),
+			pp6 => pp(6),
+			pp7 => pp(7),
+			pp8 => pp(8),
+			pp9 => pp(9),
+			pp10 => pp(10),
+			pp11 => pp(11),
+			pp12 => pp(12),
+			pp13 => pp(13),
+			pp14 => pp(14),
+			pp15 => pp(15),
+			pp16 => pp(16),
+			res => prod
+		);
 	 
 end structural;
