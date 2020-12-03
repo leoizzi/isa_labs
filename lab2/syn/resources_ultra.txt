@@ -3,7 +3,7 @@
 Report : resources
 Design : FPmul
 Version: O-2018.06-SP4
-Date   : Wed Dec  2 20:15:44 2020
+Date   : Thu Dec  3 11:23:19 2020
 ****************************************
 
 
@@ -45,8 +45,8 @@ Implementation Report
 | Cell               | Module           | Implementation     | Implementation |
 ===============================================================================
 | mult_x_19          | DW_mult_uns      | pparch (area,speed)                 |
-|                    |                  | mult_arch: benc_radix4              |
-| add_x_20           | DW01_inc         | pparch (area,speed)                 |
+|                    |                  | mult_arch: benc_radix8              |
+| add_x_20           | DW01_inc         | apparch (area)     |                |
 | add_x_25           | DW01_add         | apparch (area)     |                |
 | add_x_27           | DW01_add         | apparch (area)     |                |
 | DP_OP_46J1_122_7755                   |                    |                |
