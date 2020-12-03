@@ -79,6 +79,16 @@ ARCHITECTURE struct OF FPmul_stage2 IS
    signal curr_isNaN: std_logic;
    signal curr_isZ_tab: std_logic;
 
+   -- multiplier declaration
+   component mult is
+      port (
+         a: in std_logic_vector(31 downto 0);
+         b: in std_logic_vector(31 downto 0);
+         prod: out std_logic_vector(63 downto 0)
+      );
+   end component mult;
+
+
 BEGIN
    -- Architecture concurrent statements
    -- HDL Embedded Text Block 1 sig
@@ -145,12 +155,18 @@ BEGIN
    END PROCESS I4combo;
 
    -- ModuleWare code(v1.1) for instance 'I2' of 'mult'
-   I2combo : PROCESS (A_SIG, B_SIG)
-   VARIABLE dtemp : unsigned(63 DOWNTO 0);
-   BEGIN
-      dtemp := (unsigned(A_SIG) * unsigned(B_SIG));
-      prod <= std_logic_vector(dtemp);
-   END PROCESS I2combo;
+   --I2combo : PROCESS (A_SIG, B_SIG)
+   --VARIABLE dtemp : unsigned(63 DOWNTO 0);
+   --BEGIN
+   --   dtemp := (unsigned(A_SIG) * unsigned(B_SIG));
+   --   prod <= std_logic_vector(dtemp);
+   --END PROCESS I2combo;
+   multiplier: mult
+      port map (
+         a => A_SIG,
+         b => B_SIG,
+         prod => prod
+      );
 
    -- ModuleWare code(v1.1) for instance 'I6' of 'vdd'
    dout <= '1';

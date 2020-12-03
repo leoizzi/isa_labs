@@ -71,11 +71,11 @@ ARCHITECTURE struct OF FPmul_stage2 IS
 
       -- multiplier declaration
    component mult is
-   port (
-      a: in std_logic_vector(31 downto 0);
-      b: in std_logic_vector(31 downto 0);
-      prod: out std_logic_vector(63 downto 0)
-   );
+      port (
+         a: in std_logic_vector(31 downto 0);
+         b: in std_logic_vector(31 downto 0);
+         prod: out std_logic_vector(63 downto 0)
+      );
    end component mult;
 
 
