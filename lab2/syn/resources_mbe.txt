@@ -3,7 +3,7 @@
 Report : resources
 Design : FPmul
 Version: O-2018.06-SP4
-Date   : Thu Dec  3 17:51:46 2020
+Date   : Thu Dec  3 21:21:54 2020
 ****************************************
 
 Resource Sharing Report for design FPmul in file
@@ -13,12 +13,11 @@ Resource Sharing Report for design FPmul in file
 |          |              |            | Contained     |                      |
 | Resource | Module       | Parameters | Resources     | Contained Operations |
 ===============================================================================
-| r343     | DW01_add     | width=8    |               | add_1_root_I2/add_143_2 |
-| r347     | DW01_inc     | width=25   |               | I3/I11/add_45        |
-| r349     | DW01_add     | width=8    |               | I3/I9/add_41_aco     |
-| r351     | DW01_add     | width=8    |               | I4/I1/add_41_aco     |
-| r931     | DW_mult_uns  | a_width=32 |               | I2/mult_151          |
-|          |              | b_width=32 |               |                      |
+| r377     | DW01_add     | width=8    |               | add_1_root_I2/add_134_2 |
+| r379     | DW01_add     | width=64   |               | I2/multiplier/dadda_tree/add_82 |
+| r381     | DW01_inc     | width=25   |               | I3/I11/add_45        |
+| r383     | DW01_add     | width=8    |               | I3/I9/add_41_aco     |
+| r385     | DW01_add     | width=8    |               | I4/I1/add_41_aco     |
 ===============================================================================
 
 
@@ -27,11 +26,11 @@ Implementation Report
 |                    |                  | Current            | Set            |
 | Cell               | Module           | Implementation     | Implementation |
 ===============================================================================
-| I2/mult_151        | DW_mult_uns      | pparch (area,speed)                 |
-|                    |                  | mult_arch: benc_radix4              |
-| I3/I11/add_45      | DW01_inc         | pparch (area,speed)                 |
-| add_1_root_I2/add_143_2               |                    |                |
+| I2/multiplier/dadda_tree/add_82       |                    |                |
+|                    | DW01_add         | pparch (area,speed)                 |
+| add_1_root_I2/add_134_2               |                    |                |
 |                    | DW01_add         | rpl                |                |
+| I3/I11/add_45      | DW01_inc         | rpl                |                |
 ===============================================================================
 
 1

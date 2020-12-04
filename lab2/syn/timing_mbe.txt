@@ -1,0 +1,109 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : FPmul
+Version: O-2018.06-SP4
+Date   : Thu Dec  3 21:21:57 2020
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: I1/B_SIG_reg[5]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: I2/SIG_in_reg[27]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  FPmul              5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  I1/B_SIG_reg[5]/CK (DFF_X1)                             0.00       0.00 r
+  I1/B_SIG_reg[5]/QN (DFF_X1)                             0.09       0.09 r
+  U4972/ZN (XNOR2_X1)                                     0.07       0.17 r
+  U4700/ZN (INV_X1)                                       0.05       0.21 f
+  U4341/ZN (INV_X1)                                       0.04       0.25 r
+  U4342/ZN (INV_X2)                                       0.05       0.30 f
+  U6502/ZN (OAI22_X1)                                     0.08       0.38 r
+  U6503/Z (XOR2_X1)                                       0.08       0.46 r
+  U6504/ZN (INV_X1)                                       0.02       0.48 f
+  U4190/ZN (OR2_X1)                                       0.05       0.53 f
+  U4191/ZN (NAND2_X1)                                     0.03       0.57 r
+  U4231/ZN (XNOR2_X1)                                     0.06       0.63 r
+  U4775/ZN (XNOR2_X1)                                     0.06       0.70 r
+  U4163/Z (XOR2_X1)                                       0.07       0.77 r
+  U4162/ZN (XNOR2_X1)                                     0.07       0.84 r
+  U4404/ZN (XNOR2_X1)                                     0.07       0.91 r
+  U4403/ZN (XNOR2_X1)                                     0.06       0.98 r
+  I2/multiplier/dadda_tree/add_82/B[17] (FPmul_DW01_add_4)
+                                                          0.00       0.98 r
+  I2/multiplier/dadda_tree/add_82/U396/ZN (NOR2_X1)       0.03       1.00 f
+  I2/multiplier/dadda_tree/add_82/U441/ZN (OAI21_X1)      0.04       1.05 r
+  I2/multiplier/dadda_tree/add_82/U423/ZN (AOI21_X1)      0.03       1.08 f
+  I2/multiplier/dadda_tree/add_82/U439/ZN (OAI21_X1)      0.04       1.12 r
+  I2/multiplier/dadda_tree/add_82/U449/ZN (AOI21_X1)      0.03       1.14 f
+  I2/multiplier/dadda_tree/add_82/U469/ZN (OAI21_X1)      0.05       1.19 r
+  I2/multiplier/dadda_tree/add_82/U291/ZN (AOI21_X1)      0.03       1.22 f
+  I2/multiplier/dadda_tree/add_82/U470/ZN (OAI21_X1)      0.05       1.27 r
+  I2/multiplier/dadda_tree/add_82/U287/ZN (AOI21_X1)      0.03       1.30 f
+  I2/multiplier/dadda_tree/add_82/U465/ZN (OAI21_X1)      0.05       1.35 r
+  I2/multiplier/dadda_tree/add_82/U282/ZN (AOI21_X1)      0.03       1.38 f
+  I2/multiplier/dadda_tree/add_82/U433/ZN (OAI21_X1)      0.05       1.42 r
+  I2/multiplier/dadda_tree/add_82/U280/ZN (AOI21_X1)      0.03       1.45 f
+  I2/multiplier/dadda_tree/add_82/U436/ZN (OAI21_X1)      0.05       1.50 r
+  I2/multiplier/dadda_tree/add_82/U288/ZN (AOI21_X1)      0.03       1.53 f
+  I2/multiplier/dadda_tree/add_82/U468/ZN (OAI21_X1)      0.05       1.58 r
+  I2/multiplier/dadda_tree/add_82/U284/ZN (AOI21_X1)      0.03       1.61 f
+  I2/multiplier/dadda_tree/add_82/U463/ZN (OAI21_X1)      0.05       1.66 r
+  I2/multiplier/dadda_tree/add_82/U292/ZN (AOI21_X1)      0.03       1.69 f
+  I2/multiplier/dadda_tree/add_82/U444/ZN (OAI21_X1)      0.05       1.73 r
+  I2/multiplier/dadda_tree/add_82/U294/ZN (AOI21_X1)      0.04       1.77 f
+  I2/multiplier/dadda_tree/add_82/U224/ZN (OAI21_X1)      0.05       1.82 r
+  I2/multiplier/dadda_tree/add_82/U238/ZN (NAND2_X1)      0.03       1.85 f
+  I2/multiplier/dadda_tree/add_82/U240/ZN (NAND3_X1)      0.04       1.89 r
+  I2/multiplier/dadda_tree/add_82/U221/ZN (NAND2_X1)      0.04       1.92 f
+  I2/multiplier/dadda_tree/add_82/U223/ZN (NAND3_X1)      0.04       1.96 r
+  I2/multiplier/dadda_tree/add_82/U406/ZN (NAND2_X1)      0.03       1.99 f
+  I2/multiplier/dadda_tree/add_82/U252/ZN (NAND3_X1)      0.04       2.03 r
+  I2/multiplier/dadda_tree/add_82/U413/ZN (NAND2_X1)      0.04       2.06 f
+  I2/multiplier/dadda_tree/add_82/U243/ZN (NAND3_X1)      0.03       2.10 r
+  I2/multiplier/dadda_tree/add_82/U263/ZN (NAND2_X1)      0.03       2.13 f
+  I2/multiplier/dadda_tree/add_82/U266/ZN (NAND3_X1)      0.04       2.17 r
+  I2/multiplier/dadda_tree/add_82/U276/ZN (NAND2_X1)      0.04       2.20 f
+  I2/multiplier/dadda_tree/add_82/U278/ZN (NAND3_X1)      0.03       2.24 r
+  I2/multiplier/dadda_tree/add_82/U248/ZN (NAND2_X1)      0.03       2.27 f
+  I2/multiplier/dadda_tree/add_82/U227/ZN (NAND3_X1)      0.04       2.30 r
+  I2/multiplier/dadda_tree/add_82/U257/ZN (NAND2_X1)      0.03       2.34 f
+  I2/multiplier/dadda_tree/add_82/U259/ZN (NAND3_X1)      0.04       2.37 r
+  I2/multiplier/dadda_tree/add_82/U269/ZN (NAND2_X1)      0.03       2.40 f
+  I2/multiplier/dadda_tree/add_82/U272/ZN (NAND3_X1)      0.03       2.43 r
+  I2/multiplier/dadda_tree/add_82/U360/ZN (XNOR2_X1)      0.05       2.48 r
+  I2/multiplier/dadda_tree/add_82/SUM[47] (FPmul_DW01_add_4)
+                                                          0.00       2.48 r
+  I2/SIG_in_reg[27]/D (DFF_X1)                            0.01       2.49 r
+  data arrival time                                                  2.49
+
+  clock my_clk (rise edge)                                2.60       2.60
+  clock network delay (ideal)                             0.00       2.60
+  clock uncertainty                                      -0.07       2.53
+  I2/SIG_in_reg[27]/CK (DFF_X1)                           0.00       2.53 r
+  library setup time                                     -0.03       2.50
+  data required time                                                 2.50
+  --------------------------------------------------------------------------
+  data required time                                                 2.50
+  data arrival time                                                 -2.49
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

@@ -3,7 +3,7 @@
 Report : area
 Design : FPmul
 Version: O-2018.06-SP4
-Date   : Thu Dec  3 11:23:21 2020
+Date   : Thu Dec  3 18:11:41 2020
 ****************************************
 
 Library(s) Used:

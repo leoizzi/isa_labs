@@ -1,9 +1,13 @@
+Information: Building the design 'mult'. (HDL-193)
+Warning: Cannot find the design 'mult' in the library 'WORK'. (LBR-1)
+Warning: Unable to resolve reference 'mult' in 'FPmul'. (LINK-5)
+Warning: Design 'FPmul' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
  
 ****************************************
 Report : resources
 Design : FPmul
 Version: O-2018.06-SP4
-Date   : Thu Dec  3 18:11:39 2020
+Date   : Thu Dec  3 22:29:47 2020
 ****************************************
 
 
@@ -12,21 +16,19 @@ Resource Report for this hierarchy in file
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
-| mult_x_19      | DW_mult_uns    | a_width=32 | I2/mult_151 (fpmul_stage2_struct_reg.vhd:151) |
-               | b_width=32 |                            |
-| add_x_20       | DW01_inc       | width=25   | I3/I11/add_45 (fpround_fpround.vhd:45) |
-| add_x_25       | DW01_add       | width=8    | I3/I9/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
-| add_x_27       | DW01_add       | width=8    | I4/I1/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
-| DP_OP_46J1_122_7755             |            |                            |
-|                | DP_OP_46J1_122_7755 |       |                            |
+| add_x_19       | DW01_inc       | width=25   | I3/I11/add_45 (fpround_fpround.vhd:45) |
+| add_x_24       | DW01_add       | width=8    | I3/I9/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
+| add_x_26       | DW01_add       | width=8    | I4/I1/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
+| DP_OP_45J1_122_7755             |            |                            |
+|                | DP_OP_45J1_122_7755 |       |                            |
 =============================================================================
 
-Datapath Report for DP_OP_46J1_122_7755
+Datapath Report for DP_OP_45J1_122_7755
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_46J1_122_7755  | I2/add_143 (fpmul_stage2_struct_reg.vhd:143)        |
-|                      | I2/add_143_2 (fpmul_stage2_struct_reg.vhd:143)      |
+| DP_OP_45J1_122_7755  | I2/add_153 (fpmul_stage2_struct_reg_mod.vhd:153)    |
+|                      | I2/add_153_2 (fpmul_stage2_struct_reg_mod.vhd:153)  |
 ==============================================================================
 
 ==============================================================================
@@ -35,7 +37,7 @@ Datapath Report for DP_OP_46J1_122_7755
 ==============================================================================
 | I1    | PI   | Unsigned | 8     |                                          |
 | I2    | PI   | Unsigned | 8     |                                          |
-| O1    | PO   | Unsigned | 8     | I1 + I2 + $unsigned(1'b1) (fpmul_stage2_struct_reg.vhd:143) |
+| O1    | PO   | Unsigned | 8     | I1 + I2 + $unsigned(1'b1) (fpmul_stage2_struct_reg_mod.vhd:153) |
 ==============================================================================
 
 
@@ -44,13 +46,11 @@ Implementation Report
 |                    |                  | Current            | Set            |
 | Cell               | Module           | Implementation     | Implementation |
 ===============================================================================
-| mult_x_19          | DW_mult_uns      | pparch (area,speed)                 |
-|                    |                  | mult_arch: benc_radix8              |
-| add_x_20           | DW01_inc         | apparch (area)     |                |
-| add_x_25           | DW01_add         | apparch (area)     |                |
-| add_x_27           | DW01_add         | apparch (area)     |                |
-| DP_OP_46J1_122_7755                   |                    |                |
-|                    | DP_OP_46J1_122_7755 | str (area)      |                |
+| add_x_19           | DW01_inc         | pparch (area,speed)                 |
+| add_x_24           | DW01_add         | apparch (area)     |                |
+| add_x_26           | DW01_add         | apparch (area)     |                |
+| DP_OP_45J1_122_7755                   |                    |                |
+|                    | DP_OP_45J1_122_7755 | str (area)      |                |
 ===============================================================================
 
 1
