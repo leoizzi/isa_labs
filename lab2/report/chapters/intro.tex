@@ -1,10 +1,18 @@
 \chapter{Introduction}
 
-Our assignment was to implement a 2nd order IIR filter on 12 bits. For this architecture we have implemented, as required,
-first a Matlab model, then a C model and finally the actual VHDL model.
-A note on the filter order: to obtain its value we have considered the space character in "Dai Pr\`a".
+The lab 2 assignment consisted in various synthesis experiments on a floating point multiplier and in the development of a unsigned integer multiplier,
+based on the Booth's algorithm and Dadda's tree, to be used within the floating point multiplier.
 
-As required, we have also created a GitHub repository, available at the following link: \url{https://github.com/leoizzi/isa_labs/tree/main/lab1}.
+As required, there is a GitHub repository available at the following link: \url{https://github.com/leoizzi/isa_labs/tree/main/lab2}.
 
-The folders are organized as follows: in \verb|isa_labs/lab1| there are \verb|iir| and \verb|iir_opt|. The former contains the Matlab model, C model
-and VHDL model of the standard IIR, while the latter contains the C model and the VHDL model of the improved filter.
+The folders are organized as follows:
+
+\begin{itemize}
+    \item \verb|fpuvhdl|, the folder containing all the VHDL files of both the floating point and integer unsigned multipliers.
+    \item \verb|lab2_report.pdf|, this file.
+    \item \verb|report|, the folder containing the Latex files of the report.
+    \item \verb|sim|, the folder where all the simulation scripts are stored.
+    \item \verb|syn|, the folder where all the synthesis script, as well as the reports, are saved.
+    \item \verb|tb|, the folder containing the testbench files.
+    \item \verb|dadda.py|, a python script that generates the VHDL instantiation of the Dadda tree.
+\end{itemize}
