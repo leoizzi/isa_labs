@@ -1,1 +1,10 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [0][-]{chapter.2}{FP Multiplier}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Model Verification}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Synthesis}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Fine-grain Pipelining and Optimization}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{MBE Multiplier}{}% 6
+\BOOKMARK [1][-]{section.3.1}{MBE Implementation}{chapter.3}% 7
+\BOOKMARK [2][-]{subsection.3.1.1}{Partial Products Generation}{section.3.1}% 8
+\BOOKMARK [2][-]{subsection.3.1.2}{Dadda Tree}{section.3.1}% 9
+\BOOKMARK [1][-]{section.3.2}{Synthesis}{chapter.3}% 10

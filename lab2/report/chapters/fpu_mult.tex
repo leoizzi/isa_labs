@@ -1,0 +1,63 @@
+\chapter{FP Multiplier}
+
+\section{Model Verification}
+
+Before starting any work on the multiplier, we verified that it was working as intended.
+Hence, we have created a file called \verb|tb_fpumult.vhd|, where the DUT computes the
+square of the numbers stored in \verb|fp_samples.hex| and the result is compared against the
+values stored in \verb|fp_prod.hex|.
+Then, we added the required input registers and we have verified again that the results were correct.
+
+\section{Synthesis}
+
+We have performed various synthesis to analyze the differences between various implementations and constraints.
+To do this, we have written three different synthesis scripts, that are \verb|syn_script.tcl|, \verb|syn_script_csa.tcl|
+and \verb|syn_script_pparch.tcl|. The first one synthesizes the multiplier by leaving all the implementation choices to
+the Synopsys' tool, while the second forces the usage of CSA-based multipliers and the last one the usage of parallel-prefix based
+multipliers. The asked results are shown in table \ref{tab:ex1}.
+
+\begin{center}
+    \label{tab:ex1}
+    \begin{tabular}{ |c|c|c| }
+        \hline
+        Multiplier architecture & $T_{ck}$ & Area \\
+        \hline
+        Chosen by the synthesizer & $1.6\ ns$ & $3999.04\ \mu m^2$ \\
+        \hline
+        CSA & $4.6\ ns$ & $4807.68\ \mu m^2$ \\
+        \hline
+        PPArch & $4.5\ ns$ & $3734.91\ \mu m^2$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Performance is remarkable when the synthesizer is allowed to choose the implementations by itself. By looking at
+the resources' report the synthesizer chooses the parallel prefix multiplier, although it is optimized differently
+in respect to the one used in the synthesis done with \verb|syn_script_pparch.tcl|. In fact, the former is optimized
+for both area and speed, while the latter only for area. However, for an increase of about only $7\%$ in area we obtain
+a performance boost of $65\%$, hence in a real application there is no doubt in the implementation we would choose.
+
+\section{Fine-grain Pipelining and Optimization}
+
+We added, as asked, the register after the significands' multiplier in the second stage, as well as all the required registers
+to maintain the correct timing. We verified the correctness of the updated design with the \verb|tb_fpumult_reg.vhd| testbench.
+Then we have run two synthesis, one with the \verb|compile_ultra| command (\verb|syn_script_comp_ultra.tcl|) and one with a simple
+\verb|compile| and the \verb|optimize_registers| (\verb|syn_script_opt_reg.tcl|). The results are summarized in table \ref{tab:ex1.1}.
+
+\begin{center}
+    \label{tab:ex1.1}
+    \begin{tabular}{ |c|c|c| }
+        \hline
+        Synthesis commands & $T_{ck}$ & Area \\
+        \hline
+        \verb|compile + optimize_register| & $0.8\ ns$ & $4969.41\ \mu m^2$ \\
+        \hline
+        \verb|compile_ultra| & $1.5\ ns$ & $4216.1\ \mu m^2$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+The synthesis with retiming reaches double the frequency of both the one done with the \verb|compile| in the previous section and the one
+done with the \verb|compile_ultra|. This shows the value of the optimization techniques we have studied. However, it suffers of an area
+increase with respect to the \verb|compile_ultra| synthesis, since it probably adds more registers due to the non-negative register count
+on the graph's arcs. Nevertheless, its speed is outstanding.

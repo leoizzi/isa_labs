@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.25)  5 DEC 2020 15:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.25)  5 DEC 2020 16:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -359,7 +359,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-<./logopoli.jpg, id=8, 573.8238pt x 565.1514pt>
+<./logopoli.jpg, id=44, 573.8238pt x 565.1514pt>
 File: ./logopoli.jpg Graphic file (type jpg)
 <use ./logopoli.jpg>
 Package pdftex.def Info: ./logopoli.jpg  used on input line 119.
@@ -368,7 +368,15 @@ Package pdftex.def Info: ./logopoli.jpg  used on input line 119.
 
 
 
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map} </Users/leonardoizzi/isa_labs/lab2/report/./logopoli.jpg>] (/Users/leonardoizzi/isa_labs/lab2/report/homebook.toc)
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map} </Users/leonardoizzi/isa_labs/lab2/report/./logopoli.jpg>] (/Users/leonardoizzi/isa_labs/lab2/report/homebook.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+))
 \tf@toc=\write6
 \openout6 = `homebook.toc'.
 
@@ -382,40 +390,41 @@ l.154 \mainmatter
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (/Users/leonardoizzi/isa_labs/lab2/report/./chapters/intro.tex
 Chapter 1.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
- (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 165.
- [1
+) (/Users/leonardoizzi/isa_labs/lab2/report/./chapters/fpu_mult.tex [1
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 165.
+Chapter 2.
+[2
+
+]) (/Users/leonardoizzi/isa_labs/lab2/report/./chapters/mbe_mult.tex [3]
+Chapter 3.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 167.
+ [4
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 167.
  (/Users/leonardoizzi/isa_labs/lab2/report/homebook.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 165.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 165.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 167.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 167.
 Package rerunfilecheck Info: File `homebook.out' has not changed.
-(rerunfilecheck)             Checksum: 801D62DD1A15D68C626BAEEC19C65BEA;47.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 165.
+(rerunfilecheck)             Checksum: 148BEB3A7ECDD4470DE068C689A486E7;610.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 167.
  ) 
 Here is how much of TeX's memory you used:
- 9104 strings out of 480608
- 133649 string characters out of 5903630
- 595636 words of memory out of 5000000
- 24824 multiletter control sequences out of 15000+600000
- 536970 words of font info for 42 fonts, out of 8000000 for 9000
+ 9144 strings out of 480608
+ 134376 string characters out of 5903630
+ 598828 words of memory out of 5000000
+ 24846 multiletter control sequences out of 15000+600000
+ 537882 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,4n,45p,288b,346s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on /Users/leonardoizzi/isa_labs/lab2/report/homebook.pdf (3 pages, 299683 bytes).
+ 34i,10n,45p,266b,391s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on /Users/leonardoizzi/isa_labs/lab2/report/homebook.pdf (6 pages, 340867 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 48 compressed objects within 1 object stream
- 5 named destinations out of 1000 (max. 500000)
- 14 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 138 PDF objects out of 1000 (max. 8388607)
+ 116 compressed objects within 2 object streams
+ 17 named destinations out of 1000 (max. 500000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 
