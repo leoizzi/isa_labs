@@ -36,7 +36,7 @@ begin
 				b <= std_logic_vector(to_unsigned(j, 32));
 				prod_exp <= std_logic_vector(to_unsigned(i, 32)*to_unsigned(j, 32));
 				wait for 1 ns;
-				assert (prod = prod_exp) report "FANCULO PORCAMADONNA" severity FAILURE;
+				assert (prod = prod_exp) report "Failed to compute the product" severity FAILURE;
 				m := m+j*7;
 			end loop;
 
