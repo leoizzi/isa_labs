@@ -2,8 +2,53 @@
 
 \section{MBE Implementation}
 
-\subsection{Partial Products Generation}
+We have implemented an unsigned integer multiplier using the radix-4 Modified Booth's Encoding.
+We generate the partial products as shown in \verb|modified-booth.pdf| without using any adder/subtractor.
+To reduce the height of the partial products' tree (and hence the number of HAs and FAs used) we have
+organized the bits as explained in \verb|sign_extension_booth_multiplier_Stanford.pdf|.
+Unfortunately, to us this structure seems to be not very regular from the perspective of the Dadda tree implementation,
+in fact we have found difficulties in writing the algorithm by exploiting the \verb|for generate| statement.
+Writing the whole tree by hand was not an option neither due to the tree size, therefore we have developed
+a Python script that generates the tree in VHDL by using only wire connections and FAs and HAs instantiations.
 
 \subsection{Dadda Tree}
 
+The Python script is fairly easy: first, with the function \verb|gen_start_matrix| the initial partial products
+matrix is generated. With a 1 we indicate that in position $(i, j)$ a dot is present, with a 0 the opposite.
+Then, with the function \verb|count_levels| we calculate how many levels the Dadda tree has, given the
+number of partial products, and how many dots are allowed in a column for each level.
+
+After, we generate an array for each level where we keep the count of how many dots have been placed for each column.
+This is used to find out when a HA or a FA must be instantiated. This is accompanied by a matrix per level that has
+been used for debugging purposes and, in the last tree level, to find out where a ground connection must be placed.
+
+The main algorithm works as follow:
+
+\begin{itemize}
+    \item For each tree level $l$ it passes over all the column of \verb|cnt_matrix[l]|
+    \item It computes the difference between how many dots are present in the j-column (that is, the dots present in the current column of the current level), plus the the eventual carries coming from the FAs and HAs of the column $j-1$) and minus the maximum number of dots allowed in the next level.
+    \item If $diff \leq 0$ all the dots can be simply propagated to the next level, otherwise HAs and/or FAs must be allocated.
+    \item The allocation process first tries to add as many FAs as possible, then it tries to allocate as many HAs as needed. All the remaining dots (if any) are then propagated to the next level.
+\end{itemize}
+
+The script outputs on a file the VHDL instantiation, which has been directly copied in \verb|dadda.vhd|, since we used an entity to encapsulate the auto-generated code. 
+
 \section{Synthesis}
+
+We performed synthesis with \verb|compile|, \verb|compile_ultra| and \verb|compile + optimize_registers|. The results are summarized
+in table \ref{tab:ex2}.
+
+\begin{center}
+    \label{tab:ex2}
+    \begin{tabular}{ |c|c|c| }
+        \hline
+        Synthesis commands & $T_{ck}$ & Area \\
+        \hline
+        \verb|compile| & $2.6\ ns$ & $5497.42\ \mu m^2$ \\
+        \hline
+        \verb|compile_ultra| & $0.7\ ns$ & $\ \mu m^2$ \\
+        \hline
+        \verb|compile + optimize_register| & $0.8\ ns$ & $4969.41\ \mu m^2$ \\
+        \hline
+    \end{tabular}
+\end{center}
