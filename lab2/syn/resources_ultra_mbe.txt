@@ -1,13 +1,9 @@
-Information: Building the design 'mult'. (HDL-193)
-Warning: Cannot find the design 'mult' in the library 'WORK'. (LBR-1)
-Warning: Unable to resolve reference 'mult' in 'FPmul'. (LINK-5)
-Warning: Design 'FPmul' has '1' unresolved references. For more detailed information, use the "link" command. (UID-341)
  
 ****************************************
 Report : resources
 Design : FPmul
 Version: O-2018.06-SP4
-Date   : Thu Dec  3 22:29:47 2020
+Date   : Mon Dec  7 12:54:22 2020
 ****************************************
 
 
@@ -16,18 +12,19 @@ Resource Report for this hierarchy in file
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================
-| add_x_19       | DW01_inc       | width=25   | I3/I11/add_45 (fpround_fpround.vhd:45) |
-| add_x_24       | DW01_add       | width=8    | I3/I9/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
-| add_x_26       | DW01_add       | width=8    | I4/I1/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
-| DP_OP_45J1_122_7755             |            |                            |
-|                | DP_OP_45J1_122_7755 |       |                            |
+| add_x_53       | DW01_add       | width=64   | I2/multiplier/dadda_tree/add_82 (dadda.vhd:82) |
+| add_x_54       | DW01_inc       | width=25   | I3/I11/add_45 (fpround_fpround.vhd:45) |
+| add_x_59       | DW01_add       | width=8    | I3/I9/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
+| add_x_61       | DW01_add       | width=8    | I4/I1/add_41_aco (fpnormalize_fpnormalize.vhd:41) |
+| DP_OP_83J1_122_7755             |            |                            |
+|                | DP_OP_83J1_122_7755 |       |                            |
 =============================================================================
 
-Datapath Report for DP_OP_45J1_122_7755
+Datapath Report for DP_OP_83J1_122_7755
 ==============================================================================
 | Cell                 | Contained Operations                                |
 ==============================================================================
-| DP_OP_45J1_122_7755  | I2/add_153 (fpmul_stage2_struct_reg_mod.vhd:153)    |
+| DP_OP_83J1_122_7755  | I2/add_153 (fpmul_stage2_struct_reg_mod.vhd:153)    |
 |                      | I2/add_153_2 (fpmul_stage2_struct_reg_mod.vhd:153)  |
 ==============================================================================
 
@@ -46,11 +43,12 @@ Implementation Report
 |                    |                  | Current            | Set            |
 | Cell               | Module           | Implementation     | Implementation |
 ===============================================================================
-| add_x_19           | DW01_inc         | pparch (area,speed)                 |
-| add_x_24           | DW01_add         | apparch (area)     |                |
-| add_x_26           | DW01_add         | apparch (area)     |                |
-| DP_OP_45J1_122_7755                   |                    |                |
-|                    | DP_OP_45J1_122_7755 | str (area)      |                |
+| add_x_53           | DW01_add         | pparch (area,speed)                 |
+| add_x_54           | DW01_inc         | apparch (area)     |                |
+| add_x_59           | DW01_add         | apparch (area)     |                |
+| add_x_61           | DW01_add         | apparch (area)     |                |
+| DP_OP_83J1_122_7755                   |                    |                |
+|                    | DP_OP_83J1_122_7755 | str (area)      |                |
 ===============================================================================
 
 1
