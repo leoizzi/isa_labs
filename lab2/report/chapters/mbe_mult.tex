@@ -19,16 +19,16 @@ Then, with the function \verb|count_levels| we calculate how many levels the Dad
 number of partial products, and how many dots are allowed in a column for each level.
 
 After, we generate an array for each level where we keep the count of how many dots have been placed for each column.
-This is used to find out when a HA or a FA must be instantiated. This is accompanied by a matrix per level that has
+This is used to find out when a HA or a FA must be instantiated. This is accompanied by a per-level matrix that has
 been used for debugging purposes and, in the last tree level, to find out where a ground connection must be placed.
 
 The main algorithm works as follow:
 
 \begin{itemize}
     \item For each tree level $l$ it passes over all the column of \verb|cnt_matrix[l]|
-    \item It computes the difference between how many dots are present in the j-column (that is, the dots present in the current column of the current level), plus the the eventual carries coming from the FAs and HAs of the column $j-1$) and minus the maximum number of dots allowed in the next level.
+    \item It computes the difference between how many dots are present in the j-th column (that is, the dots present in the current column of the current level), plus the eventual carries coming from the FAs and HAs of the column $j-1$) and minus the maximum number of dots allowed in the next level.
     \item If $diff \leq 0$ all the dots can be simply propagated to the next level, otherwise HAs and/or FAs must be allocated.
-    \item The allocation process first tries to add as many FAs as possible, then it tries to allocate as many HAs as needed. All the remaining dots (if any) are then propagated to the next level.
+    \item The allocation process first tries to add as many FAs as possible, then it tries to allocate as many HAs as needed. This works because if $diff \geq 2$ a higher compression is required, hence it is cheaper in terms of HW to insert FAs. All the remaining dots (if any) are then propagated to the next level.
 \end{itemize}
 
 The script outputs on a file the VHDL instantiation, which has been directly copied in \verb|dadda.vhd|, since we used an entity to encapsulate the auto-generated code. 
@@ -38,17 +38,29 @@ The script outputs on a file the VHDL instantiation, which has been directly cop
 We performed synthesis with \verb|compile|, \verb|compile_ultra| and \verb|compile + optimize_registers|. The results are summarized
 in table \ref{tab:ex2}.
 
-\begin{center}
-    \label{tab:ex2}
+\begin{table}[!ht]
+    \centering
     \begin{tabular}{ |c|c|c| }
         \hline
         Synthesis commands & $T_{ck}$ & Area \\
         \hline
         \verb|compile| & $2.6\ ns$ & $5497.42\ \mu m^2$ \\
         \hline
-        \verb|compile_ultra| & $0.7\ ns$ & $\ \mu m^2$ \\
+        \verb|compile_ultra| & $1.6\ ns$ & $5359.37\ \mu m^2$ \\
         \hline
-        \verb|compile + optimize_register| & $0.8\ ns$ & $4969.41\ \mu m^2$ \\
+        \verb|compile + optimize_register| & $0.8\ ns$ & $8050.22\ \mu m^2$ \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{MBE synthesis results}
+    \label{tab:ex2}
+\end{table}
+
+As it can be seen, the \verb|compile + optimize_register| still delivers the best result in term of timing. However, this time it comes with a non negligible area increase with respect to the \verb|compile_ultra|:
+in fact, for a $50\%$ speed-up the area increases by $33\%$.
+
+If we compare the results with the ones shown in table \ref{tab:ex1.1}, we can see that timing performance is similar, however the area has increased, especially in the \verb|compile + optimize_register| case.
+
+\section{Conclusions}
+
+Given these results, it seems advantageous to let the synthesizer choose the architecture when using a standard \verb|compile| command.
+However, when the best performance are required and area does not matter using the \verb|optimize_registers| command results in outstanding clock periods, unmatched even by the \verb|compile_ultra|. 

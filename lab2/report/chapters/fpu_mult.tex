@@ -16,8 +16,8 @@ and \verb|syn_script_pparch.tcl|. The first one synthesizes the multiplier by le
 the Synopsys' tool, while the second forces the usage of CSA-based multipliers and the last one the usage of parallel-prefix based
 multipliers. The asked results are shown in table \ref{tab:ex1}.
 
-\begin{center}
-    \label{tab:ex1}
+\begin{table}[!ht]
+    \centering
     \begin{tabular}{ |c|c|c| }
         \hline
         Multiplier architecture & $T_{ck}$ & Area \\
@@ -29,7 +29,9 @@ multipliers. The asked results are shown in table \ref{tab:ex1}.
         PPArch & $4.5\ ns$ & $3734.91\ \mu m^2$ \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Results for different architectures}
+    \label{tab:ex1}
+\end{table}
 
 Performance is remarkable when the synthesizer is allowed to choose the implementations by itself. By looking at
 the resources' report the synthesizer chooses the parallel prefix multiplier, although it is optimized differently
@@ -44,8 +46,8 @@ to maintain the correct timing. We verified the correctness of the updated desig
 Then we have run two synthesis, one with the \verb|compile_ultra| command (\verb|syn_script_comp_ultra.tcl|) and one with a simple
 \verb|compile| and the \verb|optimize_registers| (\verb|syn_script_opt_reg.tcl|). The results are summarized in table \ref{tab:ex1.1}.
 
-\begin{center}
-    \label{tab:ex1.1}
+\begin{table}[!ht]
+    \centering
     \begin{tabular}{ |c|c|c| }
         \hline
         Synthesis commands & $T_{ck}$ & Area \\
@@ -55,7 +57,9 @@ Then we have run two synthesis, one with the \verb|compile_ultra| command (\verb
         \verb|compile_ultra| & $1.5\ ns$ & $4216.1\ \mu m^2$ \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Results for different optimization techniques}
+    \label{tab:ex1.1}
+\end{table}
 
 The synthesis with retiming reaches double the frequency of both the one done with the \verb|compile| in the previous section and the one
 done with the \verb|compile_ultra|. This shows the value of the optimization techniques we have studied. However, it suffers of an area
