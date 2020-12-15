@@ -15,14 +15,15 @@ entity if_stage is
 		rst: in std_logic;
 
 		target_pc: in std_logic_vector(N-1 downto 0); -- target address coming from the alu
-		pc_sel: in std_logic; -- PC selector
+		pc_sel: in std_logic; -- PC selector: 0 to choose PC+4, 1 to choose the target address
 		pc_en: in std_logic;
 
 		-- ROM interface
 		address: out std_logic_vector(N-1 downto 0); -- address of the instruction to be loaded from the ROM
 
 		-- output to be saved in the pipeline registers
-		next_pc: out std_logic_vector(N-1 downto 0)
+		pc: out std_logic_vector(N-1 downto 0); -- current PC
+		npc: out std_logic_vector(N-1 downto 0) -- PC+4
 
 	);
 end if_stage;
@@ -65,7 +66,7 @@ architecture struct of if_stage is
 	end component pc_adder;
 
 	constant four: integer := 4;
-	signal pc, pc_int, pc_plus_4: std_logic_vector(N-1 downto 0);
+	signal pc_reg, pc_int, pc_plus_4: std_logic_vector(N-1 downto 0);
 
 
 begin
@@ -79,15 +80,15 @@ begin
 			a => pc_plus_4,
 			b => target_pc,
 			sel => pc_sel,
-			o => pc
+			o => pc_reg
 		);
 
-	pc_reg: reg_en
+	pc_register: reg_en
 		generic map (
 			N => N
 		)
 		port map (
-			d => pc,
+			d => pc_reg,
 			en => pc_en,
 			clk => clk,
 			rst => rst,
@@ -95,7 +96,7 @@ begin
 		);
 
 	address <= pc_int;
-	next_pc <= pc_int;
+	pc <= pc_int;
 
 	pc_add: pc_adder
 		generic map (
@@ -106,6 +107,8 @@ begin
 			b => std_logic_vector(to_unsigned(four, N)),
 			sum => pc_plus_4
 		);
+
+	npc <= pc_plus_4;
 
 
 end struct;
