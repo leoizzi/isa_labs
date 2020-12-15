@@ -9,14 +9,17 @@ entity if_id_regs is
 		clk: in std_logic;
 		rst: in std_logic;
 
-		next_pc_in: in std_logic_vector(63 downto 0); -- next PC
+		pc_in: in std_logic_vector(31 downto 0); -- PC
+		npc_in: in std_logic_vector(31 downto 0); -- PC+4 
 		instr_in: in std_logic_vector(31 downto 0); -- instruction loaded from the ROM
 
 		-- enable signals
 		pc_reg_en: in std_logic;
+		npc_reg_en: in std_logic;
 		instr_reg_en: in std_logic;
 
-		next_pc_out: out std_logic_vector(63 downto 0);
+		pc_out: out std_logic_vector(31 downto 0);
+		npc_out: out std_logic_vector(31 downto 0);
 		instr_out: out std_logic_vector(31 downto 0)
 	);
 end if_id_regs;
@@ -38,25 +41,37 @@ begin
 
 	pc_reg: reg_en
 		generic map (
-			N => 64
+			N => 32
 		)
 		port map (
-			d => next_pc_in,
+			d => pc_in,
 			en => pc_reg_en,
 			clk => clk,
 			rst => rst,
-			q => next_pc_out
+			q => pc_out
+		);
+
+	npc_reg: reg_en
+		generic map (
+			N => 32
+		)
+		port map (
+			d => npc_in,
+			en => npc_reg_en,
+			clk => clk,
+			rst => rst,
+			q => npc_out
 		);
 
 	instr_reg: reg_en
-	generic map (
-		N => 32
-	)
-	port map (
-		d => instr_in,
-		en => instr_reg_en,
-		clk => clk,
-		rst => rst,
-		q => instr_out
-	);
+		generic map (
+			N => 32
+		)
+		port map (
+			d => instr_in,
+			en => instr_reg_en,
+			clk => clk,
+			rst => rst,
+			q => instr_out
+		);
 end struct;
