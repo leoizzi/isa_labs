@@ -3,6 +3,13 @@ use ieee.std_logic_1164.all;
 
 -- Control signals constants values
 package constants is
+	-- ID stage
+	constant I_TYPE: std_logic_vector(2 downto 0) := "001";
+	constant S_TYPE: std_logic_vector(2 downto 0) := "010";
+	constant B_TYPE: std_logic_vector(2 downto 0) := "011";
+	constant U_TYPE: std_logic_vector(2 downto 0) := "100";
+	constant J_TYPE: std_logic_vector(2 downto 0) := "101";
+	
 	-- EXE stage
 	constant ADD_CTRL : std_logic_vector(1 downto 0) := "00";
 	constant LOG_CTRL : std_logic_vector(1 downto 0) := "01";
