@@ -18,7 +18,7 @@ architecture behavioral of lt_comp is
 begin
 	comblogic: process(a, b)
 	begin
-		if (unsigned(a) < unsigned(b)) then
+		if (signed(a) < signed(b)) then
 			lt <= '1';
 		else
 			lt <= '0';

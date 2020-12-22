@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use work.fun_pack.all;
 
+-- Small ALU capable of doing additions, set-less-than ops, AND, XOR and arithmetic right shifts
 entity alu is
 	generic (
 		N: integer := 64
