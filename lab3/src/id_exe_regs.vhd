@@ -12,6 +12,7 @@ entity id_exe_regs is
 		a_in: in std_logic_vector(31 downto 0); -- rd1
 		b_in: in std_logic_vector(31 downto 0); --rd2
 		imm_in: in std_logic_vector(31 downto 0); -- immediate
+		rd_in: in std_logic_vector(4 downto 0); -- destination register
 
 		-- enable signals
 		pc_reg_en: in std_logic;
@@ -19,12 +20,14 @@ entity id_exe_regs is
 		a_en: in std_logic;
 		b_en: in std_logic;
 		imm_en: in std_logic;
+		rd_en: in std_logic;
 
 		pc_out: out std_logic_vector(31 downto 0);
 		npc_out: out std_logic_vector(31 downto 0);
 		a_out: out std_logic_vector(31 downto 0);
 		b_out: out std_logic_vector(31 downto 0);
-		imm_out: out std_logic_vector(31 downto 0)
+		imm_out: out std_logic_vector(31 downto 0);
+		rd_out: out std_logic_vector(4 downto 0)
 	);
 end id_exe_regs;
 
@@ -66,17 +69,17 @@ begin
 			q => npc_out
 		);
 
-		a_reg: reg_en
-		generic map (
-			N => 32
-		)
-		port map (
-			d => a_in,
-			en => a_en,
-			clk => clk,
-			rst => rst,
-			q => a_out
-		);
+	a_reg: reg_en
+	generic map (
+		N => 32
+	)
+	port map (
+		d => a_in,
+		en => a_en,
+		clk => clk,
+		rst => rst,
+		q => a_out
+	);
 
 	b_reg: reg_en
 		generic map (
@@ -100,5 +103,17 @@ begin
 			clk => clk,
 			rst => rst,
 			q => imm_out
+		);
+
+	rd_reg: reg_en
+		generic map (
+			N => 32
+		)
+		port map (
+			d => rd_in,
+			en => rd_en,
+			clk => clk,
+			rst => rst,
+			q => rd_out
 		);
 end behavioral;
