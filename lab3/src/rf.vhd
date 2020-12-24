@@ -15,9 +15,9 @@ entity rf is
 		rp2_addr: in std_logic_vector(4 downto 0); -- register address for rp2
 		wp_addr: in std_logic_vector(4 downto 0); -- register addres for wp
 		wp_en: in std_logic; -- write enable
-		wp: in std_logic_vector(63 downto 0); -- data to be written
-		rp1: out std_logic_vector(63 downto 0); -- read data on port 1
-		rp2: out std_logic_vector(63 downto 0) -- read data on port 2
+		wp: in std_logic_vector(N-1 downto 0); -- data to be written
+		rp1: out std_logic_vector(N-1 downto 0); -- read data on port 1
+		rp2: out std_logic_vector(N-1 downto 0) -- read data on port 2
 	);
 end rf;
 
