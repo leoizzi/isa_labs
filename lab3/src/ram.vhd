@@ -14,7 +14,8 @@ entity ram is
 		rst: in std_logic;
 		address: in std_logic_vector(A-1 downto 0);
 		wr: in std_logic; -- 1 for write, 0 for read
-		data: inout std_logic_vector(N-1 downto 0)
+		datain: in std_logic_vector(N-1 downto 0);
+		dataout: out std_logic_vector(N-1 downto 0)
 	);
 end ram;
 
@@ -34,15 +35,13 @@ begin
 		end if;
 	end process reg_state;
 
-	comblogic: process(address, wr, data)
+	comblogic: process(curr_mem, address, wr, datain)
 	begin
-		data <= (others => 'Z');
 		next_mem <= curr_mem;
+		dataout <= curr_mem(to_integer(unsigned(address)));
 
-		if (wr = '0') then
-			data <= curr_mem(to_integer(unsigned(address)));
-		else
-			next_mem(to_integer(unsigned(address))) <= data;
+		if (wr = '1') then
+			next_mem(to_integer(unsigned(address))) <= datain;
 		end if;
 	end process comblogic;
 end behavioral;
