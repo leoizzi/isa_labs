@@ -12,6 +12,7 @@ entity datapath is
 		if_pc_enable: in std_logic;
 
 		-- IF/ID
+		ifid_rst: in std_logic;
 		ifid_pc_reg_en: in std_logic;
 		ifid_npc_reg_en: in std_logic;
 		ifid_instr_reg_en: in std_logic;
@@ -22,6 +23,7 @@ entity datapath is
 		id_rs2: out std_logic_vector(4 downto 0);
 
 		-- ID/EXE
+		idexe_rst: in std_logic;
 		idexe_pc_reg_en: in std_logic;
 		idexe_npc_reg_en: in std_logic;
 		idexe_a_en: in std_logic;
@@ -30,8 +32,16 @@ entity datapath is
 		idexe_rd_en: in std_logic;
 
 		-- EXE stage
-		exe_a_sel: in std_logic; -- 0 to select a, 1 to select NPC
-		exe_b_sel: in std_logic; -- 0 to select b, 1 to select imm
+		-- 00 to select a
+		-- 01 to select NPC
+		-- 10 to select PC
+		-- 11 to select all 0s
+		exe_a_sel: in std_logic_vector(1 downto 0);
+		-- 00 to select b
+		-- 01 to select imm
+		-- 10 to select all 0s
+		-- 11 to select all 0s
+		exe_b_sel: in std_logic_vector(1 downto 0);
 		-- 00 to select adder
 		-- 01 to select logicals
 		-- 10 to select set less than
@@ -39,19 +49,24 @@ entity datapath is
 		exe_ctrl: in std_logic_vector(1 downto 0);
 		exe_log_type: in std_logic; -- if 0 and is selected, if 1 xor
 		exe_jmp_enable: in std_logic; -- if set to 1 enables the possibility to jump
+		exe_taken: out std_logic; -- 1 if taken, 0 if not
 
 		-- EXE/MEM
+		exemem_rst: in std_logic;
 		exemem_alu_data_en: in std_logic;
 		exemem_reg_data_en: in std_logic;
 		exemem_rd_en: in std_logic;
+		exemem_rd: out std_logic_vector(4 downto 0);
 
 		-- MEM stage
 
 
 		-- MEM/WB
+		memwb_rst: in std_logic;
 		memwb_load_data_en: in std_logic;
 		memwb_alu_data_en: in std_logic;
 		memwb_rd_en: in std_logic;
+		memwb_rd: out std_logic_vector(4 downto 0);
 
 		-- WB stage
 		wb_en: in std_logic;
@@ -175,8 +190,16 @@ architecture structural of datapath is
 			b: in std_logic_vector(31 downto 0);
 			imm: in std_logic_vector(31 downto 0);
 
-			a_sel: in std_logic; -- 0 to select a, 1 to select NPC
-			b_sel: in std_logic; -- 0 to select b, 1 to select imm
+			-- 00 to select a
+			-- 01 to select NPC
+			-- 10 to select PC
+			-- 11 to select all 0s
+			a_sel: in std_logic_vector(1 downto 0);
+			-- 00 to select b
+			-- 01 to select imm
+			-- 10 to select all 0s
+			-- 11 to select all 0s
+			b_sel: in std_logic_vector(1 downto 0);
 
 			-- 00 to select adder
 			-- 01 to select logicals
@@ -244,21 +267,25 @@ architecture structural of datapath is
 
 	-- IF signals
 	signal if_pc_out, if_npc_out: std_logic_vector(31 downto 0);
+	signal ifid_act_rst: std_logic;
 
 	-- ID signals
 	signal id_pc_in, id_npc_in, id_instr_in: std_logic_vector(31 downto 0);
 	signal id_rd_out: std_logic_vector(4 downto 0);
 	signal id_npc_out, id_pc_out, id_rp1_out, id_rp2_out, id_imm_out: std_logic_vector(31 downto 0);
+	signal idexe_act_rst: std_logic;
 
 	-- EXE signals
 	signal exe_rd_in: std_logic_vector(4 downto 0);
 	signal exe_npc_in, exe_pc_in, exe_a_in, exe_b_in, exe_imm_in: std_logic_vector(31 downto 0);
 	signal exe_pc_sel_out: std_logic;
 	signal exe_res_out, exe_reg_out, exe_target_pc_out: std_logic_vector(31 downto 0);
+	signal exemem_act_rst: std_logic;
 
 	-- MEM signals
 	signal mem_alu_data_in, mem_reg_data_out: std_logic_vector(31 downto 0);
 	signal mem_rd_in: std_logic_vector(4 downto 0);
+	signal memwb_act_rst: std_logic;
 
 	-- WB signals
 	signal wb_load_data_in, wb_alu_data_in: std_logic_vector(31 downto 0);
@@ -286,10 +313,12 @@ begin
 			npc => if_npc_out
 		);
 
+	ifid_act_rst <= rst nand ifid_rst;
+
 	if_id_r: if_id_regs
 		port map (
 			clk => clk,
-			rst => rst,
+			rst => ifid_act_rst,
 
 			pc_in => if_pc_out,
 			npc_in => if_npc_out,
@@ -331,10 +360,12 @@ begin
 			imm => id_imm_out
 		);
 
+	idexe_act_rst <= rst nand idexe_rst;
+
 	idexe_r: id_exe_regs
 		port map (
 			clk => clk,
-			rst => rst,
+			rst => idexe_act_rst,
 
 			pc_in => id_pc_out,
 			npc_in => id_npc_out,
@@ -380,10 +411,13 @@ begin
 			pc_sel => exe_pc_sel_out
 		);
 
+	exe_taken <= exe_pc_sel_out;
+	exemem_act_rst <= rst nand exemem_rst;
+
 	exemem_r: exe_mem_regs
 		port map (
 			clk => clk,
-			rst => rst,
+			rst => exemem_act_rst,
 
 			alu_data_in => exe_res_out,
 			reg_data_in => exe_reg_out,
@@ -398,13 +432,16 @@ begin
 			rd_out => mem_rd_in
 		);
 
+	exemem_rd <= mem_rd_in;
+
 	ram_dataout <= mem_reg_data_out;
 	ram_address <= mem_alu_data_in;
+	memwb_act_rst <= rst nand memwb_rst;
 
 	memwb_r: mem_wb_regs
 		port map (
 			clk => clk,
-			rst => rst,
+			rst => memwb_act_rst,
 
 			load_data_in => ram_datain,
 			alu_data_in => mem_alu_data_in,
@@ -418,6 +455,8 @@ begin
 			alu_data_out => wb_alu_data_in,
 			rd_out => wb_rd_in
 		);
+
+	memwb_rd <= wb_rd_in;
 
 	wbs: wb_stage
 		port map (

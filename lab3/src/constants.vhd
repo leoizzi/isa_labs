@@ -12,6 +12,7 @@ package constants is
 	constant IFID_EN : std_logic := '1'; 
 
 	-- ID stage
+	constant R_TYPE: std_logic_vector(2 downto 0) := "000";
 	constant I_TYPE: std_logic_vector(2 downto 0) := "001";
 	constant S_TYPE: std_logic_vector(2 downto 0) := "010";
 	constant B_TYPE: std_logic_vector(2 downto 0) := "011";
@@ -31,11 +32,14 @@ package constants is
 	constant AND_LOG : std_logic := '0';
 	constant XOR_LOG : std_logic := '1';
 
-	constant MUX_A_SEL_REG : std_logic := '0';
-	constant MUX_A_SEL_NPC : std_logic := '1';
+	constant MUX_A_REG : std_logic_vector(1 downto 0) := "00";
+	constant MUX_A_NPC : std_logic_vector(1 downto 0) := "01";
+	constant MUX_A_PC : std_logic_vector(1 downto 0) := "10";
+	constant MUX_A_0 : std_logic_vector(1 downto 0) := "11";
 
-	constant MUX_B_SEL_REG : std_logic := '0';
-	constant MUX_B_SEL_IMM : std_logic := '1';
+	constant MUX_B_REG : std_logic_vector(1 downto 0) := "00";
+	constant MUX_B_IMM : std_logic_vector(1 downto 0) := "01";
+	constant MUX_B_0 : std_logic_vector(1 downto 0) := "10"; 
 
 	constant JMP_DIS : std_logic := '0';
 	constant JMP_EN : std_logic := '1';

@@ -107,7 +107,7 @@ begin
 
 	rd_reg: reg_en
 		generic map (
-			N => 32
+			N => 5
 		)
 		port map (
 			d => rd_in,

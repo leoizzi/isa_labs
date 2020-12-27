@@ -10,8 +10,16 @@ entity exe_stage is
 		b: in std_logic_vector(31 downto 0);
 		imm: in std_logic_vector(31 downto 0);
 
-		a_sel: in std_logic; -- 0 to select a, 1 to select NPC
-		b_sel: in std_logic; -- 0 to select b, 1 to select imm
+		-- 00 to select a
+		-- 01 to select NPC
+		-- 10 to select PC
+		-- 11 to select all 0s
+		a_sel: in std_logic_vector(1 downto 0);
+		-- 00 to select b
+		-- 01 to select imm
+		-- 10 to select all 0s
+		-- 11 to select all 0s
+		b_sel: in std_logic_vector(1 downto 0);
 
 		-- 00 to select adder
 		-- 01 to select logicals
@@ -22,6 +30,7 @@ entity exe_stage is
 		jmp_enable: in std_logic; -- if set to 1 enables the possibility to jump
 
 		res: out std_logic_vector(31 downto 0);
+		reg_out: out std_logic_vector(31 downto 0);
 		pc_out: out std_logic_vector(31 downto 0);
 		pc_sel: out std_logic -- used by the IF stage to determine which PC must be used
 	);
@@ -70,27 +79,47 @@ architecture structural of exe_stage is
 		);
 	end component mux2x1;
 
+	component mux4x1 is
+		generic (
+			N: integer := 64
+		);
+		port (
+			a: in std_logic_vector(N-1 downto 0);
+			b: in std_logic_vector(N-1 downto 0);
+			c: in std_logic_vector(N-1 downto 0);
+			d: in std_logic_vector(N-1 downto 0);
+			s: in std_logic_vector(1 downto 0);
+			o: out std_logic_vector(N-1 downto 0)
+		);
+	end component mux4x1;
+
+	constant zeros : std_logic_vector(32 downto 0) := (others => '0'); 
+
 	signal op_a, op_b, imm_sht: std_logic_vector(31 downto 0);
 	signal zero: std_logic;
 begin
-	op_a_sel: mux2x1
+	op_a_sel: mux4x1
 		generic map (
 			N => 32
 		)
 		port map (
 			a => a,
 			b => npc,
+			c => pc,
+			d => zeros,
 			sel => a_sel,
 			o => op_a
 		);
 
-	op_b_sel: mux2x1
+	op_b_sel: mux4x1
 		generic map (
 			N => 32
 		)
 		port map (
 			a => b,
 			b => imm,
+			c => zeros,
+			d => zeros,
 			sel => b_sel,
 			o => op_b
 		);
@@ -123,5 +152,5 @@ begin
 			sum => pc_out
 		);
 
-
+		reg_out <= b;
 end structural;
