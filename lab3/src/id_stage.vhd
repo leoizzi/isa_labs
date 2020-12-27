@@ -19,8 +19,10 @@ entity id_stage is
 
 		npc_out: out std_logic_vector(31 downto 0);
 		pc_out: out std_logic_vector(31 downto 0);
-		rs1: out std_logic_vector(31 downto 0);
-		rs2: out std_logic_vector(31 downto 0);
+		rp1: out std_logic_vector(31 downto 0); -- read port data 1
+		rp2: out std_logic_vector(31 downto 0); -- read port data 2
+		rs1: out std_logic_vector(4 downto 0); -- resister surce 1
+		rs2: out std_logic_vector(4 downto 0); -- register source 2
 		rd: out std_logic_vector(4 downto 0);
 		imm: out std_logic_vector(31 downto 0)
 	);
@@ -54,12 +56,17 @@ architecture struct of id_stage is
 	end component imm_gen;
 
 	constant N: integer := 32; 
+	signal rs1_int, rs2_int: std_logic_vector(4 downto 0);
 
 begin
 
 	rd <= instr(11 downto 7);
 	npc_out <= npc_in;
 	pc_out <= pc_in;
+	rs1_int <= instr(19 downto 15);
+	rs2_int <= instr(24 downto 20);
+	rs1 <= rs1_int;
+	rs2 <= rs2_int;
 
 
 	reg_file: rf
@@ -69,13 +76,13 @@ begin
 		port map(
 			clk => clk,
 			rst => rst,
-			rp1_addr => instr(19 downto 15),
-			rp2_addr => instr(24 downto 20),
+			rp1_addr => rs1_int,
+			rp2_addr => rs2_int,
 			wp_addr => wp_addr,
 			wp_en => wp_en,
 			wp => wp,
-			rp1 => rs1,
-			rp2 => rs2
+			rp1 => rp1,
+			rp2 => rp2
 
 		);
 

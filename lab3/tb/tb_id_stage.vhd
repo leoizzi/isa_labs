@@ -25,8 +25,10 @@ architecture tb of tb_id_stage is
 
 			npc_out: out std_logic_vector(31 downto 0);
 			pc_out: out std_logic_vector(31 downto 0);
-			rs1: out std_logic_vector(31 downto 0);
-			rs2: out std_logic_vector(31 downto 0);
+			rp1: out std_logic_vector(31 downto 0); -- read port data 1
+			rp2: out std_logic_vector(31 downto 0); -- read port data 2
+			rs1: out std_logic_vector(4 downto 0); -- resister surce 1
+			rs2: out std_logic_vector(4 downto 0); -- register source 2
 			rd: out std_logic_vector(4 downto 0);
 			imm: out std_logic_vector(31 downto 0)
 		);
@@ -38,8 +40,8 @@ architecture tb of tb_id_stage is
 
 	signal npc_in, npc_out, pc_in, pc_out: std_logic_vector(31 downto 0);
 	signal instr: std_logic_vector(31 downto 0);
-	signal wp_addr, rd: std_logic_vector(4 downto 0);
-	signal wp, rs1, rs2, imm: std_logic_vector(31 downto 0);
+	signal wp_addr, rd, rs1, rs2: std_logic_vector(4 downto 0);
+	signal wp,rp1, rp2, imm: std_logic_vector(31 downto 0);
 
 	signal wp_en: std_logic;
 	signal instr_type_sel: std_logic_vector(2 downto 0);
@@ -59,6 +61,8 @@ begin
 			instr_type_sel => instr_type_sel,
 			npc_out => npc_out,
 			pc_out => pc_out,
+			rp1 => rp1,
+			rp2 => rp2,
 			rs1 => rs1,
 			rs2 => rs2,
 			rd => rd,
