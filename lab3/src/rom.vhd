@@ -12,7 +12,6 @@ entity rom is
 		W: integer := 32; -- number of words
 		F: string := "./samples.txt" -- input file path
 	);
-
 	port (
 		rst: in std_logic;
 		address: in std_logic_vector(A-1 downto 0);

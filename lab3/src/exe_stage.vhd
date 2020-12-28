@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use work.constants.all;
 
 -- RISC-V EXE stage, it embeds an ALU and an adder for calculating PC addresses
 entity exe_stage is
@@ -93,7 +94,7 @@ architecture structural of exe_stage is
 		);
 	end component mux4x1;
 
-	constant zeros : std_logic_vector(32 downto 0) := (others => '0'); 
+	constant zeros : std_logic_vector(31 downto 0) := (others => '0'); 
 
 	signal op_a, op_b, imm_sht: std_logic_vector(31 downto 0);
 	signal zero: std_logic;
@@ -107,7 +108,7 @@ begin
 			b => npc,
 			c => pc,
 			d => zeros,
-			sel => a_sel,
+			s => a_sel,
 			o => op_a
 		);
 
@@ -120,7 +121,7 @@ begin
 			b => imm,
 			c => zeros,
 			d => zeros,
-			sel => b_sel,
+			s => b_sel,
 			o => op_b
 		);
 
@@ -137,9 +138,12 @@ begin
 			res => res
 		);
 
+	pc_sel <= 	'1' when ((a_sel = MUX_A_NPC and b_sel = MUX_B_0) or zero = '1') and jmp_enable = '1' else
+				'0';
+
 	-- allow any jmp iff the instruction being executed actually modify the PC
 	-- this is needed since 'zero' will be 1 everytime a == b, regardless of the ALU operation being executed
-	pc_sel <= zero and jmp_enable;
+	--pc_sel <= (zero or (a_sel = MUX_A_NPC and b_sel = MUX_B_0)) and jmp_enable;
 	imm_sht <= imm(30 downto 0)&'0';
 
 	pc_add: pc_adder

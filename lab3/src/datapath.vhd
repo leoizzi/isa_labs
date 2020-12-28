@@ -30,6 +30,7 @@ entity datapath is
 		idexe_b_en: in std_logic;
 		idexe_imm_en: in std_logic;
 		idexe_rd_en: in std_logic;
+		idexe_rd: out std_logic_vector(4 downto 0);
 
 		-- EXE stage
 		-- 00 to select a
@@ -66,11 +67,13 @@ entity datapath is
 		memwb_load_data_en: in std_logic;
 		memwb_alu_data_en: in std_logic;
 		memwb_rd_en: in std_logic;
-		memwb_rd: out std_logic_vector(4 downto 0);
 
 		-- WB stage
 		wb_en: in std_logic;
 		wb_data_sel: in std_logic;
+
+		-- Output
+		wb_data_out: out std_logic_vector(31 downto 0);
 
 		-- ROM interface
 		rom_address: out std_logic_vector(31 downto 0);
@@ -313,7 +316,7 @@ begin
 			npc => if_npc_out
 		);
 
-	ifid_act_rst <= rst nand ifid_rst;
+	ifid_act_rst <= rst and ifid_rst;
 
 	if_id_r: if_id_regs
 		port map (
@@ -360,7 +363,7 @@ begin
 			imm => id_imm_out
 		);
 
-	idexe_act_rst <= rst nand idexe_rst;
+	idexe_act_rst <= rst and idexe_rst;
 
 	idexe_r: id_exe_regs
 		port map (
@@ -390,6 +393,8 @@ begin
 			rd_out => exe_rd_in
 		);
 
+	idexe_rd <= exe_rd_in;
+
 	exes: exe_stage
 		port map (
 			npc => exe_npc_in,
@@ -412,7 +417,7 @@ begin
 		);
 
 	exe_taken <= exe_pc_sel_out;
-	exemem_act_rst <= rst nand exemem_rst;
+	exemem_act_rst <= rst and exemem_rst;
 
 	exemem_r: exe_mem_regs
 		port map (
@@ -436,7 +441,7 @@ begin
 
 	ram_dataout <= mem_reg_data_out;
 	ram_address <= mem_alu_data_in;
-	memwb_act_rst <= rst nand memwb_rst;
+	memwb_act_rst <= rst and memwb_rst;
 
 	memwb_r: mem_wb_regs
 		port map (
@@ -456,8 +461,6 @@ begin
 			rd_out => wb_rd_in
 		);
 
-	memwb_rd <= wb_rd_in;
-
 	wbs: wb_stage
 		port map (
 			alu_data => wb_alu_data_in,
@@ -467,4 +470,6 @@ begin
 			write_data => wb_data,
 			rd_out => wb_addr
 		);
+
+	wb_data_out <= wb_data;
 end structural;

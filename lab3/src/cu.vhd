@@ -34,6 +34,7 @@ entity cu is
 		idexe_b_en: out std_logic;
 		idexe_imm_en: out std_logic;
 		idexe_rd_en: out std_logic;
+		idexe_rd: in std_logic_vector(4 downto 0);
 
 		-- EXE stage
 		-- 00 to select a
@@ -70,7 +71,6 @@ entity cu is
 		memwb_load_data_en: out std_logic;
 		memwb_alu_data_en: out std_logic;
 		memwb_rd_en: out std_logic;
-		memwb_rd: in std_logic_vector(4 downto 0);
 
 		-- WB stage
 		wb_en: out std_logic;
@@ -93,7 +93,32 @@ architecture behavioral of cu is
 
 	signal flush_if: std_logic;
 	signal flush_jmp: std_logic;
+	signal ifid_stall, idexe_stall, exemem_stall, memwb_stall: std_logic; -- 0 -> stall, 1 -> keep going
+	signal cu_ifid_rst, cu_idexe_rst: std_logic;
 begin
+	if_pc_enable <= ifid_stall;
+	ifid_pc_reg_en <= ifid_stall;
+	ifid_npc_reg_en <= ifid_stall;
+	ifid_instr_reg_en <= ifid_stall;
+
+	idexe_pc_reg_en <= idexe_stall;
+	idexe_npc_reg_en <= idexe_stall;
+	idexe_a_en <= idexe_stall;
+	idexe_b_en <= idexe_stall;
+	idexe_imm_en <= idexe_stall;
+	idexe_rd_en <= idexe_stall;
+
+	exemem_alu_data_en <= exemem_stall;
+	exemem_reg_data_en <= exemem_stall;
+	exemem_rd_en <= exemem_stall;
+
+	memwb_load_data_en <= memwb_stall;
+	memwb_alu_data_en <= memwb_stall;
+	memwb_rd_en <= memwb_stall;
+
+	ifid_rst <= cu_ifid_rst;
+	idexe_rst <= cu_idexe_rst;
+
 	state_reg: process(clk)
 	begin
 		if (clk = '1' and clk'event) then
@@ -103,15 +128,25 @@ begin
 				curr_mem <= NOP_CW(MEM_REG-1 downto 0);
 				curr_wb <= NOP_CW(WB_REG-1 downto 0);
 			else
-				curr_id <= next_id;
-				curr_exe <= next_exe;
+				if (cu_ifid_rst = '0') then
+					curr_id <= NOP_CW(ID_REG-1 downto 0);
+				else
+					curr_id <= next_id;
+				end if;
+
+				if (cu_idexe_rst = '0') then
+					curr_exe <= NOP_CW(EXE_REG-1 downto 0);
+				else
+					curr_exe <= next_exe;
+				end if;
+
 				curr_mem <= next_mem;
 				curr_wb <= next_wb;
 			end if;
 		end if;
 	end process state_reg;
 
-	if_stage: process(rom_instr, exe_taken)
+	if_stage: process(rom_instr, exe_taken, ifid_stall)
 	begin
 		flush_if <= '0';
 		flush_jmp <= '0';
@@ -184,12 +219,20 @@ begin
 		if (exe_taken = '1') then
 			flush_jmp <= '1';
 		end if;
+
+		if (ifid_stall = '0') then
+			next_id <= curr_id;
+		end if;
 	end process if_stage;
 
-	id_stage: process(curr_id)
+	id_stage: process(curr_id, idexe_stall)
 	begin
 		id_instr_type_sel <= curr_id(ID_REG-1 downto ID_REG-3);
-		next_exe <= curr_id(EXE_REG-1 downto 0);
+		if (idexe_stall = '0') then
+			next_exe <= curr_exe;
+		else
+			next_exe <= curr_id(EXE_REG-1 downto 0);
+		end if;
 	end process id_stage;
 
 	exe_stage: process(curr_exe)
@@ -214,8 +257,46 @@ begin
 		wb_data_sel <= curr_wb(WB_REG-2);
 	end process wb_stage;
 
-	stall_unit: process(flush_if, flush_jmp, id_rs1, id_rs2, exemem_rd, memwb_rd)
+	stall_unit: process(flush_if, flush_jmp, id_rs1, id_rs2, idexe_rd, exemem_rd, curr_id, rst, exe_taken)
 	begin
-		
+		cu_ifid_rst <= '1';
+		cu_idexe_rst <= '1';
+		exemem_rst <= '1';
+		memwb_rst <= '1';
+
+		ifid_stall <= '1';
+		idexe_stall <= '1';
+		exemem_stall <= '1';
+		memwb_stall <= '1';
+
+		if (flush_if = '1') then -- unknown instruction has been fetched
+			cu_ifid_rst <= '0';
+		end if;
+
+		if (flush_jmp = '1') then -- a jump has been taken
+			cu_ifid_rst <= '0';
+			cu_idexe_rst <= '0';
+		end if;
+
+		-- R type: 2 source registers
+		-- I type: 1 source register (rs1)
+		-- S type: 2 source registers
+		-- B type: 2 source registers
+		-- U, J: no source registers
+
+		if (curr_id(ID_REG-1 downto ID_REG-3) = R_TYPE or curr_id(ID_REG-1 downto ID_REG-3) = S_TYPE or curr_id(ID_REG-1 downto ID_REG-3) = B_TYPE) then -- instruction uses both registers
+			--if ((id_rs1 = idexe_rd or id_rs2 = idexe_rd or id_rs1 = exemem_rd or id_rs2 = exemem_rd) and (idexe_rd /= "00000" or exemem_rd /= "00000")) then
+			if (((id_rs1 = idexe_rd and idexe_rd /= "00000") or (id_rs1 = exemem_rd and exemem_rd /= "00000") or (id_rs2 = idexe_rd and idexe_rd /= "00000") or (id_rs2 = exemem_rd and exemem_rd /= "00000")) and exe_taken = '0') then
+				ifid_stall <= '0';
+				idexe_stall <= '0';
+				cu_idexe_rst <= '0'; -- force NOP
+			end if;
+		elsif (curr_id(ID_REG-1 downto ID_REG-3) = I_TYPE) then
+			if (((id_rs1 = idexe_rd and idexe_rd /= "00000") or (id_rs1 = exemem_rd and exemem_rd /= "00000")) and exe_taken = '0') then
+				ifid_stall <= '0';
+				idexe_stall <= '0';
+				cu_idexe_rst <= '0'; -- force NOP
+			end if;
+		end if;
 	end process stall_unit;
 end behavioral;
