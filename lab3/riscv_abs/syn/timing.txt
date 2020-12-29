@@ -1,0 +1,80 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : core
+Version: O-2018.06-SP4
+Date   : Tue Dec 29 11:39:55 2020
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: d/ifs/pc_register/q_reg[3]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: d/ifs/pc_register/q_reg[31]
+            (rising edge-triggered flip-flop clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  core               5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  d/ifs/pc_register/q_reg[3]/CK (DFF_X1)                  0.00       0.00 r
+  d/ifs/pc_register/q_reg[3]/Q (DFF_X1)                   0.09       0.09 r
+  d/ifs/pc_add/add_20/A[3] (core_DW01_add_5)              0.00       0.09 r
+  d/ifs/pc_add/add_20/U44/CO (HA_X1)                      0.06       0.15 r
+  d/ifs/pc_add/add_20/U63/ZN (AND2_X1)                    0.04       0.19 r
+  d/ifs/pc_add/add_20/U53/ZN (AND2_X1)                    0.04       0.23 r
+  d/ifs/pc_add/add_20/U24/CO (HA_X1)                      0.06       0.29 r
+  d/ifs/pc_add/add_20/U23/CO (HA_X1)                      0.06       0.35 r
+  d/ifs/pc_add/add_20/U22/CO (HA_X1)                      0.06       0.41 r
+  d/ifs/pc_add/add_20/U21/CO (HA_X1)                      0.06       0.46 r
+  d/ifs/pc_add/add_20/U20/CO (HA_X1)                      0.06       0.52 r
+  d/ifs/pc_add/add_20/U19/CO (HA_X1)                      0.06       0.58 r
+  d/ifs/pc_add/add_20/U18/CO (HA_X1)                      0.06       0.64 r
+  d/ifs/pc_add/add_20/U17/CO (HA_X1)                      0.06       0.69 r
+  d/ifs/pc_add/add_20/U16/CO (HA_X1)                      0.06       0.75 r
+  d/ifs/pc_add/add_20/U15/CO (HA_X1)                      0.06       0.81 r
+  d/ifs/pc_add/add_20/U14/CO (HA_X1)                      0.06       0.87 r
+  d/ifs/pc_add/add_20/U13/CO (HA_X1)                      0.06       0.93 r
+  d/ifs/pc_add/add_20/U12/CO (HA_X1)                      0.06       0.98 r
+  d/ifs/pc_add/add_20/U11/CO (HA_X1)                      0.06       1.04 r
+  d/ifs/pc_add/add_20/U10/CO (HA_X1)                      0.06       1.10 r
+  d/ifs/pc_add/add_20/U9/CO (HA_X1)                       0.06       1.16 r
+  d/ifs/pc_add/add_20/U8/CO (HA_X1)                       0.06       1.21 r
+  d/ifs/pc_add/add_20/U7/CO (HA_X1)                       0.06       1.27 r
+  d/ifs/pc_add/add_20/U6/CO (HA_X1)                       0.06       1.33 r
+  d/ifs/pc_add/add_20/U5/CO (HA_X1)                       0.06       1.39 r
+  d/ifs/pc_add/add_20/U4/CO (HA_X1)                       0.06       1.45 r
+  d/ifs/pc_add/add_20/U3/CO (HA_X1)                       0.06       1.50 r
+  d/ifs/pc_add/add_20/U2/CO (HA_X1)                       0.06       1.56 r
+  d/ifs/pc_add/add_20/U52/ZN (XNOR2_X1)                   0.06       1.62 r
+  d/ifs/pc_add/add_20/SUM[31] (core_DW01_add_5)           0.00       1.62 r
+  U5722/ZN (AOI22_X1)                                     0.04       1.66 f
+  U2159/ZN (NAND2_X1)                                     0.03       1.69 r
+  d/ifs/pc_register/q_reg[31]/D (DFF_X1)                  0.01       1.70 r
+  data arrival time                                                  1.70
+
+  clock my_clk (rise edge)                                1.70       1.70
+  clock network delay (ideal)                             0.00       1.70
+  clock uncertainty                                      -0.07       1.63
+  d/ifs/pc_register/q_reg[31]/CK (DFF_X1)                 0.00       1.63 r
+  library setup time                                     -0.03       1.60
+  data required time                                                 1.60
+  --------------------------------------------------------------------------
+  data required time                                                 1.60
+  data arrival time                                                 -1.70
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.10
+
+
+1

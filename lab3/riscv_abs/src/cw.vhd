@@ -1,0 +1,36 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use work.constants.all;
+
+-- Control words
+package cw is
+	constant IF_SIZE 	: integer := 1;
+	constant IFID_SIZE 	: integer := 1;
+	constant ID_SIZE 	: integer := 3;
+	constant IDEXE_SIZE : integer := 1;
+	constant EXE_SIZE 	: integer := 9;
+	constant EXEMEM_SIZE: integer := 1;
+	constant MEM_SIZE 	: integer := 1;
+	constant MEMWB_SIZE : integer := 1;
+	constant WB_SIZE 	: integer := 2;
+	constant IF_REG 	: integer := IF_SIZE+IFID_SIZE+ID_SIZE+IDEXE_SIZE+EXE_SIZE+EXEMEM_SIZE+MEM_SIZE+MEMWB_SIZE+WB_SIZE;
+	constant ID_REG 	: integer := ID_SIZE+IDEXE_SIZE+EXE_SIZE+EXEMEM_SIZE+MEM_SIZE+MEMWB_SIZE+WB_SIZE;
+	constant EXE_REG 	: integer := EXE_SIZE+EXEMEM_SIZE+MEM_SIZE+MEMWB_SIZE+WB_SIZE;
+	constant MEM_REG 	: integer := MEM_SIZE+MEMWB_SIZE+WB_SIZE;
+	constant WB_REG 	: integer := WB_SIZE;
+	constant CW_SIZE 	: integer := IF_SIZE+IFID_SIZE+ID_SIZE+IDEXE_SIZE+EXE_SIZE+EXEMEM_SIZE+MEM_SIZE+MEMWB_SIZE+WB_SIZE;
+	constant ADD_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&R_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_REG&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant ADDI_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&I_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_IMM&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant ABS_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&R_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_REG&ABS_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant AUIPC_CW	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&U_TYPE&IDEXE_EN&MUX_A_PC &MUX_B_IMM&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant LUI_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&U_TYPE&IDEXE_EN&MUX_A_0  &MUX_B_IMM&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant BEQ_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&B_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_REG&ADD_CTRL&AND_LOG&JMP_EN &EXEMEM_EN&RAM_R&MEMWB_EN&WB_DIS&SEL_ALU;
+	constant LW_CW 		: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&I_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_IMM&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_MEM;
+	constant SRAI_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&I_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_IMM&SHT_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant ANDI_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&I_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_IMM&LOG_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant XOR_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&R_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_REG&LOG_CTRL&XOR_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant SLT_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&R_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_REG&SLT_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant JAL_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&J_TYPE&IDEXE_EN&MUX_A_NPC&MUX_B_0  &ADD_CTRL&AND_LOG&JMP_EN &EXEMEM_EN&RAM_R&MEMWB_EN&WB_EN &SEL_ALU;
+	constant SW_CW 		: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&S_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_IMM&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_W&MEMWB_EN&WB_DIS&SEL_ALU;
+	constant NOP_CW 	: std_logic_vector(CW_SIZE-1 downto 0) := PC_EN&IFID_EN&I_TYPE&IDEXE_EN&MUX_A_REG&MUX_B_IMM&ADD_CTRL&AND_LOG&JMP_DIS&EXEMEM_EN&RAM_R&MEMWB_EN&WB_DIS&SEL_ALU;
+end package cw;
