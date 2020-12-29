@@ -33,7 +33,7 @@ begin
 		generic map (
 			A_ROM => 8,
 			W_ROM => 256,
-			F_ROM => "C:\Users\leona\isa_projects\riscv-final\riscv-final.srcs\sim_1\new\bin_mod.txt",
+			F_ROM => "../tb/bin_mod.txt",
 			A_RAM => 10,
 			W_RAM => 1024
 		)
