@@ -7,7 +7,9 @@ entity riscv_sim is
 		W_ROM: integer := 256; -- number of words
 		F_ROM: string := "C:\Users\leona\isa_projects\riscv-final\riscv-final.srcs\sim_1\new\bin_code.txt"; -- input file path
 		A_RAM: integer := 8; -- address bit width
-		W_RAM: integer := 256 -- number of words
+		W_RAM: integer := 256; -- number of words
+		F_RAM: string := "./samples";
+		D_RAM: integer := 0
 	);
 	port (
 		clk: in std_logic;
@@ -55,7 +57,9 @@ architecture structural of riscv_sim is
 		generic (
 			N: integer := 64; -- data bit width
 			A: integer := 32; -- address bit width
-			W: integer := 16 -- number of words
+			W: integer := 16; -- number of words
+			F: string := "./samples"; -- init file
+		    D: integer := 0 -- start address of data segment
 		);
 		port (
 			clk: in std_logic;
@@ -107,7 +111,9 @@ begin
 		generic map (
 			N => 32,
 			A => A_RAM,
-			W => W_RAM
+			W => W_RAM,
+			F => F_RAM,
+		    D => D_RAM
 		)
 		port map (
 			clk => clk,

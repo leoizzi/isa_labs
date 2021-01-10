@@ -30,8 +30,8 @@ vcom -93 -work work ../src/ram.vhd
 vcom -93 -work work ../src/rom.vhd
 vcom -93 -work work ../src/riscv_sim.vhd
 # compile the tb
-vcom -93 -work work ../tb/tb_riscv.vhd
+vcom -93 -work work ../tb/tb_riscv_abs.vhd
 vsim work.tb_riscv
 # simulate
 add waves *
-run 3000 ns
+run 2000 ns

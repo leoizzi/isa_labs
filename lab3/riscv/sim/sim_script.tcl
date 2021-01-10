@@ -34,4 +34,4 @@ vcom -93 -work work ../tb/tb_riscv.vhd
 vsim work.tb_riscv
 # simulate
 add waves *
-run 3000 ns
+run 2000 ns

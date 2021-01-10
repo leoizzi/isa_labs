@@ -35,7 +35,7 @@ begin
 		generic map (
 			A_ROM => 8,
 			W_ROM => 256,
-			F_ROM => "../sim/minv-rv.txt",
+			F_ROM => "../sim/minv-rv_abs.txt",
 			A_RAM => 10,
 			W_RAM => 1024,
 			F_RAM => "../sim/data.txt",
