@@ -6,6 +6,7 @@ vcom -93 -work work ../src/fun_pack.vhd
 vcom -93 -work work ../src/eq_comp.vhd
 vcom -93 -work work ../src/mux2x1.vhd
 vcom -93 -work work ../src/mux4x1.vhd
+vcom -93 -work work ../src/mux5x1.vhd
 vcom -93 -work work ../src/lt_comp.vhd
 vcom -93 -work work ../src/adder.vhd
 vcom -93 -work work ../src/imm_gen.vhd
@@ -14,6 +15,7 @@ vcom -93 -work work ../src/pc_adder.vhd
 vcom -93 -work work ../src/shifter.vhd
 vcom -93 -work work ../src/rf.vhd
 vcom -93 -work work ../src/logicals.vhd
+vcom -93 -work work ../src/abs.vhd
 vcom -93 -work work ../src/alu.vhd
 vcom -93 -work work ../src/if_stage.vhd
 vcom -93 -work work ../src/id_stage.vhd
