@@ -7,15 +7,16 @@ Report : timing
         -max_paths 1
 Design : core
 Version: O-2018.06-SP4
-Date   : Tue Dec 29 16:01:59 2020
+Date   : Sun Jan 10 18:18:56 2021
 ****************************************
 
 Operating Conditions: typical   Library: NangateOpenCellLibrary
 Wire Load Model Mode: top
 
-  Startpoint: rst (input port clocked by my_clk)
-  Endpoint: d/ids/reg_file/reg_i_24/q_reg[12]
-            (rising edge-triggered flip-flop clocked by my_clk')
+  Startpoint: c/curr_exe_reg[11]
+              (rising edge-triggered flip-flop clocked by my_clk)
+  Endpoint: d/exemem_r/alu_data_reg/q_reg[31]
+            (rising edge-triggered flip-flop clocked by my_clk)
   Path Group: my_clk
   Path Type: max
 
@@ -27,26 +28,155 @@ Wire Load Model Mode: top
   --------------------------------------------------------------------------
   clock my_clk (rise edge)                                0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  input external delay                                    0.50       0.50 r
-  rst (in)                                                0.00       0.50 r
-  U2178/Z (BUF_X4)                                        0.07       0.57 r
-  U2674/ZN (OAI21_X1)                                     0.06       0.63 f
-  U2217/Z (BUF_X2)                                        0.06       0.69 f
-  U2302/ZN (NAND2_X1)                                     0.05       0.73 r
-  U2260/Z (BUF_X1)                                        0.09       0.83 r
-  U3234/ZN (OAI22_X1)                                     0.05       0.88 f
-  d/ids/reg_file/reg_i_24/q_reg[12]/D (DFF_X1)            0.01       0.89 f
-  data arrival time                                                  0.89
+  c/curr_exe_reg[11]/CK (DFF_X1)                          0.00       0.00 r
+  c/curr_exe_reg[11]/QN (DFF_X1)                          0.07       0.07 r
+  U5949/ZN (INV_X1)                                       0.03       0.10 f
+  U2104/ZN (NAND2_X1)                                     0.03       0.13 r
+  U2102/ZN (OAI222_X1)                                    0.06       0.18 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/A[0] (core_DW01_add_2)
+                                                          0.00       0.18 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U14/ZN (AND2_X1)
+                                                          0.05       0.23 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U58/ZN (NAND2_X1)
+                                                          0.03       0.26 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U61/ZN (NAND3_X1)
+                                                          0.04       0.30 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U201/ZN (NAND2_X1)
+                                                          0.04       0.34 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U177/ZN (NAND3_X1)
+                                                          0.05       0.38 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U12/ZN (NAND2_X1)
+                                                          0.04       0.42 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U183/ZN (NAND3_X1)
+                                                          0.03       0.45 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U145/ZN (NAND2_X1)
+                                                          0.03       0.48 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U148/ZN (NAND3_X1)
+                                                          0.04       0.52 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U140/ZN (NAND2_X1)
+                                                          0.04       0.56 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U142/ZN (NAND3_X1)
+                                                          0.04       0.60 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U70/ZN (NAND2_X1)
+                                                          0.03       0.63 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U73/ZN (NAND3_X1)
+                                                          0.04       0.67 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U152/ZN (NAND2_X1)
+                                                          0.04       0.71 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U149/ZN (NAND3_X1)
+                                                          0.04       0.75 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U159/ZN (NAND2_X1)
+                                                          0.03       0.78 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U114/ZN (NAND3_X1)
+                                                          0.04       0.82 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U172/ZN (NAND2_X1)
+                                                          0.04       0.86 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U17/ZN (NAND3_X1)
+                                                          0.04       0.89 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U29/ZN (NAND2_X1)
+                                                          0.03       0.93 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U16/ZN (NAND3_X1)
+                                                          0.04       0.97 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U118/ZN (NAND2_X1)
+                                                          0.04       1.00 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U120/ZN (NAND3_X1)
+                                                          0.04       1.04 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U166/ZN (NAND2_X1)
+                                                          0.04       1.08 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U19/ZN (NAND3_X1)
+                                                          0.04       1.12 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U23/ZN (NAND2_X1)
+                                                          0.03       1.15 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U15/ZN (NAND3_X1)
+                                                          0.04       1.19 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U223/ZN (NAND2_X1)
+                                                          0.04       1.22 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U206/ZN (NAND3_X1)
+                                                          0.04       1.26 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U234/ZN (NAND2_X1)
+                                                          0.04       1.30 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U113/ZN (NAND3_X1)
+                                                          0.04       1.34 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U210/ZN (NAND2_X1)
+                                                          0.04       1.37 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U205/ZN (NAND3_X1)
+                                                          0.03       1.41 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U216/ZN (NAND2_X1)
+                                                          0.04       1.44 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U219/ZN (NAND3_X1)
+                                                          0.04       1.48 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U188/ZN (NAND2_X1)
+                                                          0.04       1.52 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U34/ZN (NAND3_X1)
+                                                          0.04       1.56 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U64/ZN (NAND2_X1)
+                                                          0.03       1.59 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U67/ZN (NAND3_X1)
+                                                          0.04       1.63 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U195/ZN (NAND2_X1)
+                                                          0.04       1.67 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U197/ZN (NAND3_X1)
+                                                          0.04       1.71 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U103/ZN (NAND2_X1)
+                                                          0.03       1.74 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U106/ZN (NAND3_X1)
+                                                          0.04       1.78 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U98/ZN (NAND2_X1)
+                                                          0.04       1.82 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U79/ZN (NAND3_X1)
+                                                          0.04       1.86 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U83/ZN (NAND2_X1)
+                                                          0.03       1.89 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U78/ZN (NAND3_X1)
+                                                          0.04       1.93 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U250/ZN (NAND2_X1)
+                                                          0.04       1.97 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U239/ZN (NAND3_X1)
+                                                          0.04       2.00 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U259/ZN (NAND2_X1)
+                                                          0.04       2.04 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U261/ZN (NAND3_X1)
+                                                          0.04       2.08 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U131/ZN (NAND2_X1)
+                                                          0.04       2.11 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U133/ZN (NAND3_X1)
+                                                          0.04       2.15 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U245/ZN (NAND2_X1)
+                                                          0.04       2.19 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U241/ZN (NAND3_X1)
+                                                          0.04       2.23 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U265/ZN (NAND2_X1)
+                                                          0.04       2.27 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U225/ZN (NAND3_X1)
+                                                          0.04       2.30 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U228/ZN (NAND2_X1)
+                                                          0.04       2.34 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U6/ZN (NAND3_X1)
+                                                          0.04       2.38 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U109/ZN (NAND2_X1)
+                                                          0.03       2.41 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U52/ZN (NAND3_X1)
+                                                          0.04       2.45 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/U254/ZN (NAND2_X1)
+                                                          0.03       2.48 r
+  add_1_root_d/exes/alu_inst/add/add_23_2/U255/ZN (NAND2_X1)
+                                                          0.02       2.50 f
+  add_1_root_d/exes/alu_inst/add/add_23_2/SUM[31] (core_DW01_add_2)
+                                                          0.00       2.50 f
+  U5957/ZN (AOI22_X1)                                     0.05       2.55 r
+  U2083/ZN (NAND2_X1)                                     0.03       2.58 f
+  d/exemem_r/alu_data_reg/q_reg[31]/D (DFF_X1)            0.01       2.59 f
+  data arrival time                                                  2.59
 
-  clock my_clk' (rise edge)                               1.00       1.00
-  clock network delay (ideal)                             0.00       1.00
-  clock uncertainty                                      -0.07       0.93
-  d/ids/reg_file/reg_i_24/q_reg[12]/CK (DFF_X1)           0.00       0.93 r
-  library setup time                                     -0.04       0.89
-  data required time                                                 0.89
+  clock my_clk (rise edge)                                2.70       2.70
+  clock network delay (ideal)                             0.00       2.70
+  clock uncertainty                                      -0.07       2.63
+  d/exemem_r/alu_data_reg/q_reg[31]/CK (DFF_X1)           0.00       2.63 r
+  library setup time                                     -0.04       2.59
+  data required time                                                 2.59
   --------------------------------------------------------------------------
-  data required time                                                 0.89
-  data arrival time                                                 -0.89
+  data required time                                                 2.59
+  data arrival time                                                 -2.59
   --------------------------------------------------------------------------
   slack (MET)                                                        0.00
 
