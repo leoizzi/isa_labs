@@ -1,0 +1,79 @@
+\chapter{Processor architecture}
+
+In this chapter we will describe how we have implemented the processor. It is based on the structure studied during the
+lectures. At a glance, it has 5 stages, the control unit is hardwired and it does not support forwarding.
+
+\section{IF stage}
+In this stage new instructions to be executed are fetched from the ROM. Its structure is pretty simple:
+there is the program counter register (PC) that is updated at every clock cycle either with the target address,
+that is the address of a jump, or with $PC + 4$. In case of a stall, the enable signal of the register is
+de-asserted.
+
+The current PC value is used to access a small ROM which is used only during simulations as it cannot be synthesized with
+the processor. The current PC value, $PC + 4$ and the ROM output are fed to the IF/ID registers.
+
+\section{ID stage}
+Here the decode of the instruction fetched in the previous cycle is performed. The register file, as well as the immediate generator,
+are in this stage. The register file is accessed regardless of the instruction type, and the control unit decides how and if
+the immediate should be extended. These values, along with the instruction PC, its subsequent value and the destination register address, are propagated to the
+ID/EXE registers.
+
+The register file is capable of supporting two read and a single write per clock cycle. The write operation is done by the
+WB stage on the falling edge of the clock signal. This means that it is possible to reduce the number of stalls by one,
+because when an instruction writes in the RF from the WB stage its result can be immediately accessed by the instruction in the ID stage.
+
+To allow the control unit to check whether there is the need for a stall, the source registers are sent to it.
+
+\section{EXE stage}
+The ALU supports two inputs, A and B. Based on the instruction, two muxes select which values have to be taken as operands.
+For the A port, the choice is between the $PC$, $PC+4$, $0$ or the value coming from the RF's port 1. For the B port,
+the choice is between the immediate, the RF's port 2 or $0$. In the ALU, all the functional units perform the computation in parallel,
+then through a mux the result is selected. The functional units present in the ALU are:
+
+\begin{itemize}
+    \item the adder;
+    \item the shifter;
+    \item the logicals (AND and XOR);
+    \item the set-less-than;
+    \item the absolute value (only for \verb|risc_abs|).
+\end{itemize}
+
+Moreover, there is also a comparator that checks if the result is 0. In the affirmative case, it assert the \verb|zero| signal.
+
+To support branches and jumps there is a second adder, that takes as inputs the $PC$ and the immediate value shifted to the left
+by one. This value represent the target address of the IF stage. However, it is selected by the IF stage only if two conditions
+are true: in the control word the bit \verb|JMP_ENABLE| is set to 1, and if
+
+\begin{itemize}
+    \item the instruction is a \verb|jal| (detected by looking at the mux control signals, that is $A = NPC$ and $B = 0$)
+    \item the instruction is a \verb|beq|, hence if the \verb|zero| signal is asserted.
+\end{itemize}
+
+Finally, to support \verb|store| operations, there is a direct connection between the second register port output and the EXE/MEM registers.
+
+\section{MEM stage}
+All instructions but \verb|lw| and \verb|sw| bypass the memory and their data is directly propagated to the MEM/WB registers.
+The two aforementioned instructions, instead, are able to respectively read or write the RAM, which as for the ROM is not
+synthesized but only simulated.
+
+The RAM has a port dedicated to read operations and one dedicated to write operations, but only one of them can be executed
+at any time. This has been done only to simplify the testing, since in this way there is no risk to misuse the tristate transistors.
+To distinguish between read and write operations a dedicated \verb|wr| signal has been added.
+
+Since the given test file assumes that the memory has been preloaded with the \verb|.data| segment, this RAM on reset
+reads its initialization content from a file.
+
+\section{WB stage}
+In this stage there is simply a mux that, based on the instruction, selects if in the RF should be written the data coming
+either from the ALU or the memory. The CU keeps track of whether the instruction is allowed to write content in the RF or not,
+since the RF has an additional signal that enables the write operation.
+
+\section{Control unit}
+The control unit is hardwired, as based on the instruction read in the IF stage it loads all the control signals inside the registers
+and outputs them at the right time. This is achieved by pipelining the control word in the same way as the datapath.
+
+In the ID stage it detects possible data hazards by looking at the data source addresses and the destination address in the ID/EXE and
+EXE/MEM pipelining registers. If an hazard is detected, the control unit stalls the processor by inserting NOPs in the proper stages.
+
+The control unit is also notified whenever the datapath is about to jump, because it needs to flush the IF and ID stages, as their
+work is not needed anymore.
