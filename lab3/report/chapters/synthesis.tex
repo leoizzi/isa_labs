@@ -1,1 +1,73 @@
 \chapter{Synthesis}
+
+For the synthesis we have followed the standard flow used in the previous laboratory sessions, hence we will
+not repeat it here.
+
+We synthesized both the processors. The critical path lies in the EXE's adder, hence they have a very similar critical
+path and requires $2.7\ ns$ to be traversed.
+
+Even the area occupation is similar, as the functional unit added to \verb|riscv_abs| is rather small. Indeed, the total
+area difference between the two versions is $\sim 2\%$.
+Below are reported the area results.
+
+\begin{Verbatim}
+riscv
+
+****************************************
+Report : area
+Design : core
+Version: O-2018.06-SP4
+Date   : Sun Jan 10 18:18:58 2021
+****************************************
+
+Number of ports:                          561
+Number of nets:                          7720
+Number of cells:                         6242
+Number of combinational cells:           4783
+Number of sequential cells:              1446
+Number of macros/black boxes:               0
+Number of buf/inv:                        839
+Number of references:                      36
+
+Combinational area:               5745.334081
+Buf/Inv area:                      597.435990
+Noncombinational area:            6538.811763
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                 12284.145844
+Total area:                 undefined
+\end{Verbatim}
+
+\bigskip
+
+\begin{Verbatim}
+riscv_abs
+    
+****************************************
+Report : area
+Design : core
+Version: O-2018.06-SP4
+Date   : Sun Jan 10 18:44:01 2021
+****************************************
+
+Number of ports:                          659
+Number of nets:                          7997
+Number of cells:                         6452
+Number of combinational cells:           4989
+Number of sequential cells:              1448
+Number of macros/black boxes:               0
+Number of buf/inv:                        962
+Number of references:                      36
+
+Combinational area:               5945.366083
+Buf/Inv area:                      667.659989
+Noncombinational area:            6547.855762
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                 12493.221846
+Total area:                 undefined
+\end{Verbatim}
+
+If interested, the reader can find the actual results in the respective \verb|syn| folders.
