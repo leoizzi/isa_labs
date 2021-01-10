@@ -43,12 +43,11 @@ entity datapath is
 		-- 10 to select all 0s
 		-- 11 to select all 0s
 		exe_b_sel: in std_logic_vector(1 downto 0);
-		-- 000 to select adder
-		-- 001 to select logicals
-		-- 010 to select set less than
-		-- 011 to select shifter
-		-- 100 to select ABS unit
-		exe_ctrl: in std_logic_vector(2 downto 0);
+		-- 00 to select adder
+		-- 01 to select logicals
+		-- 10 to select set less than
+		-- 11 to select shifter
+		exe_ctrl: in std_logic_vector(1 downto 0);
 		exe_log_type: in std_logic; -- if 0 and is selected, if 1 xor
 		exe_jmp_enable: in std_logic; -- if set to 1 enables the possibility to jump
 		exe_taken: out std_logic; -- 1 if taken, 0 if not
@@ -205,12 +204,11 @@ architecture structural of datapath is
 			-- 11 to select all 0s
 			b_sel: in std_logic_vector(1 downto 0);
 
-			-- 000 to select adder
-			-- 001 to select logicals
-			-- 010 to select set less than
-			-- 011 to select shifter
-			-- 100 to select ABS unit
-			ctrl: in std_logic_vector(2 downto 0);
+			-- 00 to select adder
+			-- 01 to select logicals
+			-- 10 to select set less than
+			-- 11 to select shifter
+			ctrl: in std_logic_vector(1 downto 0);
 			log_type: in std_logic; -- if 0 and is selected, if 1 xor
 			jmp_enable: in std_logic; -- if set to 1 enables the possibility to jump
 
