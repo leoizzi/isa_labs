@@ -7,7 +7,7 @@ Report : timing
         -max_paths 1
 Design : core
 Version: O-2018.06-SP4
-Date   : Sun Jan 10 18:18:56 2021
+Date   : Tue Jan 12 10:47:57 2021
 ****************************************
 
 Operating Conditions: typical   Library: NangateOpenCellLibrary

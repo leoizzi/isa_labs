@@ -1,0 +1,13 @@
+[01/12 11:02:20      0s] 
+[01/12 11:02:20      0s] Cadence Innovus(TM) Implementation System.
+[01/12 11:02:20      0s] Copyright 2017 Cadence Design Systems, Inc. All rights reserved worldwide.
+[01/12 11:02:20      0s] 
+[01/12 11:02:20      0s] Version:	v17.11-s080_1, built Fri Aug 4 11:13:11 PDT 2017
+[01/12 11:02:20      0s] Options:	
+[01/12 11:02:20      0s] Date:		Tue Jan 12 11:02:20 2021
+[01/12 11:02:20      0s] Host:		localhost.localdomain (x86_64 w/Linux 3.10.0-957.5.1.el7.x86_64) (1core*2cpus*Westmere E56xx/L56xx/X56xx (Nehalem-C) 4096KB)
+[01/12 11:02:20      0s] OS:		CentOS Linux release 7.6.1810 (Core) 
+[01/12 11:02:20      0s] 
+[01/12 11:02:20      0s] License:
+[01/12 11:02:20      0s] 		invs	Innovus Implementation System	17.1	checkout succeeded
+[01/12 11:02:21      0s] 		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.

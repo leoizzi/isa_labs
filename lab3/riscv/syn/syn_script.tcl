@@ -12,4 +12,6 @@ compile
 report_timing > timing.txt
 report_area > area.txt
 # save design
-write -f verilog -hierarchy -output ./syn_riscv.v
+write_sdf ../netlist/core.sdf
+write -f verilog -hierarchy -output ../netlist/core.v
+write_sdc ../netlist/core.sdc
