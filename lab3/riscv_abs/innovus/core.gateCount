@@ -1,0 +1,6 @@
+Gate area 0.7980 um^2
+Level 0 Module core                                     Gates=     15254 Cells=    5935 Area=   12172.7 um^2
+Level 1 Module d/exes/pc_add/add_20                     Gates=210        Cells=113      Area=     168.1 um^2
+Level 1 Module d/exes/alu_inst/abs_u/sub_abs_18         Gates=102        Cells=62       Area=      81.7 um^2
+Level 1 Module d/exes/alu_inst/slt/lt_21                Gates=112        Cells=92       Area=      89.6 um^2
+Level 1 Module add_1_root_d/exes/alu_inst/add/add_23_2  Gates=291        Cells=209      Area=     232.2 um^2

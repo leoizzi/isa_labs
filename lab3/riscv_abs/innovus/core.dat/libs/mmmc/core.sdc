@@ -1,0 +1,1 @@
+/home/isa36/isa_labs/lab3/riscv_abs/netlist/core.sdc
