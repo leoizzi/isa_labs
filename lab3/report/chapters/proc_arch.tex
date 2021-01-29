@@ -14,7 +14,7 @@ the processor. The current PC value, $PC + 4$ and the ROM output are fed to the 
 
 \section{ID stage}
 Here the decode of the instruction fetched in the previous cycle is performed. The register file, as well as the immediate generator,
-are in this stage. The register file is accessed regardless of the instruction type, and the control unit decides how and if
+are in this stage. The register file is accessed regardless of the instruction type, and the control unit decides how
 the immediate should be extended. These values, along with the instruction PC, its subsequent value and the destination register address, are propagated to the
 ID/EXE registers.
 
@@ -38,7 +38,7 @@ then through a mux the result is selected. The functional units present in the A
     \item the absolute value (only for \verb|risc_abs|).
 \end{itemize}
 
-Moreover, there is also a comparator that checks if the result is 0. In the affirmative case, it assert the \verb|zero| signal.
+Moreover, there is also a comparator that checks if the result is 0. In the affirmative case, it asserts the \verb|zero| signal.
 
 To support branches and jumps there is a second adder, that takes as inputs the $PC$ and the immediate value shifted to the left
 by one. This value represent the target address of the IF stage. However, it is selected by the IF stage only if two conditions
@@ -60,8 +60,8 @@ The RAM has a port dedicated to read operations and one dedicated to write opera
 at any time. This has been done only to simplify the testing, since in this way there is no risk to misuse the tristate transistors.
 To distinguish between read and write operations a dedicated \verb|wr| signal has been added.
 
-Since the given test file assumes that the memory has been preloaded with the \verb|.data| segment, this RAM on reset
-reads its initialization content from a file.
+Since the given test file assumes that the memory has been preloaded with the \verb|.data| segment, this RAM reads on reset
+its initialization content from a file.
 
 \section{WB stage}
 In this stage there is simply a mux that, based on the instruction, selects if in the RF should be written the data coming
@@ -69,7 +69,7 @@ either from the ALU or the memory. The CU keeps track of whether the instruction
 since the RF has an additional signal that enables the write operation.
 
 \section{Control unit}
-The control unit is hardwired, as based on the instruction read in the IF stage it loads all the control signals inside the registers
+The control unit is hardwired, since for each instruction read in the IF stage it loads all the control signals inside the registers
 and outputs them at the right time. This is achieved by pipelining the control word in the same way as the datapath.
 
 In the ID stage it detects possible data hazards by looking at the data source addresses and the destination address in the ID/EXE and

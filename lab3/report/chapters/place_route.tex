@@ -1,0 +1,73 @@
+\chapter{Place and Route}
+
+For what concerns the place \& route, we have followed the guidelines provided for the first laboratory activity, hence there is nothing particular to be explained.
+
+\section{Timing report}
+
+Here it is reported the reg-to-reg analysis provided by Innovus after the RISC-V basic design has been placed and routed.
+
+\begin{Verbatim}[fontsize=\small]
+Path 1: MET Setup Check with Pin d/ids/reg_file/reg_i_24/q_reg[1]/CK 
+Endpoint:   d/ids/reg_file/reg_i_24/q_reg[1]/D (^) checked with trailing edge 
+of 'my_clk'
+Beginpoint: c/curr_wb_reg[1]/Q                 (^) triggered by  leading edge 
+of 'my_clk'
+Path Groups: {reg2reg}
+Analysis View: MyAnView
+Other End Arrival Time          1.350
+- Setup                         0.042
++ Phase Shift                   0.000
+- Uncertainty                   0.070
+= Required Time                 1.238
+- Arrival Time                  1.049
+= Slack Time                    0.189
+Clock Rise Edge                      0.000
+= Beginpoint Arrival Time            0.000
+Timing Path:
++-------------------------------------------------------------------------------------------+ 
+|                Pin                 | Edge |  Net  |   Cell   | Delay | Arrival | Required | 
+|                                    |      |       |          |       |  Time   |   Time   | 
+|------------------------------------+------+-------+----------+-------+---------+----------| 
+| clk                                |  ^   | clk   |          |       |   0.000 |    0.189 | 
+| c/curr_wb_reg[1]/CK                |  ^   | clk   | DFF_X1   | 0.000 |   0.000 |    0.189 | 
+| c/curr_wb_reg[1]/Q                 |  ^   | wb_en | DFF_X1   | 0.098 |   0.098 |    0.287 | 
+| U1945/A3                           |  ^   | wb_en | NAND3_X1 | 0.000 |   0.098 |    0.287 | 
+| U1945/ZN                           |  v   | n1509 | NAND3_X1 | 0.060 |   0.157 |    0.346 | 
+| U2625/B1                           |  v   | n1509 | OAI21_X1 | 0.001 |   0.158 |    0.347 | 
+| U2625/ZN                           |  ^   | n1529 | OAI21_X1 | 0.493 |   0.651 |    0.840 | 
+| U2349/A2                           |  ^   | n1529 | NAND2_X1 | 0.006 |   0.658 |    0.847 | 
+| U2349/ZN                           |  v   | n1530 | NAND2_X1 | 0.277 |   0.935 |    1.124 | 
+| U3821/B2                           |  v   | n1530 | OAI22_X1 | 0.027 |   0.962 |    1.151 | 
+| U3821/ZN                           |  ^   | n2053 | OAI22_X1 | 0.087 |   1.049 |    1.238 | 
+| d/ids/reg_file/reg_i_24/q_reg[1]/D |  ^   | n2053 | DFF_X1   | 0.000 |   1.049 |    1.238 | 
++-------------------------------------------------------------------------------------------+ 
+Clock Fall Edge                      1.350
+= Beginpoint Arrival Time            1.350
+Other End Path:
++----------------------------------------------------------------------------------------+ 
+|                 Pin                 | Edge | Net |  Cell  | Delay | Arrival | Required | 
+|                                     |      |     |        |       |  Time   |   Time   | 
+|-------------------------------------+------+-----+--------+-------+---------+----------| 
+| clk                                 |  v   | clk |        |       |   1.350 |    1.161 | 
+| U1796/A                             |  v   | clk | INV_X2 | 0.000 |   1.350 |    1.161 | 
+| U1796/ZN                            |  ^   | n59 | INV_X2 | 0.000 |   1.350 |    1.161 | 
+| d/ids/reg_file/reg_i_24/q_reg[1]/CK |  ^   | n59 | DFF_X1 | 0.000 |   1.350 |    1.161 | 
++----------------------------------------------------------------------------------------+ 
+\end{Verbatim}
+
+As it can be seen, the critical path is different from the one reported by the synthesis tool. In fact,
+the critical path obtained with the synthesis was in the EXE adder, while here it starts from the WB stage
+and arrives to the register file. We think that this difference is due to the fact that Innovus takes into
+consideration the delay of the nets, since it knows exactly their length and where their position.
+Moreover, this critical path makes sense because the logic is constrained to work in half clock cycle, because
+the register file samples the data on the clock's falling edge.
+
+The critical path for the enhanced version of the processor is similar, as it arrives to the same register
+but to a different flip-flop, hence it will not be reported here.
+
+\section{Area report}
+
+The area reported by Innovus is a bit smaller than the one reported by Synopsys. For the basic RISC-V processor
+we obtained an area occupation of $11817.8\ \mu m^2$, while for the processor with the \verb|ABS| unit the 
+area is $12172.7\ \mu m^2$. This reduction is expected, since after the place and route flow the size is no more
+an estimation and the tool is able to better optimise the placing of the cells.

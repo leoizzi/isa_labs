@@ -9,8 +9,10 @@ The processors are separated in two different folders, in \verb|riscv| there is 
 the extended one. The folders share the same structure, hence it is reported only once:
 
 \begin{itemize}
+    \item \verb|innovus|: it contains all the files produced during the place and route by Innovus.
+    \item \verb|netlist|: it contains the output of the synthesis process.
     \item \verb|sim|: it contains all the simulation-related files, such as the data to initialize the RAM and the ROM, as well as the simulation script.
     \item \verb|src|: it contains the processor's source files to be synthesized and simulated.
-    \item \verb|syn|: it contains the synthesis script and the synthesis results.
+    \item \verb|syn|: it contains the synthesis scripts.
     \item \verb|tb|: it contains all the testbenches developed to test the units and the processor itself.
 \end{itemize}
