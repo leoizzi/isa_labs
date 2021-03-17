@@ -7,6 +7,8 @@ class packet_in extends uvm_sequence_item;
         `uvm_field_int(B, UVM_ALL_ON|UVM_HEX)
     `uvm_object_utils_end
 
+	constraint my_const { B >= 0;
+						  A >= 0; }
     function new(string name="packet_in");
         super.new(name);
     endfunction: new

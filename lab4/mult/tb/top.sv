@@ -1,6 +1,6 @@
 import uvm_pkg::*;
 `include "uvm_macros.svh"
-`include "../src/adder.sv"
+// `include "../src/adder.sv"
 `include "../src/dut_if.sv"
 `include "../src/DUT.sv"
 `include "../tb/packet_in.sv"
