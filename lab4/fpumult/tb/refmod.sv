@@ -33,7 +33,7 @@ class refmod extends uvm_component;
 
             DATA = A*B;
 			tr_out.data = $shortrealtobits(DATA);           
-			$display("refmod: input A = %f, input B = %f, output OUT = %f",A, B, DATA);
+			$display("refmod: input A = %.23f, input B = %.23f, output OUT = %.23f",A, B, DATA);
 			$display("refmod: input A = %b, input B = %b, output OUT = %b",tr_in.A, tr_in.B, tr_out.data);
             out.put(tr_out);
         end

@@ -3,6 +3,7 @@ module DUT(dut_if.port_in in_inter, dut_if.port_out out_inter, output enum logic
     FPmul fpumult_under_test(.FP_A(in_inter.A),.FP_B(in_inter.B), .clk(in_inter.clk), .FP_Z(out_inter.data));
 
 	integer count;
+	logic [31:0] A_reg, B_reg;
 
     always_ff @(posedge in_inter.clk)
     begin
@@ -25,13 +26,17 @@ module DUT(dut_if.port_in in_inter, dut_if.port_out out_inter, output enum logic
                         in_inter.ready <= 0;
                         //out_inter.data <= in_inter.A + in_inter.B;
                         
+						if (count == 0) begin
+							A_reg = in_inter.A;
+							B_reg = in_inter.B;						
+						end
 						
 						count = count + 1;
-						if (count == 7) begin
+						if (count == 6) begin
 							out_inter.valid <= 1;
 							state <= SEND;
-							$display("mult: input A = %f, input B = %f, output OUT = %f",$bitstoshortreal(in_inter.A), $bitstoshortreal(in_inter.B),$bitstoshortreal(out_inter.data));
-                        	$display("mult: input A = %b, input B = %b, output OUT = %b",in_inter.A,in_inter.B,out_inter.data);
+							$display("mult: input A = %.23f, input B = %.23f, output OUT = %.23f",$bitstoshortreal(A_reg), $bitstoshortreal(B_reg),$bitstoshortreal(out_inter.data));
+                        	$display("mult: input A = %b, input B = %b, output OUT = %b",A_reg, B_reg, out_inter.data);
 						end                        
                     end
                 end                
