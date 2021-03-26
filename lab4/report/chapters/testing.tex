@@ -1,0 +1,70 @@
+\chapter{Testing}
+
+\section{Adder}
+To gain confidence with the UVM environment, first we have run the simulation with the provided files.
+The resulting transcript is \verb|adder_transcript|, that shows the correctness of the circuit.
+
+Then, we have modified \verb|packet_in.sv| to support input constraints. We have used the suggested
+ranges for the operands, which are $100 \leq A \leq 1000$ and $B < 10*A$. The transcript related to this
+simulation is called \verb|constraint_transcript|. This lesson has been very useful for the testing
+of the multipliers.
+
+As a final step, we have changed the reference model described in \verb|refmod.sv| to verify what happens
+when QuestaSim detects a mismatch in the result. Specifically, we have turned the golden model adder into a
+subtractor. The result of this simulation are stored in \verb|mismatch_transcript|. As expected, there are
+only mismatches. This can be visualized at the end of the transcript, where the UVM Report Summary is written.
+
+\section{MBE-Dadda tree multiplier}
+To test the multiplier we used the adder infrastructure as a starting point and then we changed few files.
+The first step was to add all the VHDL files developed for the lab2, which are \verb|ha.vhd|, \verb|fa.vhd|,
+\verb|dadda.vhd|, \verb|mbe.vhd| and \verb|mult.vhd|.
+
+The first modification has been done in \verb|DUT.sv|. Here, we have replaced the adder's instantiation with
+the multiplier's one. This change is not enough though, because the result of the adder fits in 32 bits, while
+the multiplier's one fits in 64. Hence, we changed the size of \verb|data| in \verb|dut_if.sv| from 32 bits to
+64 bits. This is all what concerns the changes in \verb|src/|.
+
+In the \verb|tb/| folder, we have changed the reference model from an adder to a multiplier. Then, we have added
+two constraints in \verb|packet_in.sv|, which are $A \geq 0$ and $B \geq 0$. This step was mandatory, because
+the multiplier works only on unsigned numbers. Moreover, we have changed the output's data type of \verb|packet_out.sv|
+from an integer to a longint.
+
+Since the multiplier is written in VHDL while the testbench is written in System Verilog, we have solved the
+integration by compiling first our multiplier and then the testbench. The result of the simulation are stored
+in \verb|transcript_mult|. As expected, there were no mismatches.
+
+\section{Floating point multiplier}
+We have used the same strategy of the integer multiplier to have a baseline test infrastructure. We have then
+imported in \verb|src/| all the required files. Since the FP multiplier is a sequential circuit, it was not enough
+to change the circuit instantiation in \verb|DUT.sv|, but we needed to change also the FSM used by the testbench.
+In particular, we have declared an integer variable called \verb|count| to count in the \verb|WAIT| state the
+iterations. We remain in the \verb|WAIT| state until \verb|count == 6|, because after 5 cycles the circuit has
+produced the final output. We've also sampled the input values when \verb|count == 0| due to a print mismatch
+(which had no influences on the results).
+
+In \verb|packet_in.sv| we generate the random numbers as integers for convenience, but we have added few
+constraints to avoid mismatches due to the different handling of NaN, infinities and denormal numbers.
+The checks are:
+
+\begin{itemize}
+    \item $(((A \& 32'h7f800000)>>23) + ((B \& 32'h7f800000)>>23) - 127) > 0$
+    \item $(((A \& 32'h7f800000)>>23) + ((B \& 32'h7f800000)>>23) - 127) < 253$
+    \item $((A \& 32'h7f800000)>>23) > 0$
+    \item $((A \& 32'h7f800000)>>23) < 255$
+    \item $((B \& 32'h7f800000)>>23) > 0$
+    \item $((B \& 32'h7f800000)>>23) < 255$
+\end{itemize}
+
+The bit shifts and AND operations are used to extract the exponents from A and B. In fact, the numbers passed
+to the reference model and the DUT are nothing more than the binary representations of these number.
+The first two checks are used to avoid denormal numbers and overflows in the product. In the second check
+we have considered the fact that the exponent may increase due to the rounding and normalizations.
+The other checks are used to avoid special numbers in the inputs.
+
+In \verb|refmod.sv| we convert the integers into shortreal by using the directive \verb|$bitstoshortreal|,
+then we perform the floating point multiplication, and finally we store the final result as an integer through
+the \verb|shortrealtobits| directive.
+
+The result of the simulation is stored in \verb|transcript|.
+
+In \verb|sim/| a script that can be used to launch the simulation in QuestaSim is also contained.

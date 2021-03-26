@@ -1,0 +1,37 @@
+
+%%%%%%%%%%%%%%%%%%%
+
+The source file for latex has a '.tex' extension.
+
+The template used here is deeply commented within the source file
+
+The file you have here to be read in sequence are:
+
+	1) homebook.tex
+	2) master.tex (called in the homebook code)
+
+
+Before reading try a compilation and see the results:
+
+	type twice:  	prompt> latex homebook
+			prompt> latex homebook
+
+	a '.dvi' file si generated. To see it type:
+		
+			prompt> xdvi homebook.dvi &
+
+	to generate a pdf of the output type:
+
+			prompt> dvipdfm homebook.dvi
+
+	and to see the results type:
+
+			prompt> acroread homebook.pdf
+
+
+Now read the tex files and compare the source with the output you got.
+Commands are deeply commented, and you will find another way for compiling
+your tex as well.
+
+
+

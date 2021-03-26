@@ -1,0 +1,6 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Testing}{2}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Adder}{2}{section.2.1}%
+\contentsline {section}{\numberline {2.2}MBE-Dadda tree multiplier}{2}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Floating point multiplier}{3}{section.2.3}%
