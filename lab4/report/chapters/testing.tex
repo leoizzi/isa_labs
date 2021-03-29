@@ -1,7 +1,7 @@
 \chapter{Testing}
 
 \section{Adder}
-To gain confidence with the UVM environment, first we have run the simulation with the provided files.
+To gain confidence with the UVM environment, we have run the simulation with the provided files first.
 The resulting transcript is \verb|adder_transcript|, that shows the correctness of the circuit.
 
 Then, we have modified \verb|packet_in.sv| to support input constraints. We have used the suggested
@@ -11,7 +11,7 @@ of the multipliers.
 
 As a final step, we have changed the reference model described in \verb|refmod.sv| to verify what happens
 when QuestaSim detects a mismatch in the result. Specifically, we have turned the golden model adder into a
-subtractor. The result of this simulation are stored in \verb|mismatch_transcript|. As expected, there are
+subtractor. The results of this simulation are stored in \verb|mismatch_transcript|. As expected, there are
 only mismatches. This can be visualized at the end of the transcript, where the UVM Report Summary is written.
 
 \section{MBE-Dadda tree multiplier}
@@ -30,7 +30,7 @@ the multiplier works only on unsigned numbers. Moreover, we have changed the out
 from an integer to a longint.
 
 Since the multiplier is written in VHDL while the testbench is written in System Verilog, we have solved the
-integration by compiling first our multiplier and then the testbench. The result of the simulation are stored
+integration by compiling first our multiplier and then the testbench. The result of the simulation is stored
 in \verb|transcript_mult|. As expected, there were no mismatches.
 
 \section{Floating point multiplier}
